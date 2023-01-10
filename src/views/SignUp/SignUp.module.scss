@@ -1,0 +1,32 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.spanWrapper {
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 33px;
+    margin-bottom: 38px;
+}
+
+.forgotWrapper{
+    margin-top: 48px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.71px;
+    margin-bottom: 92px;
+}
+.inputWrapper input {
+    margin-bottom: 24px;
+}
+.btns{
+    display: flex;
+    justify-content: space-between;
+    margin: 84px auto;
+}
+.btn{
+    flex-grow: 1;
+}

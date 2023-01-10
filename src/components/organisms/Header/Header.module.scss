@@ -1,0 +1,28 @@
+.nav {
+  background-color: #EBE0E9;
+  display: flex;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  padding: 0px 16px;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(45, 46, 70, 0.4);
+  text-decoration: none;
+}
+
+.active {
+  padding: 22px 35px;
+  color: #2D2E46 ;
+  background: #DCCCDB;
+  border-bottom: 3px solid #21268F;
+  text-decoration: none;
+}
+
+.logo{
+  max-width: 162px;
+  max-height: 39px;
+  padding: 16px 10px;
+}
