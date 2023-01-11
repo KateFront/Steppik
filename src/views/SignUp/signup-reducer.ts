@@ -4,21 +4,22 @@ import Input from "../../components/atoms/Input/Input";
 import Button from "../../components/atoms/Button/Button";
 import CardBasisWrapper from "../../components/atoms/CardBasisWrapper/CardBasisWrapper";
 import CommonPageWrapper from "../../components/CommonPageWrapper/CommonPageWrapper";
-import {authAPI} from "../../api/auth-api";
 import { Navigate } from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from "../../store/store";
 
 
 const SignUp: FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    const dispatch = useAppDispatch();
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
-    const sendDataToServer = () => {
+    /*const sendDataToServer = () => {
         authAPI.register({email, password}).then((res)=>{
             setIsLoggedIn(true);
         })
-    }
+    }*/
 
 
     if(isLoggedIn){
@@ -44,7 +45,9 @@ const SignUp: FC = () => {
                             <div className={styles.btns}>
                                 <div className={styles.btn}><Button onClick={() => {
                                 }} name={'Cancel'} isDisabled={true}/></div>
-                                <div className={styles.btn}><Button onClick={sendDataToServer} name={'Register'} isDisabled={false}/></div>
+                                <div className={styles.btn}>
+                                    <Button onClick={()=> isLoggedIn} name={'Register'} isDisabled={false}/>
+                                </div>
                             </div>
                     </CardBasisWrapper>
                 </div>
