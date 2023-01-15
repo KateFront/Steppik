@@ -1,19 +1,19 @@
 import React from 'react';
 import CommonPageWrapper from "../../../components/CommonPageWrapper/CommonPageWrapper";
 import CardBasisWrapper from "../../../components/atoms/CardBasisWrapper/CardBasisWrapper";
-import styles from './LoginPage.module.scss'
-import LoginForm from "../LoginForm/LoginForm";
+import styles from './SignIn.module.scss'
+import SingInForm from "../SignInForm/SingInForm";
 
-const LoginPage = () => {
+const SignIn = () => {
     return (
         <CommonPageWrapper>
             <div className={styles.wrapper}>
                 <CardBasisWrapper title={'It-incubator'}>
-                    <LoginForm/>
+                    <SingInForm/>
                 </CardBasisWrapper>
             </div>
         </CommonPageWrapper>
     );
 };
 
-export default LoginPage;
+export default SignIn;

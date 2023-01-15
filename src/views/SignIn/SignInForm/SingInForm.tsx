@@ -1,12 +1,22 @@
 import React, {FC, useState} from 'react';
 import Input from "../../../components/atoms/Input/Input";
-import styles from './LoginForm.module.scss';
+import styles from './SignInForm.module.scss';
 import Button from "../../../components/atoms/Button/Button";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
 
-const LoginForm: FC = () => {
+
+const SingInForm: FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const dispatch = useAppDispatch();
+    const isLogged = useAppSelector(state => state.auth.isLoggedIn);
+
+   if(isLogged){
+       return <Navigate to={'/profile/'}/>
+   }
+
 
     return (
         <div>
@@ -39,4 +49,4 @@ const LoginForm: FC = () => {
     );
 };
 
-export default LoginForm;
+export default SingInForm;
