@@ -29,24 +29,29 @@
 }
 
 .secondBtn {
-  display: block;
-  min-height: 36px;
-  color: #2D2E46;
+  max-width: 266px;
+  margin: 0 auto;
 }
-
-.active{
-  display: flex;
-  justify-content: flex-end;
+.linkWrapper{
+  text-align: end;
   margin: 48px 18px;
+}
+.activeLink{
   font-size: 14px;
   font-weight: 400;
   line-height: 17px;
   text-decoration: none;
   color: #2D2E46;
+  &:hover{
+    color: #1116c5;
+  }
 }
 .link{
   color: #21268F;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
+  &:hover{
+    color: #1116c5;
+  }
 }

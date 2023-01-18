@@ -1,6 +1,6 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../api/auth-api";
-import {setIsLoggedInAC} from "../views/SignIn/SignInForm/auth-reducer";
+import {setIsLoggedInAC} from "./auth-reducer";
 
 
 const initialState = {

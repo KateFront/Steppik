@@ -1,13 +1,16 @@
 import styles from './CommonPageWrapper.module.scss'
-import React from "react";
+import React, {FC} from "react";
 
 type CommonPageWrapperProps = {
     children: React.ReactNode;
+    customStyles?: string;
 };
 
-const CommonPageWrapper = (props: CommonPageWrapperProps) => {
-    return <div className={styles.wrapper}>
-        {props.children}
+
+const CommonPageWrapper: FC<CommonPageWrapperProps> = ({children, customStyles}) => {
+    const commonPageWrapperStyles = `${styles.wrapper} ${customStyles}`
+    return <div className={commonPageWrapperStyles}>
+        {children}
     </div>
 }
 

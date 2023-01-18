@@ -37,3 +37,10 @@
     height: 100%;
   }
 }
+
+.inputError{
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  color: red;
+}

@@ -8,18 +8,19 @@ type InputProps = {
     label: string;
     typeInput: HTMLInputTypeAttribute | undefined;
     withIcon: boolean;
-    value: string;
-    onChange: (value: string) => void;
+    value?: string;
+    onChange?: (value: string) => void;
+    error?: string;
+    addProps?: object
 };
 
 
-const Input: FC<InputProps> = ({label, typeInput, withIcon, value, onChange}) => {
+const Input: FC<InputProps> = ({label, typeInput, withIcon, value, onChange, addProps, error}) => {
 
     const [isVisible, setIsVisible] = useState(false);
     const [inputType, setInputType] = useState(typeInput);
 
     useEffect(() => {
-        console.log('useEffect')
         if (typeInput === "password") {
             if (isVisible) {
                 setInputType('text');
@@ -33,6 +34,7 @@ const Input: FC<InputProps> = ({label, typeInput, withIcon, value, onChange}) =>
         setIsVisible((state) => !state);
     }
 
+
     return (
         <div>
             <label className={styles.textFiledLabel} htmlFor={label}>{label}</label>
@@ -41,13 +43,17 @@ const Input: FC<InputProps> = ({label, typeInput, withIcon, value, onChange}) =>
                        type={inputType}
                        id={label}
                        value={value}
-                       onChange={(event) => onChange(event.target.value)}
+                       onChange={(event) => onChange?.(event.target.value)}
+                       {...addProps}
                 />
                 {
                     withIcon &&
                     <div onClick={onClickHandler} className={styles.imageEye}>
                         <img src={isVisible ? Eye : Cross_eye} alt="eye-icon"/>
                     </div>
+                }
+                {
+                    error && <div className={styles.inputError}>{error}</div>
                 }
             </div>
 
