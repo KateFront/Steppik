@@ -1,0 +1,29 @@
+.primary {
+  max-width: 24px;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #F1453D;
+  color: #FFFFFF;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.secondary {
+  background-color: #D7D8EF;
+  color: #21268F;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.disabled {
+  background-color: #D7D8EF;
+  color: #21268F;
+  box-shadow: none;
+}

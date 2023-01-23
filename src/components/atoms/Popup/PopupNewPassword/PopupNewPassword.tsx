@@ -22,4 +22,4 @@ const PopupNewPassword: FC<PopupType> = ({onClick}) => {
     );
 };
 
-export default PopupNewPassword;
+export default PopupNewPassword;//

@@ -3,14 +3,14 @@ import styles from "./SignUp.module.scss";
 import Input from "../../components/atoms/Input/Input";
 import Button from "../../components/atoms/Button/Button";
 import CardBasisWrapper from "../../components/atoms/CardBasisWrapper/CardBasisWrapper";
-import CommonPageWrapper from "../../components/CommonPageWrapper/CommonPageWrapper";
+import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPageWrapper";
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {registerTC, setIsRegisteredAC, SignUpParamsType} from "../../store/auth-reducer";
 import PopupSuccess from "../../components/atoms/Popup/PopupSuccess/PopupSuccess";
 import {SubmitHandler, useForm} from "react-hook-form";
 
-type Inputs = {
+ type Inputs = {
     email: string,
     password: string,
     confirmPassword: string
@@ -27,8 +27,6 @@ const SignUp: FC = () => {
             return setShowPopup(true)
         }
     }, [isRegistered]);
-
-
 
     const {register, handleSubmit, formState: {errors}, watch} = useForm<Inputs>();
 

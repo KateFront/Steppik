@@ -1,25 +1,21 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import s from "./Checkbox.module.scss";
 
+type CheckboxProps = {
+    addProps: object,
+    isChecked: boolean,
+}
 
-const Checkbox: FC = () => {
-    const [checked, setChecked] = useState(false);
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
-    }
+const Checkbox: FC<CheckboxProps> = ({isChecked, addProps}) => {
 
     return (
-        <div className={s.inputWrapper}>
+        <div className={`${s.inputWrapper} ${isChecked ? s.active : ''}`}>
             <input type={'checkbox'}
-                   checked={checked}
-                   onChange={handleChange}
-                   className={`${s.checkbox} ${checked ? s.active : ''}`}
+                   className={s.checkbox}
+                   {...addProps} 
             />
-            <span className={s.text}>Remember me</span>
         </div>
     );
-
 };
 
 export default Checkbox;

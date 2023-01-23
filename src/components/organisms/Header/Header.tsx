@@ -29,6 +29,10 @@ const Header = () => {
                              className={navData => navData.isActive ? styles.active : styles.navLinkWrapper}>
                         <li className={styles.navLinkItem}>CreateNewPassword</li>
                     </NavLink>
+                    <NavLink to='/packList'
+                             className={navData => navData.isActive ? styles.active : styles.navLinkWrapper}>
+                        <li className={styles.navLinkItem}>PackList</li>
+                    </NavLink>
 
                 </ul>
 

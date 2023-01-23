@@ -10,6 +10,7 @@ import {useAppDispatch, useAppSelector} from "../store/store";
 import {initializeAppTC} from "../store/app-reducer";
 import Preloader from "../components/atoms/Preloader/Preloader";
 import SignIn from "../views/SignIn/SignInPage/SignIn";
+import PackList from "../views/PackList/PackList";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
                     <Route path={'/forgot'} element={<ForgotPassword/>}/>
                     <Route path={'/createPassword/:token'} element={<CreateNewPassword/>}/>
                     <Route path={'/profile'} element={<ProfilePage />}/>
+                    <Route path={'/packList'} element={<PackList />}/>
                     <Route path={'/404'} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
                     <Route path="*" element={<Navigate to={'/404'}/>}/>
                 </Routes>

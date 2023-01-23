@@ -1,5 +1,5 @@
 import React from 'react';
-import CommonPageWrapper from "../../components/CommonPageWrapper/CommonPageWrapper";
+import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPageWrapper";
 import Button from "../../components/atoms/Button/Button";
 import {logoutTC} from "../../store/auth-reducer";
 import {useAppDispatch, useAppSelector} from "../../store/store";

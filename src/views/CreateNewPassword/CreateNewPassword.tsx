@@ -3,7 +3,7 @@ import styles from "../SignUp/SignUp.module.scss";
 import CardBasisWrapper from "../../components/atoms/CardBasisWrapper/CardBasisWrapper";
 import Input from "../../components/atoms/Input/Input";
 import Button from "../../components/atoms/Button/Button";
-import CommonPageWrapper from "../../components/CommonPageWrapper/CommonPageWrapper";
+import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPageWrapper";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {newPasswordTC, setIsNewPassword} from "../../store/auth-reducer";

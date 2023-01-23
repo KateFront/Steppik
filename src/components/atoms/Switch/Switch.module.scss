@@ -1,0 +1,23 @@
+.switchWrapper {
+  display: flex;
+  text-align: center;
+  min-height: 36px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.commonBtnStyles {
+  width: 100px;
+  background-color: #FFFFFF;
+  color: #2D2E46;
+  border-radius: 2px;
+  transition: all .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  background-color: #9A91C8;
+  color: #FFFFFF;
+}

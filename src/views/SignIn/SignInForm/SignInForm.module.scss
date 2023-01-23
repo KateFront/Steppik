@@ -24,7 +24,7 @@
   margin-bottom: 92px;
 }
 
-.inputWrapper div {
+.inputWrapper input {
   margin-bottom: 24px;
 }
 
@@ -32,26 +32,51 @@
   max-width: 266px;
   margin: 0 auto;
 }
-.linkWrapper{
+
+.linkWrapper {
   text-align: end;
   margin: 48px 18px;
 }
-.activeLink{
+
+.activeLink {
   font-size: 14px;
   font-weight: 400;
   line-height: 17px;
   text-decoration: none;
   color: #2D2E46;
-  &:hover{
+
+  &:hover {
     color: #1116c5;
   }
 }
-.link{
+
+.link {
   color: #21268F;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
-  &:hover{
+
+  &:hover {
     color: #1116c5;
   }
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-size: 14px;
+  margin-left: 12px;
+  color: #2D2E46;
+  cursor: pointer;
+}
+
+.error{
+   color: red;
+  font-size: 14px;
+  margin-top: 15px;
+  box-sizing: border-box;
 }

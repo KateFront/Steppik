@@ -1,5 +1,5 @@
 import React from 'react';
-import CommonPageWrapper from "../../../components/CommonPageWrapper/CommonPageWrapper";
+import CommonPageWrapper from "../../../components/atoms/CommonPageWrapper/CommonPageWrapper";
 import CardBasisWrapper from "../../../components/atoms/CardBasisWrapper/CardBasisWrapper";
 import styles from './SignIn.module.scss'
 import SingInForm from "../SignInForm/SingInForm";

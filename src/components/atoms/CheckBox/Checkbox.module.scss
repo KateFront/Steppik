@@ -1,48 +1,31 @@
-.inputWrapper{
-  display: flex;
-}
-.input{
-  display: none;
-}
-.checkbox {
+.inputWrapper {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
   position: relative;
-  color: rgba(36, 37, 74, 0.5);
+  background-color: #ECECF9;
   font-size: 16px;
-  right: -30px;
-  &::before {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: -30px;
-    content: "";
-    width: 20px;
-    height: 20px;
-    background-color: #ECECF9;
-
-  }
-  &:hover{
-    color: #21268F;
-    &::before {
-      background-color: #D7D8EF;
-    }
-    &::after{
-      border: solid #D7D8EF;
-      border-width: 0 3px 3px 0;
-    }
-  }
   transition: all 0.3s;
 }
 
-.active{
-  &::after{
+.checkbox {
+  margin: 0;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.active {
+  &::before {
     position: absolute;
-    top: 20%;
-    left: -24px;
     content: "";
+    top: 40%;
+    left: 0;
     width: 5px;
     height: 10px;
     border: solid #21268F;
     border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
+    transform: translate(80%, -50%) rotate(45deg);
   }
 }

@@ -2,7 +2,15 @@ import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI, ForgotPasswordType, NewPasswordType} from "../api/auth-api";
 import {setAppMyUserIdAC, setAppStatusAC} from "./app-reducer";
 
-const initialState = {
+type initialStateType = {
+    isLoggedIn: boolean,
+    error: string,
+    isRegistered: boolean,
+    isForgot: boolean,
+    isNewPassword: boolean
+}
+
+const initialState: initialStateType = {
     isLoggedIn: false,
     error: '',
     isRegistered: false,
@@ -34,25 +42,27 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer;
 
-
 export const {setIsLoggedInAC, setAuthErrorAC, setIsRegisteredAC, setIsForgotAC, setIsNewPassword} = slice.actions;
 
 
 export const loginTC = (data: LoginParamsType) => {
+    console.log('loginTC')
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         authAPI.login(data)
             .then((res) => {
                 if (res.statusText === "OK") {
+                    console.log('ThunkSuccess')
                     dispatch(setIsLoggedInAC({value: true}))
                     dispatch(setAppMyUserIdAC({myUserID: ''}))
                 }
             })
             .catch((e) => {
-                const error = e.response.data.error
-                dispatch(setIsLoggedInAC(error))
+                console.log('ThunkError')
+                const error = e.response.data.error;
+                dispatch(setIsLoggedInAC({value: false}));
+                dispatch(setAuthErrorAC({error}));
                 setTimeout(() => dispatch(setAuthErrorAC({error: ''})), 5000);
-
             })
             .finally(() => {
                     dispatch(setAppStatusAC({status: 'succeeded'}))
@@ -87,7 +97,8 @@ export const registerTC = (data: SignUpParamsType) => (dispatch: Dispatch) => {
         .catch((e) => {
             const error = e.response.data.error
             dispatch(setIsRegisteredAC({value: false}))
-            setTimeout(() => dispatch(setAuthErrorAC({error})), 5000);
+            dispatch(setAuthErrorAC({error}));
+            setTimeout(() => dispatch(setAuthErrorAC({error: ''})), 5000);
 
         })
         .finally(() => {
@@ -119,7 +130,7 @@ export const newPasswordTC = (data: NewPasswordType) => {
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         authAPI.setNewPassword(data)
-            .then(()=>{
+            .then(() => {
                 dispatch(setIsNewPassword({value: true}))
             })
             .catch((e) => {
