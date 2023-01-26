@@ -18,11 +18,12 @@ const PopupNewPack: FC<PopupType> = ({active, setActive}) => {
     const saveNewPack = () => {
         setActive(true);
         dispatch(createNewPacksTC({cardsPack: {name: '123123123k'}}));
+        setActive(false);
     }
 
     return (
-        <div className={` ${active ? styles.modalActive : styles.modal}` }>
-            <div className={`${active ? styles.modalContentActive : styles.modalContent}`}
+        <div className={` ${styles.modal}` }>
+            <div className={`${styles.modalContent}`}
                  onClick={event => event.stopPropagation()}>
                 <div className={styles.popupWrapper}>
                     <span>Add new pack</span>

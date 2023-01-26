@@ -3,6 +3,7 @@ import styles from "./MainPackList.module.scss";
 import RectangleButton from "../../../../components/atoms/RectangleButton/RectangleButton";
 import Button from "../../../../components/atoms/Button/Button";
 import PopupNewPack from "../../../../components/atoms/Popup/PopupNewPack/PopupNewPack";
+import Portal from "../../../../components/atoms/Portal/Portal";
 
 export type TableCellItem = {
     id: string,
@@ -98,8 +99,11 @@ const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
                     </div>
                 </>
             }
-            {
-                <PopupNewPack active={modalActive} setActive={setModalActive}/>
+            {modalActive &&
+                <Portal>
+                    <PopupNewPack active={modalActive} setActive={setModalActive}/>
+                </Portal>
+
             }
         </div>
     );
