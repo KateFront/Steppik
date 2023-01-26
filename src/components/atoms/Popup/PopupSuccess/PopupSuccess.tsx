@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import styles from "./Popup.module.scss";
+import styles from "./PopupSuccess.module.scss";
 import Button from "../../Button/Button";
 
 type PopupType = {

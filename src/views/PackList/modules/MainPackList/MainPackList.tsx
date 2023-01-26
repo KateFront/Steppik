@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {FC, useState} from 'react';
 import styles from "./MainPackList.module.scss";
 import RectangleButton from "../../../../components/atoms/RectangleButton/RectangleButton";
 import Button from "../../../../components/atoms/Button/Button";
+import PopupNewPack from "../../../../components/atoms/Popup/PopupNewPack/PopupNewPack";
 
-type TableListProps = {
+export type TableCellItem = {
+    id: string,
+    ownerId: string,
     name: string,
     cards: number,
     lastUpdated: string,
@@ -11,7 +14,7 @@ type TableListProps = {
     actions: ActionType[]
 }
 
-type ActionType = {
+export  type ActionType = {
     name: string,
     action: () => void
 }
@@ -36,107 +39,70 @@ const headRow: HeadType[] = [
         name: 'Actions'
     }
 ]
+type MainPackListPropsType = {
+    packList: TableCellItem[];
+}
+
+const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
+    const [modalActive, setModalActive] = useState(false);
 
 
-const data: TableListProps[] = [
-    {
-        name: "Pack Name",
-        cards: 4,
-        lastUpdated: '18.03.2021',
-        createdBy: 'Ivan Ivanov',
-        actions: [
+    return (<div>
             {
-                name: 'Delete', action: () => {
-                    console.log('Delete')
-                }
-            },
-            {name: 'Edit', action: () => console.log('Edit')},
-            {name: 'Learn', action: () => console.log('Learn')},
-        ]
-    },
-    {
-        name: "Pack Name",
-        cards: 4,
-        lastUpdated: '18.03.2021',
-        createdBy: 'Ivan Ivanov',
-        actions: [
-            {
-                name: 'Learn',
-                action: () => console.log('Learn')
-            },]
-    },
-    {
-        name: "Pack Name",
-        cards: 4,
-        lastUpdated: '18.03.2021',
-        createdBy: 'Ivan Ivanov',
-        actions: [{name: 'Delete', action: () => console.log('Delete')},
-            {name: 'Edit', action: () => console.log('Edit')},
-            {
-                name: 'Learn',
-                action: () => console.log('Learn')
-            },]
-    }
-]
-
-const MainPackList = () => {
-
-    return (
-        <div>
-            <div className={styles.titleWrapper}>
-                <span>Pack list</span>
-            </div>
-
-            <div className={styles.searchWrapper}>
-                <div className={styles.searchItem}>
-                    <input type="search" placeholder={'Search'} className={styles.inputWrapper}/>
-                </div>
-
-                <div className={styles.buttonWrapper}>
-                    <Button isDisabled={false} name={'Add new pack'}
-                            onClick={() => {
-                            }}
-                    />
-                </div>
-            </div>
-            <div>
-                <table className={styles.tableWrapper}>
-                    <thead className={styles.packListWrapper}>
-                    <tr>
-                        {headRow.map((val, key) => {
-                            return (
-                                <th key={key} className={` ${val.action ? styles.headTableItem : ''} `}>
-                                    {val.name}
-                                </th>
-                            )
-                        })}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {data.map((val, key) => {
-                        return (
-                            <tr key={key} className={styles.tableRowItem}>
-                                <td>{val.name}</td>
-                                <td>{val.cards}</td>
-                                <td>{val.lastUpdated}</td>
-                                <td>{val.createdBy}</td>
-                                <td>{val.actions.map((el, index) => {
-                                    return <div className={styles.btns}>
-                                        <RectangleButton key={el.name} onClick={el.action} name={el.name}
-                                                         isDisabled={false}
-                                                         type={index === 0 ? 'primary' : 'secondary'}/>
-                                    </div>
-                                })}</td>
+                <>
+                    <div className={styles.titleWrapper}>
+                        <span>Pack list</span>
+                    </div>
+                    <div className={styles.searchWrapper}>
+                        <div className={styles.searchItem}>
+                            <input type="search" placeholder={'Search'} className={styles.inputWrapper}/>
+                        </div>
+                        <div className={styles.buttonWrapper}>
+                            <Button isDisabled={false} name={'Add new pack'}
+                                    onClick={() => setModalActive(true)}/>
+                        </div>
+                    </div>
+                    <div className={styles.tableWrapper}>
+                        <table>
+                            <thead className={styles.packListWrapper}>
+                            <tr>
+                                {headRow.map((val, key) => {
+                                    return (
+                                        <th key={key} className={` ${val.action ? styles.headTableItem : ''} `}>
+                                            {val.name}
+                                        </th>
+                                    )
+                                })}
                             </tr>
-                        )
-                    })}
-                    </tbody>
-                </table>
-            </div>
+                            </thead>
+                            <tbody>
+                            {packList.map((val, key) => {
+                                return (
+                                    <tr key={key} className={styles.tableRowItem}>
+                                        <td>{val.name}</td>
+                                        <td>{val.cards}</td>
+                                        <td>{val.lastUpdated}</td>
+                                        <td>{val.createdBy}</td>
+                                        <td>{val.actions.map((el, index) => {
+                                            return <div className={styles.btns}>
+                                                <RectangleButton key={el.name} onClick={el.action} name={el.name}
+                                                                 isDisabled={false}
+                                                                 type={index === 0 ? 'primary' : 'secondary'}/>
+                                            </div>
+                                        })}</td>
+                                    </tr>
+                                )
+                            })}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            }
+            {
+                <PopupNewPack active={modalActive} setActive={setModalActive}/>
+            }
         </div>
-
-    )
-        ;
+    );
 };
 
 export default MainPackList;

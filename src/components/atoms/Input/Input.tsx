@@ -7,7 +7,7 @@ import Cross_eye from '../../../assets/Icons/cross_eye.svg';
 type InputProps = {
     label: string;
     typeInput: HTMLInputTypeAttribute | undefined;
-    withIcon: boolean;
+    withIcon?: boolean;
     value?: string;
     onChange?: (value: string) => void;
     error?: string;
@@ -56,10 +56,8 @@ const Input: FC<InputProps> = ({label, typeInput, withIcon, value, onChange, add
                     error && <div className={styles.inputError}>{error}</div>
                 }
             </div>
-
         </div>
     );
-
 };
 
 export default Input;

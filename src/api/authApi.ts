@@ -1,23 +1,21 @@
 import axios, {AxiosResponse} from 'axios';
 import {SignUpParamsType} from "../store/auth-reducer";
+import {auth} from "./app_instances";
+import {UserProfileType} from "./types";
 
-const instance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    withCredentials: true
-})
 
-export const authAPI = {
+export const authApi = {
     login(data: LoginType) {
-        return instance.post<LoginType, AxiosResponse<ResponseType<{ userId: number }>>>(`/auth/login`, data);
+        return auth.post<LoginType, ResponseType<UserProfileType>>(`/login`, data);
     },
-    register(data: SignUpParamsType){
-        return instance.post<SignUpParamsType, AxiosResponse<ResponseType<{ userId: number }>>>(`/auth/register`, data);
+    register(data: SignUpParamsType) {
+        return auth.post<SignUpParamsType, ResponseType<ResponseType>>(`/register`, data);
     },
-    me(){
-        return instance.post<ResponseType<UserType>>(`/auth/me`);
+    me() {
+        return auth.post<unknown, ResponseType<UserProfileType>>(`/me`);
     },
-    forgotPassword(data: ForgotPasswordType){
-        return instance.post<ForgotPasswordType, AxiosResponse<ResponseType>>(`/auth/forgot`, {
+    forgotPassword(data: ForgotPasswordType) {
+        return auth.post<ForgotPasswordType, ResponseType<ResponseType>>(`/forgot`, {
             email: data.email,
             "from": "test-front-admin <ai73a@yandex.by>",
             "message": "<div style= 'background-color: #b8b8b8; padding: 15px'> " +
@@ -27,14 +25,13 @@ export const authAPI = {
                 "</div>"
         });
     },
-    setNewPassword(data: NewPasswordType){
-        return instance.post(`/auth/set-new-password`, data);
+    setNewPassword(data: NewPasswordType) {
+        return auth.post(`/set-new-password`, data);
     },
-    delete(){
-        return instance.delete(`/auth/me`);
+    delete() {
+        return auth.delete(`/me`);
     }
 }
-
 
 export type NewPasswordType = {
     password: string
@@ -46,11 +43,8 @@ export enum Result_code {
     ERROR = 1,
     CAPTCHA = 10
 }
-export type UserType = {
-    id: string
-    email: string
-    login: string
-}
+
+
 export type LoginType = {
     email: string
     password: string
@@ -58,9 +52,8 @@ export type LoginType = {
 }
 
 export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: Array<string>
-    fieldsErrors: Array<string>
+    status: number
+    statusText: string
     data: D
 }
 export type PingType = {

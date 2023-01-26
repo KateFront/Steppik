@@ -1,5 +1,5 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
-import {authAPI} from "../api/auth-api";
+import {authApi} from "../api/authApi";
 import {setIsLoggedInAC} from "./auth-reducer";
 
 
@@ -36,11 +36,11 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status:'loading'}))
-    authAPI.me()
+    authApi.me()
         .then((res) => {
             dispatch(setAppStatusAC({status:'succeeded'}))
             dispatch(setIsLoggedInAC({value:true}));
-            dispatch(setAppMyUserIdAC({ myUserID: res.data.data.id}))
+            dispatch(setAppMyUserIdAC({ myUserID: res.data._id}))
         })
         .catch((err) => {})
         .finally(() => {

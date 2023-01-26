@@ -1,5 +1,5 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
-import {authAPI, ForgotPasswordType, NewPasswordType} from "../api/auth-api";
+import {authApi, ForgotPasswordType, NewPasswordType} from "../api/authApi";
 import {setAppMyUserIdAC, setAppStatusAC} from "./app-reducer";
 
 type initialStateType = {
@@ -7,15 +7,16 @@ type initialStateType = {
     error: string,
     isRegistered: boolean,
     isForgot: boolean,
-    isNewPassword: boolean
-}
+    isNewPassword: boolean,
+};
 
 const initialState: initialStateType = {
     isLoggedIn: false,
     error: '',
     isRegistered: false,
     isForgot: false,
-    isNewPassword: false
+    isNewPassword: false,
+
 };
 
 const slice = createSlice({
@@ -49,12 +50,12 @@ export const loginTC = (data: LoginParamsType) => {
     console.log('loginTC')
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
-        authAPI.login(data)
+        authApi.login(data)
             .then((res) => {
                 if (res.statusText === "OK") {
                     console.log('ThunkSuccess')
-                    dispatch(setIsLoggedInAC({value: true}))
-                    dispatch(setAppMyUserIdAC({myUserID: ''}))
+                    dispatch(setIsLoggedInAC({value: true}));
+                    dispatch(setAppMyUserIdAC({myUserID: res.data._id}))
                 }
             })
             .catch((e) => {
@@ -73,7 +74,7 @@ export const loginTC = (data: LoginParamsType) => {
 export const logoutTC = () => {
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
-        authAPI.delete()
+        authApi.delete()
             .then((res) => {
                 if (res.statusText === "OK") {
                     dispatch(setIsLoggedInAC({value: false}))
@@ -88,7 +89,7 @@ export const logoutTC = () => {
 }
 export const registerTC = (data: SignUpParamsType) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: 'loading'}))
-    authAPI.register(data)
+    authApi.register(data)
         .then((res) => {
             if (res.statusText === "Created") {
                 dispatch(setIsRegisteredAC({value: true}))
@@ -110,7 +111,7 @@ export const registerTC = (data: SignUpParamsType) => (dispatch: Dispatch) => {
 export const forgotPasswordTC = (data: ForgotPasswordType) => {
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
-        authAPI.forgotPassword(data)
+        authApi.forgotPassword(data)
             .then((res) => {
                 if (res.statusText === "Created") {
                     dispatch(setIsForgotAC({value: true}))
@@ -129,7 +130,7 @@ export const forgotPasswordTC = (data: ForgotPasswordType) => {
 export const newPasswordTC = (data: NewPasswordType) => {
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
-        authAPI.setNewPassword(data)
+        authApi.setNewPassword(data)
             .then(() => {
                 dispatch(setIsNewPassword({value: true}))
             })

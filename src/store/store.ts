@@ -4,10 +4,12 @@ import {configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk';
 import {appReducer} from "./app-reducer";
+import {packsReducer} from "./pack-reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    pack: packsReducer
 })
 
 

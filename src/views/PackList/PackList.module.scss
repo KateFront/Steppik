@@ -1,17 +1,18 @@
 .wrapper {
   display: flex;
-  width: 1008px;
+  max-width: 1008px;
   min-height: 636px;
   background-color: #ffffff;
   border-radius: 8px;
   box-sizing: border-box;
 }
 
-.leftListWrapper {
+.settingsWrapper {
   flex-basis: 20%;
   text-align: left;
-  background-color: #ECECF9;
+  background: #ECECF9;
   padding: 24px 33px;
+  border-radius: 8px 0 0 8px;
 }
 
 .mainPackWrapper {

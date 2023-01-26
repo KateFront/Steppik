@@ -29,13 +29,14 @@
 }
 
 .tableWrapper {
+  box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
   table-layout: fixed;
   text-align: left;
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 669px;
-  height: 432px;
-  box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
 }
 
 thead th:nth-child(1) {
@@ -58,12 +59,17 @@ thead th:nth-child(5) {
   width: 30%;
 }
 
-th, td {
-  padding: 20px;
+th{
+  padding:20px 0 20px 20px;
+}
+td {
+  padding-left: 20px;
 }
 tbody tr:nth-child(even){
   background-color: #F8F7FD;
 }
+
+
 .packListWrapper {
   font-size: 13px;
   line-height: 15.51px;
@@ -80,7 +86,7 @@ tbody tr:nth-child(even){
   font-size: 13px;
   line-height: 15.51px;
   font-weight: 400;
-  padding: 20px;
+  height: 48px;
 }
 
 .headTableItem {
