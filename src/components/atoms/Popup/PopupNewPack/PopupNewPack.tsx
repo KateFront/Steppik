@@ -11,16 +11,17 @@ type PopupType = {
     setActive: (active: boolean) => void
 }
 
-const PopupNewPack: FC<PopupType> = ({active, setActive, children}) => {
+const PopupNewPack: FC<PopupType> = ({active, setActive}) => {
 
     const dispatch = useAppDispatch();
 
     const saveNewPack = () => {
+        setActive(true);
         dispatch(createNewPacksTC({cardsPack: {name: '123123123k'}}));
     }
 
     return (
-        <div className={`${active ? styles.modalActive : styles.modal}`} onClick={() => setActive(true)}>
+        <div className={` ${active ? styles.modalActive : styles.modal}` }>
             <div className={`${active ? styles.modalContentActive : styles.modalContent}`}
                  onClick={event => event.stopPropagation()}>
                 <div className={styles.popupWrapper}>
@@ -31,7 +32,7 @@ const PopupNewPack: FC<PopupType> = ({active, setActive, children}) => {
                 </div>
                 <div className={styles.btn}>
                     <div className={styles.btnLeft}>
-                        <Button name={'Cancel'} isDisabled={true}/></div>
+                        <Button onClick={()=> setActive(false)} name={'Cancel'} isDisabled={true}/></div>
                     <div className={styles.btnRight}>
                         <Button onClick={saveNewPack} name={'Save'} isDisabled={false}/>
                     </div>
