@@ -33,7 +33,7 @@ const PopupNewPack: FC<PopupType> = ({active, setActive}) => {
                 </div>
                 <div className={styles.btn}>
                     <div className={styles.btnLeft}>
-                        <Button onClick={()=> setActive(false)} name={'Cancel'} isDisabled={true} onClick={() => setActive(false)}/></div>
+                        <Button onClick={()=> setActive(false)} name={'Cancel'} isDisabled={true}/></div>
                     <div className={styles.btnRight}>
                         <Button onClick={saveNewPack} name={'Save'} isDisabled={false}/>
                     </div>
