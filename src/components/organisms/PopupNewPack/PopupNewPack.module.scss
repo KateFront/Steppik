@@ -1,5 +1,5 @@
 .modal {
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   height: 100%;
   width: 100%;
@@ -16,14 +16,14 @@
 }
 
 .modalContent {
-  position: absolute;
   width: 395px;
-  height: 233px;
+  max-height: 233px;
   background-color: #F9F9FE;
   padding: 15px 24px;
-  transform: scale(0.5);
   transition: 0.4s all;
-  z-index: 2;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
 .modalContentActive {
@@ -37,21 +37,34 @@
   margin-bottom: 28px;
   color: #2D2E46;
   text-align: left;
+}
+
+.popupWrapper::after {
+  display: block;
+  content: '';
   border-bottom: 1px solid #EDF0F6;
+  margin-top: 15px;
+  margin-right: -24px;
+  margin-left: -24px;
+}
+
+.inputWrapper input{
+  margin-bottom: 36px;
+  background-color: #F9F9FE;
 }
 
 .btn {
-  margin-top: 36px;
   display: flex;
   justify-content: space-between;
+  text-align: center;
 }
 
 .btnLeft {
   flex-basis: 50%;
-  margin-right: 18px;
+  margin-right: 48px;
 }
 
 .btnRight {
   flex-basis: 50%;
-  margin-left: 18px;
+  margin-left: 48px;
 }

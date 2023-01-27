@@ -2,8 +2,8 @@ import React, {FC, useState} from 'react';
 import styles from "./MainPackList.module.scss";
 import RectangleButton from "../../../../components/atoms/RectangleButton/RectangleButton";
 import Button from "../../../../components/atoms/Button/Button";
-import PopupNewPack from "../../../../components/atoms/Popup/PopupNewPack/PopupNewPack";
-import Portal from "../../../../components/atoms/Portal/Portal";
+import PopupNewPack from "../../../../components/organisms/PopupNewPack/PopupNewPack";
+import Portal from "../../../../components/UiKit/Portal/Portal";
 
 export type TableCellItem = {
     id: string,
@@ -85,8 +85,8 @@ const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
                                         <td>{val.lastUpdated}</td>
                                         <td>{val.createdBy}</td>
                                         <td>{val.actions.map((el, index) => {
-                                            return <div className={styles.btns}>
-                                                <RectangleButton key={el.name} onClick={el.action} name={el.name}
+                                            return <div key={el.name} className={styles.btns}>
+                                                <RectangleButton onClick={el.action} name={el.name}
                                                                  isDisabled={false}
                                                                  type={index === 0 ? 'primary' : 'secondary'}/>
                                             </div>
@@ -100,10 +100,7 @@ const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
                 </>
             }
             {modalActive &&
-                <Portal>
-                    <PopupNewPack active={modalActive} setActive={setModalActive}/>
-                </Portal>
-
+                <PopupNewPack active={modalActive} setActive={setModalActive} onClose={() => setModalActive(true)}/>
             }
         </div>
     );

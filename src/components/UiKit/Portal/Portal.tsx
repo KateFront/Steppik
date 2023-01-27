@@ -1,4 +1,4 @@
-import {ReactNode, FC, useEffect} from "react";
+ import {ReactNode, FC, useEffect} from "react";
 import { createPortal } from "react-dom";
 
 const Portal:FC<{children: ReactNode}> = ({children}) => {

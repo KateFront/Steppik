@@ -1,5 +1,13 @@
 import axios, {AxiosResponse} from 'axios';
-import {CardPackItem, CardPackItemResponse, GetPackParams, GetPackResponse, PostPackType, PutPackType} from "./types";
+import {
+    CardPackItem,
+    CardPackItemResponse,
+    CreatePackResponse,
+    GetPackParams,
+    GetPackResponse,
+    PostPackType,
+    PutPackType
+} from "./types";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/cards',
@@ -14,7 +22,7 @@ export const packApi = {
         })
     },
     createPack(cardsPack: PostPackType) {
-        return instance.post(`/pack`, cardsPack);
+        return instance.post<PostPackType, AxiosResponse<CreatePackResponse>>(`/pack`, cardsPack);
     },
     deletePack(packId: string) {
         return instance.delete(`/pack/?id=${packId}`);

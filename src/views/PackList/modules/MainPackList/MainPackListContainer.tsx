@@ -13,7 +13,7 @@ const MainPackListContainer = () => {
         }
 
 
-        const mappedPackList: TableCellItem[] = packList.map((el) => {
+        const mappedPackList: TableCellItem[] = packList.map((packItem) => {
                 const actions: ActionType[] = [
                     {
                         name: 'Learn', action: () => {
@@ -33,18 +33,18 @@ const MainPackListContainer = () => {
                     }
                 };
 
-                if (mainUserId === el.userId) {
+                if (mainUserId === packItem.userId) {
                     actions.push(deleteAction);
                     actions.push(editAction);
                 }
 
                 return {
-                    id: el.id,
-                    ownerId: el.userId,
-                    name: el.name,
-                    cards: el.cardsCount,
-                    lastUpdated: el.updated,
-                    createdBy: el.created,
+                    id: packItem.id,
+                    ownerId: packItem.userId,
+                    name: packItem.name,
+                    cards: packItem.cardsCount,
+                    lastUpdated: packItem.updated,
+                    createdBy: packItem.created,
                     actions: actions,
                 }
             }

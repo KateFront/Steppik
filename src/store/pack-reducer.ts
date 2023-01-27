@@ -1,7 +1,7 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
 import {packApi} from "../api/packApi";
-import {CardPackItem, PostPackType} from "../api/types";
+import {CardPackItem, GetPackParams, PostPackType} from "../api/types";
 
 export enum SortPackType {
     A = 1,
@@ -12,7 +12,7 @@ type initialStateType = {
     packs: CardPackItem[],
     pageSize: number,
     totalCount: number,
-    currentPage: number
+    currentPage: number,
 
 }
 const initialState: initialStateType = {
@@ -20,6 +20,7 @@ const initialState: initialStateType = {
     pageSize: 1,
     totalCount: 4,
     currentPage: 1,
+
 }
 
 const slice = createSlice({
@@ -35,8 +36,10 @@ const slice = createSlice({
         setPacksAC: (state, action: PayloadAction<{ packs: CardPackItem[] }>) => {
             state.packs = action.payload.packs;
         },
-        createPackAC: (state, action: PayloadAction<{ newPack: CardPackItem[] }>) => {
-            state.packs = action.payload.newPack;
+        createPackAC: (state, action: PayloadAction<{ newPack: CardPackItem }>) => {
+            console.log(state.packs.length);
+            state.packs.unshift(action.payload.newPack);
+            console.log(state.packs.length);
         },
         deletePackAC(state, action: PayloadAction<{ packId: string }>) {
             const index = state.packs.findIndex(pack => pack.id === action.payload.packId)
@@ -55,10 +58,11 @@ export const packsReducer = slice.reducer;
 
 export const {setCurrentPageAC, setPacksAC, setTotalCountAC, deletePackAC, updatePackAC, createPackAC} = slice.actions;
 
-export const getPacksTC = () => {
+export const getPacksTC = (params?: GetPackParams) => {
     return (dispatch: Dispatch) => {
+
         dispatch(setAppStatusAC({status: 'loading'}))
-        packApi.getPack()
+        packApi.getPack(params)
             .then((res) => {
                 const tablePacks: CardPackItem[] = res.data.cardPacks.map((el) => {
                     return {
@@ -104,7 +108,16 @@ export const createNewPacksTC = (cardsPack: PostPackType) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         packApi.createPack(cardsPack)
             .then((res) => {
-                dispatch(createPackAC({newPack: res.data}))
+                const value: CardPackItem = {
+                    id: res.data.newCardsPack._id,
+                    userId: res.data.newCardsPack.user_id,
+                    name: res.data.newCardsPack.name,
+                    cardsCount: res.data.newCardsPack.cardsCount,
+                    updated: res.data.newCardsPack.updated,
+                    created: Date.now().toString(),
+                }
+
+                dispatch(createPackAC({newPack: value}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
             })
             .catch((error) => {

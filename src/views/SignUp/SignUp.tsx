@@ -9,6 +9,7 @@ import {useAppDispatch, useAppSelector} from "../../store/store";
 import {registerTC, setIsRegisteredAC, SignUpParamsType} from "../../store/auth-reducer";
 import PopupSuccess from "../../components/atoms/Popup/PopupSuccess/PopupSuccess";
 import {SubmitHandler, useForm} from "react-hook-form";
+import Portal from "../../components/UiKit/Portal/Portal";
 
  type Inputs = {
     email: string,
@@ -105,7 +106,9 @@ const SignUp: FC = () => {
                     </>
                 }
                 {
-                    showPopup && <PopupSuccess onClick={handleClick}/>
+                    showPopup && <Portal>
+                        <PopupSuccess onClick={handleClick}/>
+                    </Portal>
                 }
             </CommonPageWrapper>
         </div>

@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {FC} from 'react';
 import styles from './Settings.module.scss';
 import Switch from "../../../../components/atoms/Switch/Switch";
 
+type SettingsPropsType = {
+    switchOn: boolean;
+    setSwitchOn: (value: boolean) => void;
+};
 
-const Settings = () => {
-    const [switchOn, setSwitchOn] = useState(false);
+const Settings: FC<SettingsPropsType> = ({switchOn,setSwitchOn}) => {
+
     return (
         <div>
             <div className={styles.boxWrapper}>

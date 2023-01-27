@@ -6,6 +6,7 @@ export type GetPackParams = {
     page?: number;
     user_id?: string;
     block?: boolean;
+    pageCount?: number;
 }
 
 export type CardPackItem = {
@@ -35,6 +36,10 @@ export type GetPackResponse = {
     maxCardsCount: number;
     token: string;
     tokenDeathTime: number;
+}
+
+export type CreatePackResponse = {
+    newCardsPack: CardPackItemResponse;
 }
 
 export type PostPackType = {

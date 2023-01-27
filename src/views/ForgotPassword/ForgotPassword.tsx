@@ -4,10 +4,11 @@ import CardBasisWrapper from "../../components/atoms/CardBasisWrapper/CardBasisW
 import Input from "../../components/atoms/Input/Input";
 import Button from "../../components/atoms/Button/Button";
 import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPageWrapper";
-import { NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {forgotPasswordTC, setIsForgotAC} from "../../store/auth-reducer";
 import PopupCheckEmail from "../../components/atoms/Popup/PopupCheckEmail/PopupCheckEmail";
+import Portal from "../../components/UiKit/Portal/Portal";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -63,7 +64,9 @@ const ForgotPassword = () => {
                     </>
                 }
                 {
-                    showPopup && <PopupCheckEmail onClick={handleClick}/>
+                    showPopup && <Portal>
+                        <PopupCheckEmail onClick={handleClick}/>
+                    </Portal>
                 }
             </CommonPageWrapper>
         </div>

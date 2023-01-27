@@ -1,25 +1,38 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPageWrapper";
 import styles from './PackList.module.scss';
 import Settings from "./modules/Settings/Settings";
-import {useAppDispatch} from "../../store/store";
+import {useAppDispatch, useAppSelector} from "../../store/store";
 import {getPacksTC} from "../../store/pack-reducer";
 import MainPackListContainer from "./modules/MainPackList/MainPackListContainer";
+import {GetPackParams} from "../../api/types";
 
 
 const PackList: FC = () => {
     const dispatch = useAppDispatch();
+    const currentPage = useAppSelector<number>(s => s.pack.currentPage);
+    const mainUserID = useAppSelector<string>(s => s.app.myUserID);
+    const [switchOn, setSwitchOn] = useState(false);
 
     useEffect(() => {
-        dispatch(getPacksTC());
-    },[])
+
+        const params: GetPackParams = {
+            ...(switchOn && {user_id: mainUserID}),
+            pageCount: 10,
+
+        };
+
+
+        console.log(params)
+        dispatch(getPacksTC(params));
+    }, [currentPage, switchOn])
 
     return (
         <div>
             <CommonPageWrapper>
                 <div className={styles.wrapper}>
                     <div className={styles.settingsWrapper}>
-                        <Settings/>
+                        <Settings switchOn={switchOn} setSwitchOn={setSwitchOn}/>
                     </div>
                     <div className={styles.mainPackWrapper}>
                         <MainPackListContainer/>
