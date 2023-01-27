@@ -1,7 +1,7 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
 import {packApi} from "../api/packApi";
-import {CardPackItem, GetPackParams, PostPackType} from "../api/types";
+import {CardPackItem, GetPackParams, PostPackType, PutPackType} from "../api/types";
 
 export enum SortPackType {
     A = 1,
@@ -82,10 +82,10 @@ export const getPacksTC = (params?: GetPackParams) => {
             })
     }
 }
-export const updatePacksTC = (name: string, _id: string) => {
+export const updatePacksTC = (newCardsPack: PutPackType) => {
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({status: 'loading'}))
-        packApi.updatePack({name, _id})
+        packApi.updatePack(newCardsPack)
             .then((res) => {
                 const value: CardPackItem = {
                     id: res.data._id,
@@ -116,7 +116,6 @@ export const createNewPacksTC = (cardsPack: PostPackType) => {
                     updated: res.data.newCardsPack.updated,
                     created: Date.now().toString(),
                 }
-
                 dispatch(createPackAC({newPack: value}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
             })
@@ -130,7 +129,8 @@ export const deletePackTC = (packId: string) => {
         dispatch(setAppStatusAC({status: 'loading'}))
         packApi.deletePack(packId)
             .then((res) => {
-                dispatch(updatePackAC({value: res.data}))
+                console.log(res)
+                dispatch(deletePackAC({packId: res.data}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
             })
             .catch((error) => {

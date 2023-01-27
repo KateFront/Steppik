@@ -1,0 +1,80 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalActive {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modalContent {
+  width: 395px;
+  max-height: 233px;
+  background-color: #F9F9FE;
+  padding: 15px 24px;
+  transition: 0.4s all;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.modalContentActive {
+  transform: scale(1);
+}
+
+.popupWrapper {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 28px;
+  color: #2D2E46;
+  text-align: left;
+}
+
+.popupWrapper::after {
+  display: block;
+  content: '';
+  border-bottom: 1px solid #EDF0F6;
+  margin-top: 15px;
+  margin-right: -24px;
+  margin-left: -24px;
+}
+
+.inputWrapper input {
+  margin-bottom: 26px;
+  background-color: #F9F9FE;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.btnLeft {
+  flex-basis: 50%;
+  margin-right: 48px;
+}
+
+.btnRight {
+  flex-basis: 50%;
+  margin-left: 48px;
+  background-color: #FF3636;
+  box-shadow: 0px 4px 18px rgba(255, 54, 54, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.popupSpanWrapper {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #000000;
+  margin-bottom: 29px;
+}

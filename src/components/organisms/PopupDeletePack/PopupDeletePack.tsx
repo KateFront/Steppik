@@ -1,9 +1,8 @@
 import React, {FC} from 'react';
-import styles from "./PopupNewPack.module.scss";
+import styles from "./PopupDeletePack.module.scss";
 import Button from "../../atoms/Button/Button";
-import Input from "../../atoms/Input/Input";
 import {useAppDispatch} from "../../../store/store";
-import {createNewPacksTC} from "../../../store/pack-reducer";
+import {deletePackTC} from "../../../store/pack-reducer";
 import MainPopup from "../../UiKit/MainPopup/MainPopup";
 import {SubmitHandler, useForm} from "react-hook-form";
 
@@ -15,46 +14,39 @@ type PopupNewPackPropsType = {
 }
 
 type PopupFieldsType = {
-    packName: string,
+    id: string
 }
 
-
-const PopupNewPack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) => {
+const PopupDeletePack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) => {
     const {register, handleSubmit, control, formState: {errors}} = useForm<PopupFieldsType>();
     const dispatch = useAppDispatch();
 
-    const saveNewPack = (name: string) => {
-        dispatch(createNewPacksTC({cardsPack: {name: name}}));
+    const saveNewPack = (packId: string) => {
+        dispatch(deletePackTC(packId));
         setActive(false);
     }
 
     const onSubmit: SubmitHandler<PopupFieldsType> = (data) => {
-        saveNewPack(data.packName);
+        saveNewPack(data.id);
     }
 
     return (
-        <MainPopup isOpened={active} onClose={onClose} title={'Add new pack'}>
+        <MainPopup isOpened={active} onClose={onClose} title={'Delete pack'}>
             <div className={` ${styles.modal}`}>
                 <div className={`${styles.modalContent}`}
                      onClick={event => event.stopPropagation()}>
                     <div className={styles.popupWrapper}>
-                        <span>Add new pack</span>
+                        <span>Delete pack</span>
                     </div>
-                    <div className={styles.inputWrapper}>
-                        <Input label={'Name pack'} typeInput={'text'} addProps={{
-                            ...register("packName", {
-                                required: true,
-                                minLength: {value: 8, message: 'Name too short'},
-                                maxLength: {value: 14, message: 'Name too long'}
-                            })
-
-                        }} error={errors.packName?.message}/>
+                    <div className={styles.popupSpanWrapper}>
+                        <span>Do you really want to remove Pack Name - Name Pack?</span>
+                        <span>  All cards will be deleted.  </span>
                     </div>
                     <div className={styles.btn}>
                         <div className={styles.btnLeft}>
                             <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true}/></div>
                         <div className={styles.btnRight}>
-                            <Button onClick={handleSubmit(onSubmit)} name={'Save'} isDisabled={false}/>
+                            <Button onClick={handleSubmit(onSubmit)} name={'Delete'} isDisabled={false}/>
                         </div>
                     </div>
                 </div>
@@ -63,4 +55,4 @@ const PopupNewPack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) =
     );
 };
 
-export default PopupNewPack;
+export default PopupDeletePack;

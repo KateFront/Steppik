@@ -50,8 +50,10 @@ export type PostPackType = {
     }
 }
 export type PutPackType = {
-    _id: string
-    name?: string
+    newCardsPack: {
+        _id: string
+        name?: string
+    }
 }
 
 export type UserProfileType = {

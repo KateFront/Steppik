@@ -39,8 +39,7 @@ const SingInForm: FC = () => {
         dispatch(loginTC(userData));
     }
 
-
-    useEffect(() => {
+    /*useEffect(() => {
         console.log('DidMount');
     }, []);
 
@@ -49,7 +48,7 @@ const SingInForm: FC = () => {
         console.log('DidUpdate');
     }, [isLogged]);
 
-    console.log('render SingInForm');
+    console.log('render SingInForm');*/
 
 
     if (isLogged) {

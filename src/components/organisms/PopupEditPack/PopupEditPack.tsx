@@ -3,11 +3,11 @@ import styles from "./PopupNewPack.module.scss";
 import Button from "../../atoms/Button/Button";
 import Input from "../../atoms/Input/Input";
 import {useAppDispatch} from "../../../store/store";
-import {createNewPacksTC} from "../../../store/pack-reducer";
+import {updatePacksTC} from "../../../store/pack-reducer";
 import MainPopup from "../../UiKit/MainPopup/MainPopup";
 import {SubmitHandler, useForm} from "react-hook-form";
 
-type PopupNewPackPropsType = {
+type PopupPropsType = {
     children?: React.ReactNode;
     active: boolean,
     setActive: (active: boolean) => void,
@@ -15,40 +15,39 @@ type PopupNewPackPropsType = {
 }
 
 type PopupFieldsType = {
-    packName: string,
+    id: string,
 }
 
-
-const PopupNewPack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) => {
+const PopupEditPack: FC<PopupPropsType> = ({active, setActive, onClose}) => {
     const {register, handleSubmit, control, formState: {errors}} = useForm<PopupFieldsType>();
     const dispatch = useAppDispatch();
 
-    const saveNewPack = (name: string) => {
-        dispatch(createNewPacksTC({cardsPack: {name: name}}));
+    const saveNewPack = (id: string) => {
+        dispatch(updatePacksTC({newCardsPack: {_id: id}}));
         setActive(false);
     }
 
     const onSubmit: SubmitHandler<PopupFieldsType> = (data) => {
-        saveNewPack(data.packName);
+        saveNewPack(data.id);
     }
 
     return (
-        <MainPopup isOpened={active} onClose={onClose} title={'Add new pack'}>
+        <MainPopup isOpened={active} onClose={onClose} title={'Edit pack'}>
             <div className={` ${styles.modal}`}>
                 <div className={`${styles.modalContent}`}
                      onClick={event => event.stopPropagation()}>
                     <div className={styles.popupWrapper}>
-                        <span>Add new pack</span>
+                        <span>Edit pack</span>
                     </div>
                     <div className={styles.inputWrapper}>
                         <Input label={'Name pack'} typeInput={'text'} addProps={{
-                            ...register("packName", {
+                            ...register("id", {
                                 required: true,
                                 minLength: {value: 8, message: 'Name too short'},
                                 maxLength: {value: 14, message: 'Name too long'}
                             })
 
-                        }} error={errors.packName?.message}/>
+                        }} error={errors.id?.message}/>
                     </div>
                     <div className={styles.btn}>
                         <div className={styles.btnLeft}>
@@ -63,4 +62,4 @@ const PopupNewPack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) =
     );
 };
 
-export default PopupNewPack;
+export default PopupEditPack;
