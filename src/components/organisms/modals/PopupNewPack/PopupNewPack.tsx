@@ -1,15 +1,16 @@
 import React, {FC} from 'react';
-import styles from "./PopupNewPack.module.scss";
-import Button from "../../atoms/Button/Button";
-import Input from "../../atoms/Input/Input";
-import {useAppDispatch} from "../../../store/store";
-import {createNewPacksTC} from "../../../store/pack-reducer";
-import MainPopup from "../../UiKit/MainPopup/MainPopup";
+
+import Button from "../../../atoms/Button/Button";
+import Input from "../../../atoms/Input/Input";
+import {useAppDispatch} from "../../../../store/store";
+import {createNewPacksTC} from "../../../../store/pack-reducer";
+import MainPopup from "../MainPopup/MainPopup";
 import {SubmitHandler, useForm} from "react-hook-form";
+
+import styles from "./PopupNewPack.module.scss";
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;
-    active: boolean,
     setActive: (active: boolean) => void,
     onClose: () => void;
 }
@@ -19,8 +20,8 @@ type PopupFieldsType = {
 }
 
 
-const PopupNewPack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) => {
-    const {register, handleSubmit, control, formState: {errors}} = useForm<PopupFieldsType>();
+const PopupNewPack: FC<PopupNewPackPropsType> = ({setActive, onClose}) => {
+    const {register, handleSubmit, formState: {errors}} = useForm<PopupFieldsType>();
     const dispatch = useAppDispatch();
 
     const saveNewPack = (name: string) => {
@@ -33,10 +34,9 @@ const PopupNewPack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) =
     }
 
     return (
-        <MainPopup isOpened={active} onClose={onClose} title={'Add new pack'}>
+        <MainPopup onClose={onClose} title={'Add new pack'}>
             <div className={` ${styles.modal}`}>
-                <div className={`${styles.modalContent}`}
-                     onClick={event => event.stopPropagation()}>
+                <div className={`${styles.modalContent}`}>
                     <div className={styles.popupWrapper}>
                         <span>Add new pack</span>
                     </div>

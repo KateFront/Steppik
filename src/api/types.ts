@@ -13,12 +13,21 @@ export type CardPackItem = {
     id: string;
     userId: string;
     name: string;
+    userName: string,
     cardsCount: number;
     created: string;
     updated: string;
 };
 
 export type CardPackItemResponse = {
+    user_name: string,
+    private: false,
+    path: string,
+    grade: number,
+    shots: number,
+    type: string,
+    rating: number,
+    more_id: string,
     _id: string;
     user_id: string;
     name: string;

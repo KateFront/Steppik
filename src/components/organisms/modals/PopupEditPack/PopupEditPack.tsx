@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
-import styles from "./PopupNewPack.module.scss";
-import Button from "../../atoms/Button/Button";
-import Input from "../../atoms/Input/Input";
-import {useAppDispatch} from "../../../store/store";
-import {updatePacksTC} from "../../../store/pack-reducer";
-import MainPopup from "../../UiKit/MainPopup/MainPopup";
+import styles from "./PopupEditPack.module.scss";
+import Button from "../../../atoms/Button/Button";
+import Input from "../../../atoms/Input/Input";
+import {useAppDispatch} from "../../../../store/store";
+import {updatePacksTC} from "../../../../store/pack-reducer";
+import MainPopup from "../MainPopup/MainPopup";
 import {SubmitHandler, useForm} from "react-hook-form";
 
 type PopupPropsType = {
@@ -15,7 +15,7 @@ type PopupPropsType = {
 }
 
 type PopupFieldsType = {
-    id: string,
+    id: string
 }
 
 const PopupEditPack: FC<PopupPropsType> = ({active, setActive, onClose}) => {
@@ -32,7 +32,7 @@ const PopupEditPack: FC<PopupPropsType> = ({active, setActive, onClose}) => {
     }
 
     return (
-        <MainPopup isOpened={active} onClose={onClose} title={'Edit pack'}>
+        <MainPopup onClose={onClose} title={'Edit pack'}>
             <div className={` ${styles.modal}`}>
                 <div className={`${styles.modalContent}`}
                      onClick={event => event.stopPropagation()}>

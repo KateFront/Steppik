@@ -7,8 +7,8 @@ import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPa
 import {NavLink, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {forgotPasswordTC, setIsForgotAC} from "../../store/auth-reducer";
-import PopupCheckEmail from "../../components/atoms/Popup/PopupCheckEmail/PopupCheckEmail";
-import Portal from "../../components/UiKit/Portal/Portal";
+import PopupCheckEmail from "../../components/organisms/modals/PopupCheckEmail/PopupCheckEmail";
+import Portal from "../../components/atoms/Portal/Portal";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');

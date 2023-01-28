@@ -7,9 +7,9 @@ import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPa
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {registerTC, setIsRegisteredAC, SignUpParamsType} from "../../store/auth-reducer";
-import PopupSuccess from "../../components/atoms/Popup/PopupSuccess/PopupSuccess";
+import PopupSuccess from "../../components/organisms/modals/PopupSuccess/PopupSuccess";
 import {SubmitHandler, useForm} from "react-hook-form";
-import Portal from "../../components/UiKit/Portal/Portal";
+import Portal from "../../components/atoms/Portal/Portal";
 
  type Inputs = {
     email: string,

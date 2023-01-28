@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import MainPackList, {ActionType, TableCellItem} from "./MainPackList";
-import PopupEditPack from "../../../../components/organisms/PopupEditPack/PopupEditPack";
-import PopupDeletePack from "../../../../components/organisms/PopupDeletePack/PopupDeletePack";
+import PopupEditPack from "../../../../components/organisms/modals/PopupEditPack/PopupEditPack";
+import PopupDeletePack from "../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack";
+import {setActivePackIdAC} from "../../../../store/pack-reducer";
 
 
 const MainPackListContainer = () => {
@@ -16,7 +17,9 @@ const MainPackListContainer = () => {
     const handleEditClick = () => {
         setShowEditPopup(true);
     }
-    const handleDeleteClick = () => {
+    const handleDeleteClick = (packId: string) => {
+        console.log('packId', packId)
+        dispatch(setActivePackIdAC({packId}));
         setShowDeletePopup(true);
     }
 
@@ -30,7 +33,7 @@ const MainPackListContainer = () => {
             ];
             const deleteAction = {
                 name: 'Delete', action: () => {
-                    handleDeleteClick()
+                    handleDeleteClick(packItem.id)
                 }
             };
 
@@ -41,8 +44,8 @@ const MainPackListContainer = () => {
             };
 
             if (mainUserId === packItem.userId) {
-                actions.push(deleteAction);
-                actions.push(editAction);
+                actions.unshift(editAction);
+                actions.unshift(deleteAction);
             }
 
             return {
@@ -51,7 +54,7 @@ const MainPackListContainer = () => {
                 name: packItem.name,
                 cards: packItem.cardsCount,
                 lastUpdated: packItem.updated,
-                createdBy: packItem.created,
+                createdBy: packItem.userName,
                 actions: actions,
             }
         }

@@ -6,7 +6,7 @@ export type ButtonProps = {
     onClick?: () => void;
     isDisabled: boolean;
     name: string;
-    type: 'primary' | 'secondary';
+    type: 'attention' | 'secondary';
 };
 
 const RectangleButton: FC<ButtonProps> = ({isDisabled, name, onClick,type}) => {
@@ -14,7 +14,7 @@ const RectangleButton: FC<ButtonProps> = ({isDisabled, name, onClick,type}) => {
     const disabledBtnStyles = `${isDisabled ? styles.disabled : ''}`;
 
     return (
-        <div className={`${type === ("primary" || "secondary") ? styles.primary : styles.secondary}  ${disabledBtnStyles}`}
+        <div className={`${type === ("attention" || "secondary") ? styles.attention : styles.secondary}  ${disabledBtnStyles}`}
              onClick={onClick}>
             {name}
         </div>

@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import styles from "./PopupCheckEmail.module.scss";
-import CardBasisWrapper from "../../CardBasisWrapper/CardBasisWrapper";
+import CardBasisWrapper from "../../../atoms/CardBasisWrapper/CardBasisWrapper";
 import checkEmail from '../../../../assets/Icons/checkEmail.svg'
-import Button from "../../Button/Button";
+import Button from "../../../atoms/Button/Button";
 
 type PopupType = {
     onClick: () => void

@@ -7,9 +7,9 @@ import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPa
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {newPasswordTC, setIsNewPassword} from "../../store/auth-reducer";
-import PopupSuccess from "../../components/atoms/Popup/PopupSuccess/PopupSuccess";
-import PopupNewPassword from "../../components/atoms/Popup/PopupNewPassword/PopupNewPassword";
-import Portal from "../../components/UiKit/Portal/Portal";
+import PopupSuccess from "../../components/organisms/modals/PopupSuccess/PopupSuccess";
+import PopupNewPassword from "../../components/organisms/modals/PopupNewPassword/PopupNewPassword";
+import Portal from "../../components/atoms/Portal/Portal";
 
 const CreateNewPassword = () => {
     const [password, setPassword] = useState('');

@@ -2,6 +2,7 @@ import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
 import {packApi} from "../api/packApi";
 import {CardPackItem, GetPackParams, PostPackType, PutPackType} from "../api/types";
+import {AppRootStateType} from "./store";
 
 export enum SortPackType {
     A = 1,
@@ -13,14 +14,14 @@ type initialStateType = {
     pageSize: number,
     totalCount: number,
     currentPage: number,
-
+    activePackId: null | string
 }
 const initialState: initialStateType = {
     packs: [],
     pageSize: 1,
     totalCount: 4,
     currentPage: 1,
-
+    activePackId: null,
 }
 
 const slice = createSlice({
@@ -35,6 +36,7 @@ const slice = createSlice({
         },
         setPacksAC: (state, action: PayloadAction<{ packs: CardPackItem[] }>) => {
             state.packs = action.payload.packs;
+            console.log(action.payload.packs);
         },
         createPackAC: (state, action: PayloadAction<{ newPack: CardPackItem }>) => {
             console.log(state.packs.length);
@@ -50,13 +52,24 @@ const slice = createSlice({
         updatePackAC(state, action: PayloadAction<{ value: CardPackItem }>) {
             const index = state.packs.findIndex(pack => pack.id === action.payload.value.id)
             state.packs[index].name = action.payload.value.name;
+        },
+        setActivePackIdAC(state, action: PayloadAction<{ packId: string }>) {
+            state.activePackId = action.payload.packId;
         }
     }
 })
 
 export const packsReducer = slice.reducer;
 
-export const {setCurrentPageAC, setPacksAC, setTotalCountAC, deletePackAC, updatePackAC, createPackAC} = slice.actions;
+export const {
+    setCurrentPageAC,
+    setPacksAC,
+    setTotalCountAC,
+    deletePackAC,
+    updatePackAC,
+    createPackAC,
+    setActivePackIdAC
+} = slice.actions;
 
 export const getPacksTC = (params?: GetPackParams) => {
     return (dispatch: Dispatch) => {
@@ -72,6 +85,7 @@ export const getPacksTC = (params?: GetPackParams) => {
                         cardsCount: el.cardsCount,
                         updated: el.updated,
                         created: el.created,
+                        userName: el.user_name
                     }
                 })
                 dispatch(setPacksAC({packs: tablePacks}))
@@ -94,6 +108,7 @@ export const updatePacksTC = (newCardsPack: PutPackType) => {
                     cardsCount: res.data.cardsCount,
                     updated: res.data.updated,
                     created: res.data.created,
+                    userName: res.data.user_name
                 }
                 dispatch(updatePackAC({value}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
@@ -115,6 +130,7 @@ export const createNewPacksTC = (cardsPack: PostPackType) => {
                     cardsCount: res.data.newCardsPack.cardsCount,
                     updated: res.data.newCardsPack.updated,
                     created: Date.now().toString(),
+                    userName: res.data.newCardsPack.user_name
                 }
                 dispatch(createPackAC({newPack: value}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
@@ -124,17 +140,23 @@ export const createNewPacksTC = (cardsPack: PostPackType) => {
             })
     }
 }
-export const deletePackTC = (packId: string) => {
-    return (dispatch: Dispatch) => {
-        dispatch(setAppStatusAC({status: 'loading'}))
-        packApi.deletePack(packId)
-            .then((res) => {
-                console.log(res)
-                dispatch(deletePackAC({packId: res.data}))
-                dispatch(setAppStatusAC({status: 'succeeded'}))
-            })
-            .catch((error) => {
-                setAppErrorAC(error)
-            })
+export const deletePackTC = () => {
+    console.log("deletePackTC");
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        dispatch(setAppStatusAC({status: 'loading'}));
+        const appState = getState();
+        const deletePackId = appState.pack.activePackId;
+        console.log(getState());
+        if (deletePackId !== null) {
+            packApi.deletePack(deletePackId)
+                .then((res) => {
+                    console.log(res)
+                    dispatch(deletePackAC({packId: deletePackId}))
+                    dispatch(setAppStatusAC({status: 'succeeded'}))
+                })
+                .catch((error) => {
+                    setAppErrorAC(error)
+                });
+        }
     }
 }

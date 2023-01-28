@@ -1,10 +1,9 @@
 import React, {FC} from 'react';
 import styles from "./PopupDeletePack.module.scss";
-import Button from "../../atoms/Button/Button";
-import {useAppDispatch} from "../../../store/store";
-import {deletePackTC} from "../../../store/pack-reducer";
-import MainPopup from "../../UiKit/MainPopup/MainPopup";
-import {SubmitHandler, useForm} from "react-hook-form";
+import Button from "../../../atoms/Button/Button";
+import {useAppDispatch} from "../../../../store/store";
+import {deletePackTC} from "../../../../store/pack-reducer";
+import MainPopup from "../MainPopup/MainPopup";
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;
@@ -13,28 +12,19 @@ type PopupNewPackPropsType = {
     onClose: () => void;
 }
 
-type PopupFieldsType = {
-    id: string
-}
-
 const PopupDeletePack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}) => {
-    const {register, handleSubmit, control, formState: {errors}} = useForm<PopupFieldsType>();
     const dispatch = useAppDispatch();
 
-    const saveNewPack = (packId: string) => {
-        dispatch(deletePackTC(packId));
+    const deletePack = () => {
+        dispatch(deletePackTC());
         setActive(false);
     }
 
-    const onSubmit: SubmitHandler<PopupFieldsType> = (data) => {
-        saveNewPack(data.id);
-    }
 
     return (
-        <MainPopup isOpened={active} onClose={onClose} title={'Delete pack'}>
+        <MainPopup onClose={onClose} title={'Delete pack'}>
             <div className={` ${styles.modal}`}>
-                <div className={`${styles.modalContent}`}
-                     onClick={event => event.stopPropagation()}>
+                <div className={`${styles.modalContent}`}>
                     <div className={styles.popupWrapper}>
                         <span>Delete pack</span>
                     </div>
@@ -46,7 +36,7 @@ const PopupDeletePack: FC<PopupNewPackPropsType> = ({active, setActive, onClose}
                         <div className={styles.btnLeft}>
                             <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true}/></div>
                         <div className={styles.btnRight}>
-                            <Button onClick={handleSubmit(onSubmit)} name={'Delete'} isDisabled={false}/>
+                            <Button onClick={deletePack} name={'Delete'} isDisabled={false}/>
                         </div>
                     </div>
                 </div>

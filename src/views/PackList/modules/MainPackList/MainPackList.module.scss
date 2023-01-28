@@ -59,13 +59,15 @@ thead th:nth-child(5) {
   width: 30%;
 }
 
-th{
-  padding:20px 0 20px 20px;
+th {
+  padding: 20px 0 20px 20px;
 }
+
 td {
   padding-left: 20px;
 }
-tbody tr:nth-child(even){
+
+tbody tr:nth-child(even) {
   background-color: #F8F7FD;
 }
 
@@ -77,9 +79,9 @@ tbody tr:nth-child(even){
   background-color: #ECECF9;
 }
 
-.btns {
+.btn {
   display: inline-block;
-
+  margin-right: 5px;
 }
 
 .tableRowItem {
@@ -91,6 +93,7 @@ tbody tr:nth-child(even){
 
 .headTableItem {
   position: relative;
+
   &:after {
     position: absolute;
     content: '';

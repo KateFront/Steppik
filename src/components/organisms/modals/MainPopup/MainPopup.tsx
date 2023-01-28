@@ -1,22 +1,23 @@
 import React, {FC} from 'react';
-import OverlayingPopup from "../OverlayingPopup/OverlayingPopup";
-import styles from './MainPopup.module.scss';
 import classNames from "classnames";
-import HeaderPopUp from "../../atoms/HeaderPopUp/HeaderPopUp";
-import Portal from "../Portal/Portal";
+
+import OverlayingPopup from "../OverlayingPopup/OverlayingPopup";
+import HeaderPopUp from "../../../atoms/HeaderPopUp/HeaderPopUp";
+import Portal from "../../../atoms/Portal/Portal";
+
+import styles from './MainPopup.module.scss';
 
 type MainPopupType = {
-    isOpened: boolean,
     title: string,
     onClose: () => void,
     className?: string,
     children?: React.ReactNode
 }
 
-const MainPopup: FC<MainPopupType> = ({isOpened, title, onClose, className, children}) => {
+const MainPopup: FC<MainPopupType> = ({title, onClose, className, children}) => {
     return (
         <Portal>
-            <OverlayingPopup isOpened={isOpened} onClose={onClose}>
+            <OverlayingPopup onClose={onClose}>
                 <div className={classNames(styles.container, className)}>
                     <HeaderPopUp
                         title={title}

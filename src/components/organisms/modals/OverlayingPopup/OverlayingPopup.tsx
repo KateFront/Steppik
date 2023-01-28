@@ -4,10 +4,9 @@ import styles from './OverlayingPopup.module.scss';
 type OverlayingPopupType = {
     children: React.ReactNode;
     onClose: () => void;
-    isOpened: boolean
 }
 
-const OverlayingPopup: FC<OverlayingPopupType> = ({children, onClose, isOpened}) => {
+const OverlayingPopup: FC<OverlayingPopupType> = ({children, onClose}) => {
     return (
         <div className={styles.container} role={'dialog'}>
             <div className={styles.overlay}

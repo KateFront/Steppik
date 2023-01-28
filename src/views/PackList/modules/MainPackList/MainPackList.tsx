@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import styles from "./MainPackList.module.scss";
 import RectangleButton from "../../../../components/atoms/RectangleButton/RectangleButton";
 import Button from "../../../../components/atoms/Button/Button";
-import PopupNewPack from "../../../../components/organisms/PopupNewPack/PopupNewPack";
+import PopupNewPack from "../../../../components/organisms/modals/PopupNewPack/PopupNewPack";
 
 export type TableCellItem = {
     id: string,
@@ -76,18 +76,19 @@ const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
                             </tr>
                             </thead>
                             <tbody>
-                            {packList.map((val, key) => {
+                            {packList.map((val) => {
                                 return (
-                                    <tr key={key} className={styles.tableRowItem}>
+                                    <tr key={val.id} className={styles.tableRowItem}>
                                         <td>{val.name}</td>
                                         <td>{val.cards}</td>
                                         <td>{val.lastUpdated}</td>
                                         <td>{val.createdBy}</td>
                                         <td>{val.actions.map((el, index) => {
-                                            return <div key={el.name} className={styles.btns}>
+                                            return <div key={el.name} className={styles.btn}>
                                                 <RectangleButton onClick={el.action} name={el.name}
                                                                  isDisabled={false}
-                                                                 type={index === 0 ? 'primary' : 'secondary'}/>
+                                                                 type={el.name === 'Delete' ? 'attention' : 'secondary'}
+                                                />
                                             </div>
                                         })}</td>
                                     </tr>
@@ -100,7 +101,7 @@ const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
             }
             {
                 modalActive &&
-                <PopupNewPack active={modalActive} setActive={setModalActive} onClose={() => setModalActive(true)}/>
+                <PopupNewPack setActive={setModalActive} onClose={() =>console.log("saasassa")}/>
             }
         </div>
     );
