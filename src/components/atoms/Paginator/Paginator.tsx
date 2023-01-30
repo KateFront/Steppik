@@ -33,13 +33,13 @@ const Paginator: FC<PaginatorPropsType> = ({totalCount, currentPage, pageSize}) 
                         disabled={currentPage === pageNumbers[0]}>
                     {"<"}
                 </button>
-                <ul className="pagination">
+                <ul className={styles.paginationList}>
                     {pageNumbers.map((number) => (
                         <li key={number}
                             onClick={(e) => {
                                 onPageChanged(number)
                             }}
-                            className={`${currentPage === number && styles.selectedPage}`}
+                            className={`${currentPage === number && styles.selectedPaginationItem} ${styles.paginationItem}`}
                         >
                             {number}
                         </li>

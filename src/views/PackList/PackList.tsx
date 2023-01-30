@@ -42,7 +42,6 @@ const PackList: FC = () => {
                             <Paginator currentPage={currentPage} pageSize={pageSize} totalCount={totalCount}/>
                         </div>
                     </div>
-
                 </div>
             </CommonPageWrapper>
         </div>

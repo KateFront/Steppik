@@ -73,11 +73,11 @@ export const {
 } = slice.actions;
 
 
-export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams>
+export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams, {dispatch: AppThunkDispatch}>
 ('packs/get', async (requestParams, thunkApi) => {
     const res = await packApi.getPack(requestParams);
     const totalCount = res.data.cardPacksTotalCount;
-    thunkApi.dispatch(setTotalCountAC(totalCount, { payload: }))
+    thunkApi.dispatch(setTotalCountAC({ count: totalCount }))
     const tablePacks: CardPackItem[] = res.data.cardPacks.map((el) => {
         return {
             id: el._id,

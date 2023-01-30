@@ -1,3 +1,11 @@
-.selectedPage{
+.paginationList{
+display: flex;
+  list-style-type: none;
+}
 
+.paginationItem{
+ padding: 10px;
+}
+.selectedPaginationItem{
+color:red;
 }
