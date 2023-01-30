@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from 'axios';
 import {SignUpParamsType} from "../store/auth-reducer";
-import {auth} from "./app_instances";
+import {auth} from "./axios_instances";
 import {UserProfileType} from "./types";
 
 

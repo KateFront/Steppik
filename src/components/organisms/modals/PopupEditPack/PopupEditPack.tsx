@@ -15,20 +15,20 @@ type PopupPropsType = {
 }
 
 type PopupFieldsType = {
-    id: string
+    name: string
 }
 
-const PopupEditPack: FC<PopupPropsType> = ({active, setActive, onClose}) => {
-    const {register, handleSubmit, control, formState: {errors}} = useForm<PopupFieldsType>();
+const PopupEditPack: FC<PopupPropsType> = ({ setActive, onClose}) => {
+    const {register, handleSubmit, formState: {errors}} = useForm<PopupFieldsType>();
     const dispatch = useAppDispatch();
 
-    const saveNewPack = (id: string) => {
-        dispatch(updatePacksTC({newCardsPack: {_id: id}}));
+    const saveNewPack = (name: string) => {
+        dispatch(updatePacksTC({name}));
         setActive(false);
     }
 
     const onSubmit: SubmitHandler<PopupFieldsType> = (data) => {
-        saveNewPack(data.id);
+        saveNewPack(data.name);
     }
 
     return (
@@ -41,13 +41,13 @@ const PopupEditPack: FC<PopupPropsType> = ({active, setActive, onClose}) => {
                     </div>
                     <div className={styles.inputWrapper}>
                         <Input label={'Name pack'} typeInput={'text'} addProps={{
-                            ...register("id", {
+                            ...register("name", {
                                 required: true,
                                 minLength: {value: 8, message: 'Name too short'},
                                 maxLength: {value: 14, message: 'Name too long'}
                             })
 
-                        }} error={errors.id?.message}/>
+                        }} error={errors.name?.message}/>
                     </div>
                     <div className={styles.btn}>
                         <div className={styles.btnLeft}>

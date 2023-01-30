@@ -14,11 +14,11 @@ const MainPackListContainer = () => {
 
     const dispatch = useAppDispatch();
 
-    const handleEditClick = () => {
+    const handleEditClick = (packId: string) => {
+        dispatch(setActivePackIdAC({packId}));
         setShowEditPopup(true);
     }
     const handleDeleteClick = (packId: string) => {
-        console.log('packId', packId)
         dispatch(setActivePackIdAC({packId}));
         setShowDeletePopup(true);
     }
@@ -39,7 +39,7 @@ const MainPackListContainer = () => {
 
             const editAction = {
                 name: 'Edit', action: () => {
-                    handleEditClick()
+                    handleEditClick(packItem.id)
                 }
             };
 

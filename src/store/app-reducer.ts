@@ -2,8 +2,13 @@ import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 import {authApi} from "../api/authApi";
 import {setIsLoggedInAC} from "./auth-reducer";
 
-
-const initialState = {
+type InitialStateType = {
+    isInitialized: boolean,
+    status: RequestStatusType,
+    error: string | null,
+    myUserID: string,
+}
+const initialState: InitialStateType = {
     isInitialized: false,
     status: 'idle',
     error: null,
@@ -20,7 +25,7 @@ const slice = createSlice({
         setAppStatusAC(state, action: PayloadAction<{ status: RequestStatusType }>) {
             state.status = action.payload.status
         },
-        setAppErrorAC(state, action: PayloadAction<{ error: null }>) {
+        setAppErrorAC(state, action: PayloadAction<{ error: string }>) {
             state.error = action.payload.error
         },
         setAppMyUserIdAC(state, action: PayloadAction<{ myUserID: string }>) {
@@ -35,16 +40,17 @@ export const {setIsInitializedAC, setAppStatusAC, setAppErrorAC, setAppMyUserIdA
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC({status:'loading'}))
+    dispatch(setAppStatusAC({status: 'loading'}))
     authApi.me()
         .then((res) => {
-            dispatch(setAppStatusAC({status:'succeeded'}))
-            dispatch(setIsLoggedInAC({value:true}));
-            dispatch(setAppMyUserIdAC({ myUserID: res.data._id}))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
+            dispatch(setIsLoggedInAC({value: true}));
+            dispatch(setAppMyUserIdAC({myUserID: res.data._id}))
         })
-        .catch((err) => {})
+        .catch((err) => {
+        })
         .finally(() => {
-            dispatch(setIsInitializedAC({value:true}))
-            dispatch(setAppStatusAC({status:'succeeded'}))
+            dispatch(setIsInitializedAC({value: true}))
+            dispatch(setAppStatusAC({status: 'succeeded'}))
         })
 }

@@ -5,8 +5,8 @@ export const auth = axios.create({
     withCredentials: true
 })
 
-export const cards = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0/cards/pack',
+export const cardsInstance = axios.create({
+    baseURL: 'https://neko-back.herokuapp.com/2.0/cards',
     withCredentials: true
 })
 

@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import styles from "./PopupDeletePack.module.scss";
 import Button from "../../../atoms/Button/Button";
 import {useAppDispatch} from "../../../../store/store";
-import {deletePackTC} from "../../../../store/pack-reducer";
 import MainPopup from "../MainPopup/MainPopup";
+import {deletePackTC} from "../../../../store/pack-reducer";
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;

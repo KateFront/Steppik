@@ -5,7 +5,7 @@ import Settings from "./modules/Settings/Settings";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {getPacksTC} from "../../store/pack-reducer";
 import MainPackListContainer from "./modules/MainPackList/MainPackListContainer";
-import {GetPackParams} from "../../api/types";
+import {GetPackParams} from "../../api/packs/typesPack";
 
 
 const PackList: FC = () => {
