@@ -22,8 +22,8 @@ type initialStateType = {
 }
 const initialState: initialStateType = {
     packs: [],
-    pageSize: 1,
-    totalCount: 4,
+    pageSize: 10,
+    totalCount: 100,
     currentPage: 1,
     activePackId: null,
 }
@@ -36,7 +36,7 @@ const slice = createSlice({
             state.currentPage = action.payload.currentPage;
         },
         setTotalCountAC: (state, action: PayloadAction<{ count: number }>) => {
-            state.totalCount = action.payload.count
+            state.totalCount = action.payload.count;
         },
         setActivePackIdAC(state, action: PayloadAction<{ packId: string }>) {
             state.activePackId = action.payload.packId;
@@ -74,8 +74,10 @@ export const {
 
 
 export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams>
-('packs/get', async (requestParams) => {
+('packs/get', async (requestParams, thunkApi) => {
     const res = await packApi.getPack(requestParams);
+    const totalCount = res.data.cardPacksTotalCount;
+    thunkApi.dispatch(setTotalCountAC(totalCount, { payload: }))
     const tablePacks: CardPackItem[] = res.data.cardPacks.map((el) => {
         return {
             id: el._id,

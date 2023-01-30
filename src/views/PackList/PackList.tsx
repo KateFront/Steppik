@@ -6,26 +6,28 @@ import {useAppDispatch, useAppSelector} from "../../store/store";
 import {getPacksTC} from "../../store/pack-reducer";
 import MainPackListContainer from "./modules/MainPackList/MainPackListContainer";
 import {GetPackParams} from "../../api/packs/typesPack";
+import Paginator from "../../components/atoms/Paginator/Paginator";
 
 
 const PackList: FC = () => {
     const dispatch = useAppDispatch();
-    const currentPage = useAppSelector<number>(s => s.pack.currentPage);
+
     const mainUserID = useAppSelector<string>(s => s.app.myUserID);
     const [switchOn, setSwitchOn] = useState(false);
 
-    useEffect(() => {
+    const currentPage = useAppSelector<number>(s => s.pack.currentPage);
+    const pageSize = useAppSelector(state => state.pack.pageSize);
+    const totalCount = useAppSelector(state => state.pack.totalCount);
 
+
+    useEffect(() => {
         const params: GetPackParams = {
             ...(switchOn && {user_id: mainUserID}),
-            pageCount: 10,
-
+            pageCount: pageSize,
+            page: currentPage,
         };
-
-
-        console.log(params)
         dispatch(getPacksTC(params));
-    }, [currentPage, switchOn])
+    }, [currentPage, pageSize, switchOn])
 
     return (
         <div>
@@ -36,14 +38,16 @@ const PackList: FC = () => {
                     </div>
                     <div className={styles.mainPackWrapper}>
                         <MainPackListContainer/>
+                        <div className={styles.paginatorWrapper}>
+                            <Paginator currentPage={currentPage} pageSize={pageSize} totalCount={totalCount}/>
+                        </div>
                     </div>
-                    <div>
-                        {/*  <Paginator/>*/}
-                    </div>
+
                 </div>
             </CommonPageWrapper>
         </div>
-    );
+    )
+        ;
 };
 
 export default PackList;
