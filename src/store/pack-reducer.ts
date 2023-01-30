@@ -77,7 +77,7 @@ export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams>
 ('packs/get', async (requestParams, thunkApi) => {
     const res = await packApi.getPack(requestParams);
     const totalCount = res.data.cardPacksTotalCount;
-    thunkApi.dispatch(setTotalCountAC(totalCount, { payload: }))
+    thunkApi.dispatch(setTotalCountAC(totalCount, ));
     const tablePacks: CardPackItem[] = res.data.cardPacks.map((el) => {
         return {
             id: el._id,
