@@ -1,82 +1,79 @@
 import React, {useState} from 'react';
+import MainCardList, {TableCardCellItem} from "./MainCardList";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
-import MainPackList, {ActionType, TableCellItem} from "./MainPackList";
+import {useNavigate} from "react-router-dom";
+import {ActionType} from "../../../PackList/modules/MainPackList/MainPackList";
+import {setActiveCardIdAC} from "../../../../store/card-reducer";
 import PopupEditPack from "../../../../components/organisms/modals/PopupEditPack/PopupEditPack";
 import PopupDeletePack from "../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack";
-import {setActivePackIdAC} from "../../../../store/pack-reducer";
-import {useNavigate} from "react-router-dom";
 
+const MainCardListContainer = () => {
 
-const MainPackListContainer = () => {
-    const packList = useAppSelector(s => s.pack.packs);
+    const cardsList = useAppSelector(s => s.card.cards);
     const mainUserId = useAppSelector(state => state.app.myUserID);
-
 
     const [showEditPopup, setShowEditPopup] = useState(false);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
-    const [showLearnPopup, setShowLearnPopup] = useState(false);
-
-
 
     const dispatch = useAppDispatch();
 
-    const handleEditClick = (packId: string) => {
-        dispatch(setActivePackIdAC({packId}));
+    const handleEditClick = (cardId: string) => {
+        dispatch(setActiveCardIdAC({cardId}));
         setShowEditPopup(true);
     }
-    const handleDeleteClick = (packId: string) => {
-        dispatch(setActivePackIdAC({packId}));
+    const handleDeleteClick = (cardId: string) => {
+        dispatch(setActiveCardIdAC({cardId}));
         setShowDeletePopup(true);
     }
 
     const navigate = useNavigate();
-    const handleLearnClick = (packId: string) => {
-        navigate(`/packs/cards/${packId}`);
+    const handleLearnClick = (cardId: string) => {
+        navigate(`/packs/cards/${cardId}`);
     }
 
 
-    const mappedPackList: TableCellItem[] = packList.map((packItem) => {
+    const mappedCardList: TableCardCellItem[] = cardsList.map((cardItem) => {
             const actions: ActionType[] = [
                 {
                     name: 'Learn', action: () => {
-                        handleLearnClick(packItem.id)
+                        handleLearnClick(cardItem._id)
                     }
                 }
             ];
             const deleteAction = {
                 name: 'Delete', action: () => {
-                    handleDeleteClick(packItem.id)
+                    handleDeleteClick(cardItem._id)
                 }
             };
 
             const editAction = {
                 name: 'Edit', action: () => {
-                    handleEditClick(packItem.id)
+                    handleEditClick(cardItem._id)
                 }
             };
 
-            if (mainUserId === packItem.userId) {
+            if (mainUserId === cardItem.user_id) {
                 actions.unshift(editAction);
                 actions.unshift(deleteAction);
             }
 
             return {
-                id: packItem.id,
-                ownerId: packItem.userId,
-                name: packItem.name,
-                cards: packItem.cardsCount,
-                lastUpdated: packItem.updated,
-                createdBy: packItem.userName,
+                id: cardItem._id,
+                ownerId: cardItem.user_id,
+                lastUpdated: cardItem.updated,
                 actions: actions,
-
-
+                question: cardItem.question,
+                grade: cardItem.grade,
+                answer: cardItem.answer,
+                shots: cardItem.shots,
+                created: cardItem.created
             }
         }
     );
 
     return (
         <>
-            <MainPackList packList={mappedPackList} />
+            <MainCardList cardList={mappedCardList}/>
             {
                 showEditPopup && <PopupEditPack active={showEditPopup} setActive={setShowEditPopup}
                                                 onClose={() => setShowEditPopup(true)}/>
@@ -86,8 +83,7 @@ const MainPackListContainer = () => {
                                                     onClose={() => setShowDeletePopup(true)}/>
             }
         </>
-
     );
 };
 
-export default MainPackListContainer;
+export default MainCardListContainer;

@@ -20,8 +20,10 @@
   min-height: 36px;
   color: #2D2E46;
   background: #ECECF9;
-  border: 1px solid rgba(99, 93, 128, 1);
   border-radius: 2px;
+  outline: none;
+  border: none;
+  border: 1px solid rgba(99, 93, 128, 0.5);
 }
 
 .buttonWrapper {

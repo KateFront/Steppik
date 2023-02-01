@@ -1,6 +1,7 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
-import {authApi, ForgotPasswordType, NewPasswordType} from "../api/authApi";
+import {authApi} from "../api/auth/authApi";
 import {setAppMyUserIdAC, setAppStatusAC} from "./app-reducer";
+import {ForgotPasswordType, NewPasswordType} from "../api/auth/typesAuth";
 
 type initialStateType = {
     isLoggedIn: boolean,
@@ -53,13 +54,11 @@ export const loginTC = (data: LoginParamsType) => {
         authApi.login(data)
             .then((res) => {
                 if (res.statusText === "OK") {
-                    console.log('ThunkSuccess')
                     dispatch(setIsLoggedInAC({value: true}));
-                    dispatch(setAppMyUserIdAC({myUserID: res.data._id}))
+                    dispatch(setAppMyUserIdAC({ myUserID: res.data._id}))
                 }
             })
             .catch((e) => {
-                console.log('ThunkError')
                 const error = e.response.data.error;
                 dispatch(setIsLoggedInAC({value: false}));
                 dispatch(setAuthErrorAC({error}));

@@ -3,6 +3,9 @@ import styles from "./MainPackList.module.scss";
 import RectangleButton from "../../../../components/atoms/RectangleButton/RectangleButton";
 import Button from "../../../../components/atoms/Button/Button";
 import PopupNewPack from "../../../../components/organisms/modals/PopupNewPack/PopupNewPack";
+import {searchPacksAC} from "../../../../store/pack-reducer";
+import {useAppDispatch} from "../../../../store/store";
+import debounce from "../../../../helpers/debounce";
 
 export type TableCellItem = {
     id: string,
@@ -44,7 +47,15 @@ type MainPackListPropsType = {
 }
 
 const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
+
+    const dispatch = useAppDispatch();
     const [modalActive, setModalActive] = useState(false);
+    const [search, setSearch] = useState('');
+
+    const searchHandler = (value: string) => {
+         setSearch(value)
+        debounce(() => dispatch(searchPacksAC({search: value})), 500)()//TODO ????
+    }
 
 
     return (<div>
@@ -55,7 +66,8 @@ const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
                     </div>
                     <div className={styles.searchWrapper}>
                         <div className={styles.searchItem}>
-                            <input type="search" placeholder={'Search'} className={styles.inputWrapper}/>
+                            <input value={search} type="search" placeholder={'Search'} className={styles.inputWrapper}
+                                   onChange={(e) => searchHandler(e.currentTarget.value)}/>
                         </div>
                         <div className={styles.buttonWrapper}>
                             <Button isDisabled={false} name={'Add new pack'}
@@ -101,7 +113,7 @@ const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
             }
             {
                 modalActive &&
-                <PopupNewPack setActive={setModalActive} onClose={() =>console.log("saasassa")}/>
+                <PopupNewPack setActive={setModalActive} onClose={() => console.log("saasassa")}/>
             }
         </div>
     );

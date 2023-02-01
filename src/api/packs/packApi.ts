@@ -5,7 +5,7 @@ import {
     PostPackType,
     PutPackType, UpdateCardPackItemResponse
 } from "./typesPack";
-import {ResponseType} from "../authApi";
+import {ResponseType} from "../auth/authApi";
 import {cardsInstance} from "../axios_instances";
 
 
@@ -15,7 +15,6 @@ export const packApi = {
             params
         })
     },
-
     createPack(cardsPack: PostPackType) {
         return cardsInstance.post<PostPackType, ResponseType<CreatePackResponse>>(`/pack`, cardsPack);
     },

@@ -1,5 +1,5 @@
 import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
-import {authApi} from "../api/authApi";
+import {authApi} from "../api/auth/authApi";
 import {setIsLoggedInAC} from "./auth-reducer";
 
 type InitialStateType = {
@@ -35,7 +35,7 @@ const slice = createSlice({
 });
 
 export const appReducer = slice.reducer;
-export const {setIsInitializedAC, setAppStatusAC, setAppErrorAC, setAppMyUserIdAC} = slice.actions;
+export const {setIsInitializedAC, setAppStatusAC, setAppMyUserIdAC} = slice.actions;
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 

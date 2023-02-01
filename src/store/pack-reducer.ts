@@ -18,7 +18,10 @@ type initialStateType = {
     pageSize: number,
     totalCount: number,
     currentPage: number,
-    activePackId: null | string
+    activePackId: null | string,
+    search: string,
+    sort: string,
+    isMyPack: boolean
 }
 const initialState: initialStateType = {
     packs: [],
@@ -26,6 +29,9 @@ const initialState: initialStateType = {
     totalCount: 100,
     currentPage: 1,
     activePackId: null,
+    search: '',
+    sort: 'Oupdated',
+    isMyPack: false
 }
 
 const slice = createSlice({
@@ -35,12 +41,18 @@ const slice = createSlice({
         setCurrentPageAC: (state, action: PayloadAction<{ currentPage: number }>) => {
             state.currentPage = action.payload.currentPage;
         },
+        searchPacksAC: (state, action: PayloadAction<{ search: string }>) => {
+            state.search = action.payload.search;
+        },
         setTotalCountAC: (state, action: PayloadAction<{ count: number }>) => {
             state.totalCount = action.payload.count;
         },
         setActivePackIdAC(state, action: PayloadAction<{ packId: string }>) {
             state.activePackId = action.payload.packId;
-        }
+        },
+        setPageSizeAC(state, action: PayloadAction<{ pageSize: number }>) {
+            state.pageSize = action.payload.pageSize;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(deletePackTC.fulfilled, (state, action) => {
@@ -69,15 +81,17 @@ export const packsReducer = slice.reducer;
 export const {
     setCurrentPageAC,
     setTotalCountAC,
-    setActivePackIdAC
+    setActivePackIdAC,
+    setPageSizeAC,
+    searchPacksAC
 } = slice.actions;
 
 
-export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams>
+export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams, {dispatch: AppThunkDispatch}>
 ('packs/get', async (requestParams, thunkApi) => {
     const res = await packApi.getPack(requestParams);
     const totalCount = res.data.cardPacksTotalCount;
-    thunkApi.dispatch(setTotalCountAC(totalCount, ));
+    thunkApi.dispatch(setTotalCountAC({count: totalCount}));
     const tablePacks: CardPackItem[] = res.data.cardPacks.map((el) => {
         return {
             id: el._id,

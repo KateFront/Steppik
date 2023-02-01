@@ -1,7 +1,6 @@
-import axios, {AxiosResponse} from 'axios';
-import {SignUpParamsType} from "../store/auth-reducer";
-import {auth} from "./axios_instances";
-import {UserProfileType} from "./types";
+import {SignUpParamsType} from "../../store/auth-reducer";
+import {auth} from "../axios_instances";
+import {ForgotPasswordType, LoginType, NewPasswordType, UserProfileType} from "./typesAuth";
 
 
 export const authApi = {
@@ -33,35 +32,10 @@ export const authApi = {
     }
 }
 
-export type NewPasswordType = {
-    password: string
-    resetPasswordToken: string
-}
-
-export enum Result_code {
-    OK = 0,
-    ERROR = 1,
-    CAPTCHA = 10
-}
-
-
-export type LoginType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
 
 export type ResponseType<D = {}> = {
     status: number
     statusText: string
     data: D
 }
-export type PingType = {
-    ping: number,
-    backTime: number
-    frontTime: number
-    info: string
-}
-export type ForgotPasswordType = {
-    email: string
-}
+

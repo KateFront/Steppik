@@ -5,11 +5,13 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import thunkMiddleware, {ThunkDispatch} from 'redux-thunk';
 import {appReducer} from "./app-reducer";
 import {packsReducer} from "./pack-reducer";
+import {cardsReducer} from "./card-reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
-    pack: packsReducer
+    pack: packsReducer,
+    card: cardsReducer
 })
 
 
