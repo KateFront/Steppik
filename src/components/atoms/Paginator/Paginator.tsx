@@ -22,10 +22,10 @@ const Paginator: FC<PaginatorPropsType> = ({totalCount, currentPage, pageSize, o
 
     let lastPage = pageNumbers[pageNumbers.length - 1];
 
-    let portionCount = Math.ceil(pagesCount / portionSize);
+    let portionCount = Math.ceil(pagesCount / 10);
 
-    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
-    let rightPortionNumber = portionNumber * portionSize;
+    let leftPortionPageNumber = (portionNumber - 1) * 10 + 1;
+    let rightPortionNumber = portionNumber * 10;
 
     const setNextPage = () => {
         onPageChange(currentPage + 1)

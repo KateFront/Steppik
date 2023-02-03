@@ -8,8 +8,9 @@ export type GetCardParams = {
     page?: number;
     pageCount?: number;
 }
+
 export type GetCardResponse = {
-    cards: CardType[],
+    cards: CardTypeResponse[],
     cardsTotalCount: number;
     maxGrade: number;
     minGrade: number;
@@ -17,8 +18,18 @@ export type GetCardResponse = {
     pageCount: number;
     packUserId: string;
 }
-
 export type CardType = {
+    answer: string
+    question: string
+    cardsPackId: string
+    grade: number
+    shots: number
+    userId: string
+    created: string
+    updated: string
+    id: string
+}
+export type CardTypeResponse = {
     answer: string
     question: string
     cardsPack_id: string
@@ -29,6 +40,7 @@ export type CardType = {
     updated: string
     _id: string
 }
+
 
 export type PostCardType = {
     card: {

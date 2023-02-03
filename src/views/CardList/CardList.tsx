@@ -12,7 +12,6 @@ import {GetCardParams} from "../../api/cards/typesCards";
 const CardList = () => {
     const dispatch = useAppDispatch();
 
-    const cards = useAppSelector(state => state.card.cards);
     const totalCardCount = useAppSelector(state => state.card.totalCardCount);
     const currentPage = useAppSelector(state => state.card.currentPage);
     const pageSize = useAppSelector(state => state.card.pageSize);
@@ -26,16 +25,17 @@ const CardList = () => {
         const params: GetCardParams = {
             pageCount: pageSize,
             page: currentPage,
-
+            cardsPack_id: cardId
         };
         if (cardId)
             dispatch(getCardsTC(params))
 
-    }, [cardId, currentPage, pageSize, search ])
+    }, [cardId, currentPage, pageSize, search])
+
     if (!cardId) return <Navigate to={"/cards"}/>
 
     const onChangeCurrentPage = (newCardPage: number) => {
-        dispatch(setCurrentPageAC({ newCardPage}))
+        dispatch(setCurrentPageAC({newCardPage}))
     }
 
     return (
@@ -43,7 +43,7 @@ const CardList = () => {
             <CommonPageWrapper>
                 <div className={styles.wrapper}>
                     <div className={styles.mainCardWrapper}>
-                        <MainCardListContainer />
+                        <MainCardListContainer/>
                         <div className={styles.paginatorWrapper}>
                             <Paginator currentPage={currentPage} onPageChange={onChangeCurrentPage}
                                        pageSize={pageSize} totalCount={totalCardCount} portionSize={pageSize}

@@ -1,9 +1,9 @@
 .btn{
   position: relative;
   padding: 8px 5px;
-  background-color: #21268F;
-  color: #ECECF9;
-  box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  background-color: #366EFF;
+  color: #FFFFFF;
+  box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
   border-radius: 30px;
   border: none;
   cursor: pointer;
@@ -11,7 +11,8 @@
 }
 
 .disabled{
-  background-color: #D7D8EF;
-  color: #21268F;
-  box-shadow: none;
+  background-color: #FCFCFC;
+  color:#000000;
+  box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
 }

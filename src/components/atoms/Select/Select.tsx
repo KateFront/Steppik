@@ -1,36 +1,29 @@
-import React from 'react';
-import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {SubmitHandler, useForm} from "react-hook-form";
-import {setPageSizeAC} from "../../../store/pack-reducer";
+import React, {FC} from 'react';
 import styles from './Select.module.scss'
 
 type SelectPropsType = {
-    pageSize: number
+    pageSize: number,
+    onChange: (value: string) => void
 }
-export const Select = (props: SelectPropsType) => {
-    const dispatch = useAppDispatch();
-    const pageSize = useAppSelector(state => state.pack.pageSize);
+export const Select: FC<SelectPropsType> = ({pageSize, onChange}) => {
 
-    const {handleSubmit} = useForm<SelectPropsType>();
+    const range = [5, 10, 15];
 
-
-    const onSubmit: SubmitHandler<SelectPropsType> = () => {
-        dispatch(setPageSizeAC({pageSize}));
-    }
 
     return (
-        <div onSubmit={handleSubmit(onSubmit)} className={styles.filters}>
-            <span>Show</span>
+        <div className={styles.filters}>
+            <span className={styles.spanWrapper}>Show</span>
             <select
-                name="choosePageSize"
-                value={props.pageSize}
-                style={{display: 'block'}}
+                value={pageSize}
+                onChange={(e) => onChange(e.currentTarget.value)}
             >
-                <option value={"10"} label="10"/>
-                <option value={"20"} label="20"/>
-                <option value={"30"} label="30"/>
+                {range.map(option => (
+                    <option value={option} key={option}>
+                        {option}
+                    </option>
+                ))}
             </select>
-            <span>Cards per Page</span>
+            <span className={styles.spanWrapper}>Cards per Page</span>
         </div>
     );
 }

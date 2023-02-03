@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
-import MainPackList, {ActionType, TableCellItem} from "./MainPackList";
+import MainPackList from "./MainPackList";
 import PopupEditPack from "../../../../components/organisms/modals/PopupEditPack/PopupEditPack";
 import PopupDeletePack from "../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack";
 import {setActivePackIdAC} from "../../../../store/pack-reducer";
 import {useNavigate} from "react-router-dom";
+import TablePack, {ActionType, TableCellItem} from "../../TablePack/TablePack";
 
 
 const MainPackListContainer = () => {
@@ -68,15 +69,15 @@ const MainPackListContainer = () => {
                 lastUpdated: packItem.updated,
                 createdBy: packItem.userName,
                 actions: actions,
-
-
             }
         }
     );
 
     return (
         <>
-            <MainPackList packList={mappedPackList} />
+
+            <MainPackList />
+            <TablePack packList={ mappedPackList}/>
             {
                 showEditPopup && <PopupEditPack active={showEditPopup} setActive={setShowEditPopup}
                                                 onClose={() => setShowEditPopup(true)}/>

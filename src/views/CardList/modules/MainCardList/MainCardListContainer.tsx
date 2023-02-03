@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import MainCardList, {TableCardCellItem} from "./MainCardList";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import {useNavigate} from "react-router-dom";
-import {ActionType} from "../../../PackList/modules/MainPackList/MainPackList";
+import {ActionType} from "./MainCardList";
 import {setActiveCardIdAC} from "../../../../store/card-reducer";
 import PopupEditPack from "../../../../components/organisms/modals/PopupEditPack/PopupEditPack";
 import PopupDeletePack from "../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack";
@@ -31,8 +31,9 @@ const MainCardListContainer = () => {
         navigate(`/packs/cards/${cardId}`);
     }
 
-
+    console.log(cardsList);
     const mappedCardList: TableCardCellItem[] = cardsList.map((cardItem) => {
+
             const actions: ActionType[] = [
                 {
                     name: 'Learn', action: () => {

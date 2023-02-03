@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
-import styles from './Settings.module.scss';
 import Switch from "../../../../components/atoms/Switch/Switch";
+import styles from './Settings.module.scss'
 
 type SettingsPropsType = {
     switchOn: boolean;
     setSwitchOn: (value: boolean) => void;
 };
 
-const Settings: FC<SettingsPropsType> = ({switchOn,setSwitchOn}) => {
+const ShowSwitchPacks: FC<SettingsPropsType> = ({switchOn,setSwitchOn}) => {
 
     return (
         <div>
@@ -17,17 +17,9 @@ const Settings: FC<SettingsPropsType> = ({switchOn,setSwitchOn}) => {
                 </div>
                 <Switch onChange={setSwitchOn} isFirstBtnActive={switchOn}/>
             </div>
-            <div>
-                <div className={styles.titleWrapper}>
-                    <span>Number of cards</span>
-                </div>
-                <div>
-                    <input type="range"/>
 
-                </div>
-            </div>
         </div>
     );
 };
 
-export default Settings;
+export default ShowSwitchPacks;//

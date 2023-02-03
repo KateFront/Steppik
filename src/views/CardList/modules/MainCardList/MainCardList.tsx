@@ -1,9 +1,7 @@
 import React, {FC, useState} from 'react';
-import styles from "../../../PackList/modules/MainPackList/MainPackList.module.scss";
+import styles from "./MainCardList.module.scss";
 import RectangleButton from "../../../../components/atoms/RectangleButton/RectangleButton";
 import {useAppDispatch} from "../../../../store/store";
-import debounce from "../../../../helpers/debounce";
-import {searchPacksAC} from "../../../../store/pack-reducer";
 import Button from "../../../../components/atoms/Button/Button";
 
 export type TableCardCellItem = {
@@ -55,7 +53,7 @@ const MainCardList: FC<MainCardListPropsType> = ({cardList}) => {
 
     const searchHandler = (value: string) => {
         setSearch(value)
-        debounce(() => dispatch(searchPacksAC({search: value})), 500)()//TODO ????
+        // debounce(() => dispatch(searchPacksAC({search: value})), 500)()//TODO ????
     }
 
 
@@ -78,9 +76,9 @@ const MainCardList: FC<MainCardListPropsType> = ({cardList}) => {
                 <table>
                     <thead className={styles.packListWrapper}>
                     <tr>
-                        {headRow.map((val, key) => {
+                        {headRow.map((val, index) => {
                             return (
-                                <th key={key} className={` ${val.action ? styles.headTableItem : ''} `}>
+                                <th key={index} className={` ${val.action ? styles.headTableItem : ''} `}>
                                     {val.name}
                                 </th>
                             )
@@ -95,8 +93,8 @@ const MainCardList: FC<MainCardListPropsType> = ({cardList}) => {
                                 <td>{val.answer}</td>
                                 <td>{val.lastUpdated}</td>
                                 <td>{val.grade}</td>
-                                <td>{val.actions.map((el) => {
-                                    return <div key={el.name} className={styles.btn}>
+                                <td>{val.actions.map((el,index) => {
+                                    return <div key={index} className={styles.btn}>
                                         <RectangleButton onClick={el.action} name={el.name}
                                                          isDisabled={false}
                                                          type={el.name === 'Delete' ? 'attention' : 'secondary'}

@@ -3,19 +3,21 @@
   align-items: center;
   text-align: center;
   margin-top: 24px;
-
 }
 
 .paginationList {
   display: flex;
   list-style-type: none;
   align-items: center;
-  padding: 0;
+  justify-content: center;
+  padding: 12px;
+  margin: 0;
 }
+
 
 .selectedPaginationItem {
   color: #ffffff;
-  background-color: #21268F;
+  background-color: #366EFF;
   border-radius: 2px;
 }
 
@@ -32,6 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 12px;
   &:hover:not(.selectedPaginationItem) {
     background-color: #F8F7FD;
     border-radius: 2px;
@@ -41,6 +44,7 @@
 .lastPage {
   list-style: none;
   cursor: pointer;
+  width: 30px;
 }
 
 .btn {
@@ -49,9 +53,10 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
-  color: #2D2E46;
-  background-color: #FEFEFF;
   outline: none;
+  color: #000000;
+  overflow: hidden;
+  background-color:#F9F9FA;
 }
 
 .btnLeft {

@@ -7,7 +7,9 @@ const Header = () => {
     return (
         <div>
             <nav className={styles.nav}>
-                <div className={styles.logo}><img src={logo} alt="logo"/></div>
+                <div className={styles.logo}>
+                    <img src={logo} alt="logo"/>
+                </div>
                 <ul className={styles.navList}>
                     <NavLink to='/profile/'
                              className={navData => navData.isActive ? styles.active : styles.navLinkWrapper}>
@@ -33,10 +35,7 @@ const Header = () => {
                              className={navData => navData.isActive ? styles.active : styles.navLinkWrapper}>
                         <li className={styles.navLinkItem}>PackList</li>
                     </NavLink>
-
                 </ul>
-
-
             </nav>
         </div>
     );

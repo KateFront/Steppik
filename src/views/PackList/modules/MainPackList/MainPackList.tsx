@@ -1,113 +1,55 @@
 import React, {FC, useState} from 'react';
 import styles from "./MainPackList.module.scss";
-import RectangleButton from "../../../../components/atoms/RectangleButton/RectangleButton";
 import Button from "../../../../components/atoms/Button/Button";
 import PopupNewPack from "../../../../components/organisms/modals/PopupNewPack/PopupNewPack";
-import {searchPacksAC} from "../../../../store/pack-reducer";
 import {useAppDispatch} from "../../../../store/store";
-import debounce from "../../../../helpers/debounce";
+import {useDebounce} from "../../../../hooks/useDebounce";
+import {searchPacksAC} from "../../../../store/pack-reducer";
+import Search from "../../../../assets/Icons/search.svg";
+import RangeInput from "../../../../components/atoms/RangeInput/RangeInput";
+import ShowSwitchPacks from "../Switch/ShowSwitchPacks";
 
-export type TableCellItem = {
-    id: string,
-    ownerId: string,
-    name: string,
-    cards: number,
-    lastUpdated: string,
-    createdBy: string,
-    actions: ActionType[]
-}
-
-export  type ActionType = {
-    name: string,
-    action: () => void
-}
-
-type HeadType = {
-    name: string,
-    action?: () => void,
-};
-
-const headRow: HeadType[] = [
-    {
-        name: 'Name'
-    }, {
-        name: 'Cards'
-    }, {
-        name: 'Last Updated',
-        action: () => {
-        },
-    }, {
-        name: 'Created By'
-    }, {
-        name: 'Actions'
-    }
-]
-type MainPackListPropsType = {
-    packList: TableCellItem[];
-}
-
-const MainPackList: FC<MainPackListPropsType> = ({packList}) => {
-
+const MainPackList: FC = () => {
     const dispatch = useAppDispatch();
     const [modalActive, setModalActive] = useState(false);
     const [search, setSearch] = useState('');
+    const [switchOn, setSwitchOn] = useState(false);
 
+    const [rangeValue, setRangeValue] = useState([0, 100]);
+    const debounceRequest = useDebounce((value: string) => dispatch(searchPacksAC({search: value})), 500);
     const searchHandler = (value: string) => {
-         setSearch(value)
-        debounce(() => dispatch(searchPacksAC({search: value})), 500)()//TODO ????
+        setSearch(value);
+        debounceRequest(value);
     }
 
 
     return (<div>
             {
                 <>
-                    <div className={styles.titleWrapper}>
-                        <span>Pack list</span>
-                    </div>
-                    <div className={styles.searchWrapper}>
-                        <div className={styles.searchItem}>
-                            <input value={search} type="search" placeholder={'Search'} className={styles.inputWrapper}
-                                   onChange={(e) => searchHandler(e.currentTarget.value)}/>
+                    <div className={styles.wrapper}>
+                        <div className={styles.titleWrapper}>
+                            <span>Pack list</span>
                         </div>
                         <div className={styles.buttonWrapper}>
                             <Button isDisabled={false} name={'Add new pack'}
                                     onClick={() => setModalActive(true)}/>
                         </div>
                     </div>
-                    <div className={styles.tableWrapper}>
-                        <table>
-                            <thead className={styles.packListWrapper}>
-                            <tr>
-                                {headRow.map((val, key) => {
-                                    return (
-                                        <th key={key} className={` ${val.action ? styles.headTableItem : ''} `}>
-                                            {val.name}
-                                        </th>
-                                    )
-                                })}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {packList.map((val) => {
-                                return (
-                                    <tr key={val.id} className={styles.tableRowItem}>
-                                        <td>{val.name}</td>
-                                        <td>{val.cards}</td>
-                                        <td>{val.lastUpdated}</td>
-                                        <td>{val.createdBy}</td>
-                                        <td>{val.actions.map((el, index) => {
-                                            return <div key={el.name} className={styles.btn}>
-                                                <RectangleButton onClick={el.action} name={el.name}
-                                                                 isDisabled={false}
-                                                                 type={el.name === 'Delete' ? 'attention' : 'secondary'}
-                                                />
-                                            </div>
-                                        })}</td>
-                                    </tr>
-                                )
-                            })}
-                            </tbody>
-                        </table>
+                    <div className={styles.filtersWrapper}>
+                        <div className={styles.searchItem}>
+                            <img src={Search} alt="search"/>
+                            <input value={search} type="search" placeholder={'Provide your text'}
+                                   className={styles.inputWrapper}
+                                   onChange={(e) => searchHandler(e.currentTarget.value)}/>
+                        </div>
+                        <div className={styles.switchWrapper}>
+                            <ShowSwitchPacks switchOn={switchOn} setSwitchOn={setSwitchOn}/>
+                        </div>
+                        <RangeInput value={rangeValue}
+                                    onChange={(value) => setRangeValue(value)}
+                                    max={100}
+                                    min={0}
+                                    step={2}/>
                     </div>
                 </>
             }

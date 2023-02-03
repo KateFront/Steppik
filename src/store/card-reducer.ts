@@ -1,10 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-
 import {CardType, GetCardParams} from "../api/cards/typesCards";
 import {cardsApi} from "../api/cards/cardsApi";
 import {AppThunkDispatch} from "./store";
-import {ActionType} from "../views/CardList/modules/MainCardList/MainCardList";
 
 
 type initialStateType = {
@@ -64,16 +62,16 @@ export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch
     thunkApi.dispatch(setTotalCountAC({count: totalCount}));
     const tableCards: CardType[] = res.data.cards.map((el) => {
         return {
-            id: el._id,
-            ownerId: el.user_id,
-            lastUpdated: el.updated,
-            question: el.question,
-            grade: el.grade,
             answer: el.answer,
-            shots: el.shots,
-            created: el.created,
-            cardsPack_id: el.cardsPack_id
+            question: el.question,
+            cardsPackId: el.,
+            grade: el.
+            shots: el.
+            userId: el.
+            created: el.
+            updated: el.
+            id: el.
         }
-        return tableCards;
-    });
+    })
+    return tableCards;
 });
