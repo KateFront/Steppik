@@ -1,25 +1,23 @@
-import React, {FC} from 'react';
-import styles from "./PopupNewPassword.module.scss";
-import Button from "../../../atoms/Button/Button";
+import React, { FC } from 'react';
+import styles from './PopupNewPassword.module.scss';
+import Button from '../../../atoms/Button/Button';
 
 type PopupType = {
-    onClick: () => void
-}
+    onClick: () => void;
+};
 
-const PopupNewPassword: FC<PopupType> = ({onClick}) => {
+const PopupNewPassword: FC<PopupType> = ({ onClick }) => {
     return (
         <div className={styles.popupBox}>
             <div className={styles.popupWrapper}>
                 <span>SUCCESS</span>
             </div>
-            <div className={styles.popupText}>
-                Congratulations, your new password has been successfully created.
-            </div>
+            <div className={styles.popupText}>Congratulations, your new password has been successfully created.</div>
             <div className={styles.btn}>
-                <Button onClick={onClick} name={'Continue'} isDisabled={false}/>
+                <Button onClick={onClick} name={'Continue'} isDisabled={false} />
             </div>
         </div>
     );
 };
 
-export default PopupNewPassword;//
+export default PopupNewPassword; //

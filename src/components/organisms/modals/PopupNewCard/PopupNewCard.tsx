@@ -1,24 +1,26 @@
 import React, { FC } from 'react';
-import styles from './PopupEditPack.module.scss';
-import Button from '../../../atoms/Button/Button';
+
 import Input from '../../../atoms/Input/Input';
-import { useAppDispatch } from '../../../../store/store';
-import { updatePacksTC } from '../../../../store/pack-reducer';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import MainPopup from '../MainPopup/MainPopup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-type PopupPropsType = {
+import styles from './PopupNewCard.module.scss';
+import { createNewCardsTC } from '../../../../store/card-reducer';
+import Button from '../../../atoms/Button/Button';
+
+type PopupNewPackPropsType = {
     children?: React.ReactNode;
-    active: boolean;
     setActive: (active: boolean) => void;
     onClose: () => void;
 };
 
 type PopupFieldsType = {
-    name: string;
+    question: string;
+    answer: string;
 };
 
-const PopupEditPack: FC<PopupPropsType> = ({ setActive, onClose }) => {
+const PopupNewCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     const {
         register,
         handleSubmit,
@@ -26,34 +28,51 @@ const PopupEditPack: FC<PopupPropsType> = ({ setActive, onClose }) => {
     } = useForm<PopupFieldsType>();
     const dispatch = useAppDispatch();
 
-    const saveNewPack = (name: string) => {
-        dispatch(updatePacksTC({ name }));
-        setActive(false);
+    const packId = useAppSelector((state) => state.pack.activePackId);
+
+    const saveNewPack = (question: string, answer: string) => {
+        if (packId !== null) {
+            dispatch(createNewCardsTC({ card: { cardsPack_id: packId, answer, question } }));
+            setActive(false);
+        }
     };
 
     const onSubmit: SubmitHandler<PopupFieldsType> = (data) => {
-        saveNewPack(data.name);
+        saveNewPack(data.question, data.answer);
     };
 
     return (
-        <MainPopup onClose={onClose} title={'Edit pack'}>
+        <MainPopup onClose={onClose} title={'Add new pack'}>
             <div className={` ${styles.modal}`}>
-                <div className={`${styles.modalContent}`} onClick={(event) => event.stopPropagation()}>
+                <div className={`${styles.modalContent}`}>
                     <div className={styles.popupWrapper}>
-                        <span>Edit pack</span>
+                        <span>Add new card</span>
                     </div>
                     <div className={styles.inputWrapper}>
                         <Input
-                            label={'Name pack'}
+                            label={'Question'}
                             typeInput={'text'}
                             addProps={{
-                                ...register('name', {
+                                ...register('question', {
                                     required: true,
                                     minLength: { value: 8, message: 'Name too short' },
                                     maxLength: { value: 14, message: 'Name too long' },
                                 }),
                             }}
-                            error={errors.name?.message}
+                            error={errors.question?.message}
+                        />
+
+                        <Input
+                            label={'Answers'}
+                            typeInput={'text'}
+                            addProps={{
+                                ...register('answer', {
+                                    required: true,
+                                    minLength: { value: 8, message: 'Name too short' },
+                                    maxLength: { value: 14, message: 'Name too long' },
+                                }),
+                            }}
+                            error={errors.answer?.message}
                         />
                     </div>
                     <div className={styles.btn}>
@@ -70,4 +89,4 @@ const PopupEditPack: FC<PopupPropsType> = ({ setActive, onClose }) => {
     );
 };
 
-export default PopupEditPack;
+export default PopupNewCard;

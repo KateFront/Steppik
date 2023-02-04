@@ -1,25 +1,23 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {CardType, GetCardParams} from "../api/cards/typesCards";
-import {cardsApi} from "../api/cards/cardsApi";
-import {AppThunkDispatch} from "./store";
-
+import { CardType, GetCardParams, PostCardType } from '../api/cards/typesCards';
+import { cardsApi } from '../api/cards/cardsApi';
+import { AppThunkDispatch } from './store';
 
 type initialStateType = {
-    cards: CardType[],
-    pageSize: number,
-    totalCardCount: number,
-    currentPage: number,
-    activeCardId: null | string,
-
-}
+    cards: CardType[];
+    pageSize: number;
+    totalCardCount: number;
+    currentPage: number;
+    activeCardId: null | string;
+};
 export const initialState: initialStateType = {
     cards: [],
     pageSize: 5,
     totalCardCount: 100,
     currentPage: 1,
     activeCardId: null,
-}
+};
 
 const slice = createSlice({
     name: 'card',
@@ -42,36 +40,51 @@ const slice = createSlice({
         builder.addCase(getCardsTC.fulfilled, (state, action) => {
             state.cards = action.payload;
         });
-
-    }
+        builder.addCase(createNewCardsTC.fulfilled, (state, action) => {
+            state.cards.unshift(action.payload);
+        });
+    },
 });
 
 export const cardsReducer = slice.reducer;
 
-export const {
-    setTotalCountAC,
-    setActiveCardIdAC,
-    setPageSizeAC,
-    setCurrentPageAC
-} = slice.actions;
+export const { setTotalCountAC, setActiveCardIdAC, setPageSizeAC, setCurrentPageAC } = slice.actions;
 
-export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch: AppThunkDispatch }>
-('packs/get', async (requestParams, thunkApi) => {
-    const res = await cardsApi.getCard(requestParams);
-    const totalCount = res.data.cardsTotalCount;
-    thunkApi.dispatch(setTotalCountAC({count: totalCount}));
-    const tableCards: CardType[] = res.data.cards.map((el) => {
-        return {
-            answer: el.answer,
-            question: el.question,
-            cardsPackId: el.,
-            grade: el.
-            shots: el.
-            userId: el.
-            created: el.
-            updated: el.
-            id: el.
-        }
-    })
-    return tableCards;
+export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch: AppThunkDispatch }>(
+    'packs/get',
+    async (requestParams, thunkApi) => {
+        const res = await cardsApi.getCard(requestParams);
+        const totalCount = res.data.cardsTotalCount;
+        thunkApi.dispatch(setTotalCountAC({ count: totalCount }));
+        const tableCards: CardType[] = res.data.cards.map((el) => {
+            return {
+                answer: el.answer,
+                question: el.question,
+                cardsPackId: el.cardsPack_id,
+                grade: el.grade,
+                shots: el.shots,
+                userId: el.user_id,
+                created: el.created,
+                updated: el.updated,
+                id: el._id,
+            };
+        });
+        return tableCards;
+    }
+);
+
+export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('packs/create', async (card) => {
+    const res = await cardsApi.createCard(card);
+    const payload: CardType = {
+        answer: res.data.newCard.answer,
+        question: res.data.newCard.question,
+        cardsPackId: res.data.newCard.cardsPack_id,
+        grade: res.data.newCard.grade,
+        shots: res.data.newCard.shots,
+        userId: res.data.newCard.user_id,
+        created: res.data.newCard.created,
+        updated: res.data.newCard.updated,
+        id: res.data.newCard._id,
+    };
+    return payload;
 });

@@ -1,13 +1,12 @@
-import React, {FC} from 'react';
-import styles from "./CardPackListWrapper.module.scss";
+import React, { FC } from 'react';
+import styles from './CardPackListWrapper.module.scss';
 
 type CardPackListWrapperProps = {
     children: React.ReactNode;
     title: string;
-
 };
 
-const CardPackListWrapper: FC<CardPackListWrapperProps> = ({children, title}) => {
+const CardPackListWrapper: FC<CardPackListWrapperProps> = ({ children, title }) => {
     return (
         <div>
             <div className={styles.packListWrapper}>

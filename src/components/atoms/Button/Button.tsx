@@ -1,6 +1,5 @@
-import React, {FC} from 'react';
-import styles from './Button.module.scss'
-
+import React, { FC } from 'react';
+import styles from './Button.module.scss';
 
 export type ButtonProps = {
     onClick?: () => void;
@@ -8,13 +7,11 @@ export type ButtonProps = {
     name: string;
 };
 
-const Button: FC<ButtonProps> = ({isDisabled, name, onClick}) => {
-
+const Button: FC<ButtonProps> = ({ isDisabled, name, onClick }) => {
     const disabledBtnStyles = `${isDisabled ? styles.disabled : ''}`;
 
     return (
-        <div className={`${styles.btn} ${disabledBtnStyles}`}
-             onClick={onClick}>
+        <div className={`${styles.btn} ${disabledBtnStyles}`} onClick={onClick}>
             {name}
         </div>
     );

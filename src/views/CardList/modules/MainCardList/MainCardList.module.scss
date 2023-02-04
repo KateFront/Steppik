@@ -1,36 +1,39 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 34px;
+}
+
 .titleWrapper {
   text-align: left;
   font-size: 22px;
   font-weight: 600;
   line-height: 33px;
-  margin-bottom: 15px;
-}
-
-.searchWrapper {
-  display: flex;
-  margin-bottom: 24px;
-}
-
-.searchItem {
-  margin-right: 24px;
-}
-
-.inputWrapper {
-  width: 461px;
-  min-height: 36px;
-  color: #2D2E46;
-  background: #ECECF9;
-  border-radius: 2px;
-  outline: none;
-  border: 1px solid rgba(99, 93, 128, 0.5);
 }
 
 .buttonWrapper {
-  width: 100%;
+  width: 175px;
 }
 
+.searchItem {
+  margin-bottom: 24px;
+}
+
+.inputWrapper {
+  display: block;
+  width: 100%;
+  padding-left: 40px;
+  font-size: 14px;
+  min-height: 36px;
+  color: #2D2E46;
+  background: #FFFFFF;
+  border-radius: 2px;
+  outline: none;
+  border: 1px solid #D9D9D9;
+}
+
+
 .tableWrapper {
-  box-shadow: 0 4px 14px rgba(45, 46, 70, 0.15);
   max-height: 432px;
   overflow-y: scroll;
 }
@@ -78,8 +81,8 @@ tbody tr:nth-child(even) {
 .packListWrapper {
   font-size: 13px;
   line-height: 15.51px;
-  color: #2D2E46;
-  background-color: #ECECF9;
+  color: #000000;
+  background-color: #EFEFEF;
 }
 
 .btn {
@@ -92,11 +95,11 @@ tbody tr:nth-child(even) {
   line-height: 15.51px;
   font-weight: 400;
   height: 48px;
+  background-color: #FFFFFF;
 }
 
 .headTableItem {
   position: relative;
-
   &:after {
     position: absolute;
     content: '';
@@ -104,7 +107,7 @@ tbody tr:nth-child(even) {
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 8px solid #2D2E46;
+    border-top: 8px solid #000000;
     margin: 4px;
   }
 }

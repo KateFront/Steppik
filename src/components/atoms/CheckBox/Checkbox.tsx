@@ -1,19 +1,15 @@
-import React, {FC} from 'react';
-import s from "./Checkbox.module.scss";
+import React, { FC } from 'react';
+import s from './Checkbox.module.scss';
 
 type CheckboxProps = {
-    addProps: object,
-    isChecked: boolean,
-}
+    addProps: object;
+    isChecked: boolean;
+};
 
-const Checkbox: FC<CheckboxProps> = ({isChecked, addProps}) => {
-
+const Checkbox: FC<CheckboxProps> = ({ isChecked, addProps }) => {
     return (
         <div className={`${s.inputWrapper} ${isChecked ? s.active : ''}`}>
-            <input type={'checkbox'}
-                   className={s.checkbox}
-                   {...addProps} 
-            />
+            <input type={'checkbox'} className={s.checkbox} {...addProps} />
         </div>
     );
 };

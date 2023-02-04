@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import styles from './CardBasisWrapper.module.scss';
 
 type CardBasisWrapperProps = {
@@ -6,7 +6,7 @@ type CardBasisWrapperProps = {
     title: string;
 };
 
-const CardBasisWrapper: FC<CardBasisWrapperProps> = ({children, title}) => {
+const CardBasisWrapper: FC<CardBasisWrapperProps> = ({ children, title }) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.titleWrapper}>
@@ -14,7 +14,6 @@ const CardBasisWrapper: FC<CardBasisWrapperProps> = ({children, title}) => {
             </div>
             {children}
         </div>
-
     );
 };
 

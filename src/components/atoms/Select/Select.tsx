@@ -1,23 +1,18 @@
-import React, {FC} from 'react';
-import styles from './Select.module.scss'
+import React, { FC } from 'react';
+import styles from './Select.module.scss';
 
 type SelectPropsType = {
-    pageSize: number,
-    onChange: (value: string) => void
-}
-export const Select: FC<SelectPropsType> = ({pageSize, onChange}) => {
-
+    pageSize: number;
+    onChange: (value: string) => void;
+};
+export const Select: FC<SelectPropsType> = ({ pageSize, onChange }) => {
     const range = [5, 10, 15];
-
 
     return (
         <div className={styles.filters}>
             <span className={styles.spanWrapper}>Show</span>
-            <select
-                value={pageSize}
-                onChange={(e) => onChange(e.currentTarget.value)}
-            >
-                {range.map(option => (
+            <select value={pageSize} onChange={(e) => onChange(e.currentTarget.value)}>
+                {range.map((option) => (
                     <option value={option} key={option}>
                         {option}
                     </option>
@@ -26,5 +21,5 @@ export const Select: FC<SelectPropsType> = ({pageSize, onChange}) => {
             <span className={styles.spanWrapper}>Cards per Page</span>
         </div>
     );
-}
+};
 export default Select;

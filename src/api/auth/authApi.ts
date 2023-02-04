@@ -1,7 +1,6 @@
-import {SignUpParamsType} from "../../store/auth-reducer";
-import {auth} from "../axios_instances";
-import {ForgotPasswordType, LoginType, NewPasswordType, UserProfileType} from "./typesAuth";
-
+import { SignUpParamsType } from '../../store/auth-reducer';
+import { auth } from '../axios_instances';
+import { ForgotPasswordType, LoginType, NewPasswordType, UserProfileType } from './typesAuth';
 
 export const authApi = {
     login(data: LoginType) {
@@ -16,12 +15,13 @@ export const authApi = {
     forgotPassword(data: ForgotPasswordType) {
         return auth.post<ForgotPasswordType, ResponseType<ResponseType>>(`/forgot`, {
             email: data.email,
-            "from": "test-front-admin <ai73a@yandex.by>",
-            "message": "<div style= 'background-color: #b8b8b8; padding: 15px'> " +
+            from: 'test-front-admin <ai73a@yandex.by>',
+            message:
+                "<div style= 'background-color: #b8b8b8; padding: 15px'> " +
                 "password recovery link: <a href='http://localhost:3000/createPassword/$token$'> " +
-                "Click the link to restore access to your account " +
-                "</a>" +
-                "</div>"
+                'Click the link to restore access to your account ' +
+                '</a>' +
+                '</div>',
         });
     },
     setNewPassword(data: NewPasswordType) {
@@ -29,13 +29,11 @@ export const authApi = {
     },
     delete() {
         return auth.delete(`/me`);
-    }
-}
+    },
+};
 
-
-export type ResponseType<D = {}> = {
-    status: number
-    statusText: string
-    data: D
-}
-
+export type ResponseType<D = unknown> = {
+    status: number;
+    statusText: string;
+    data: D;
+};

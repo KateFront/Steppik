@@ -1,19 +1,20 @@
 import {
-    CreatePackResponse, DeleteCardPackItemResponse,
+    CreatePackResponse,
+    DeleteCardPackItemResponse,
     GetPackParams,
     GetPackResponse,
     PostPackType,
-    PutPackType, UpdateCardPackItemResponse
-} from "./typesPack";
-import {ResponseType} from "../auth/authApi";
-import {cardsInstance} from "../axios_instances";
-
+    PutPackType,
+    UpdateCardPackItemResponse,
+} from './typesPack';
+import { ResponseType } from '../auth/authApi';
+import { cardsInstance } from '../axios_instances';
 
 export const packApi = {
     getPack(params?: GetPackParams) {
         return cardsInstance.get<GetPackResponse>('/pack', {
-            params
-        })
+            params,
+        });
     },
     createPack(cardsPack: PostPackType) {
         return cardsInstance.post<PostPackType, ResponseType<CreatePackResponse>>(`/pack`, cardsPack);
@@ -23,6 +24,5 @@ export const packApi = {
     },
     updatePack(cardsPack: PutPackType) {
         return cardsInstance.put<PutPackType, ResponseType<UpdateCardPackItemResponse>>(`/pack`, cardsPack);
-    }
-}
-
+    },
+};

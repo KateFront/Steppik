@@ -1,52 +1,53 @@
-import React, {useEffect} from 'react';
-import CommonPageWrapper from "../../components/atoms/CommonPageWrapper/CommonPageWrapper";
-import styles from "../PackList/PackList.module.scss";
-import {useParams, Navigate} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {getCardsTC, setCurrentPageAC} from "../../store/card-reducer";
-import Paginator from "../../components/atoms/Paginator/Paginator";
-import MainCardListContainer from "./modules/MainCardList/MainCardListContainer";
-import {GetCardParams} from "../../api/cards/typesCards";
-
+import React, { useEffect } from 'react';
+import CommonPageWrapper from '../../components/atoms/CommonPageWrapper/CommonPageWrapper';
+import styles from '../PackList/PackList.module.scss';
+import { useParams, Navigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/store';
+import { getCardsTC, setCurrentPageAC } from '../../store/card-reducer';
+import Paginator from '../../components/atoms/Paginator/Paginator';
+import MainCardListContainer from './modules/MainCardList/MainCardListContainer';
+import { GetCardParams } from '../../api/cards/typesCards';
 
 const CardList = () => {
     const dispatch = useAppDispatch();
 
-    const totalCardCount = useAppSelector(state => state.card.totalCardCount);
-    const currentPage = useAppSelector(state => state.card.currentPage);
-    const pageSize = useAppSelector(state => state.card.pageSize);
+    const totalCardCount = useAppSelector((state) => state.card.totalCardCount);
+    const currentPage = useAppSelector((state) => state.card.currentPage);
+    const pageSize = useAppSelector((state) => state.card.pageSize);
 
-    const search = useAppSelector(state => state.pack.search);
+    const search = useAppSelector((state) => state.pack.search);
 
-    const {cardId} = useParams();
+    const { cardId } = useParams();
     console.log(cardId);
 
     useEffect(() => {
         const params: GetCardParams = {
             pageCount: pageSize,
             page: currentPage,
-            cardsPack_id: cardId
+            cardsPack_id: cardId,
         };
-        if (cardId)
-            dispatch(getCardsTC(params))
+        if (cardId) dispatch(getCardsTC(params));
+    }, [cardId, currentPage, pageSize, search]);
 
-    }, [cardId, currentPage, pageSize, search])
-
-    if (!cardId) return <Navigate to={"/cards"}/>
+    if (!cardId) return <Navigate to={'/cards'} />;
 
     const onChangeCurrentPage = (newCardPage: number) => {
-        dispatch(setCurrentPageAC({newCardPage}))
-    }
+        dispatch(setCurrentPageAC({ newCardPage }));
+    };
 
     return (
         <div>
             <CommonPageWrapper>
                 <div className={styles.wrapper}>
                     <div className={styles.mainCardWrapper}>
-                        <MainCardListContainer/>
+                        <MainCardListContainer />
                         <div className={styles.paginatorWrapper}>
-                            <Paginator currentPage={currentPage} onPageChange={onChangeCurrentPage}
-                                       pageSize={pageSize} totalCount={totalCardCount} portionSize={pageSize}
+                            <Paginator
+                                currentPage={currentPage}
+                                onPageChange={onChangeCurrentPage}
+                                pageSize={pageSize}
+                                totalCount={totalCardCount}
+                                portionSize={pageSize}
                             />
                         </div>
                     </div>

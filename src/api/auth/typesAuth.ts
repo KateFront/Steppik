@@ -12,34 +12,32 @@ export type UserProfileType = {
     rememberMe: boolean;
 
     error?: string;
-}
+};
 
 export type NewPasswordType = {
-    password: string
-    resetPasswordToken: string
-}
+    password: string;
+    resetPasswordToken: string;
+};
 
 export enum Result_code {
     OK = 0,
     ERROR = 1,
-    CAPTCHA = 10
+    CAPTCHA = 10,
 }
-
 
 export type LoginType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
-
+    email: string;
+    password: string;
+    rememberMe: boolean;
+};
 
 export type PingType = {
-    ping: number,
-    backTime: number
-    frontTime: number
-    info: string
-}
+    ping: number;
+    backTime: number;
+    frontTime: number;
+    info: string;
+};
 
 export type ForgotPasswordType = {
-    email: string
-}
+    email: string;
+};

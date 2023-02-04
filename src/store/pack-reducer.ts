@@ -1,28 +1,31 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {packApi} from "../api/packs/packApi";
-import {AppRootStateType, AppThunkDispatch} from "./store";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { packApi } from '../api/packs/packApi';
+import { AppRootStateType, AppThunkDispatch } from './store';
 import {
-    CardPackItem, CardPackItemResponse,
+    CardPackItem,
+    CardPackItemResponse,
     GetPackParams,
     PostPackType,
-    PutPackType, UpdateCardPackItemResponse, UpdatePackTypeModel
-} from "../api/packs/typesPack";
+    PutPackType,
+    UpdateCardPackItemResponse,
+    UpdatePackTypeModel,
+} from '../api/packs/typesPack';
 
 export enum SortPackType {
     A = 1,
-    Z = 0
+    Z = 0,
 }
 
 type initialStateType = {
-    packs: CardPackItem[],
-    pageSize: number,
-    totalCount: number,
-    currentPage: number,
-    activePackId: null | string,
-    search: string,
-    sort: string,
-    isMyPack: boolean
-}
+    packs: CardPackItem[];
+    pageSize: number;
+    totalCount: number;
+    currentPage: number;
+    activePackId: null | string;
+    search: string;
+    sort: string;
+    isMyPack: boolean;
+};
 const initialState: initialStateType = {
     packs: [],
     pageSize: 10,
@@ -31,8 +34,8 @@ const initialState: initialStateType = {
     activePackId: null,
     search: '',
     sort: 'Oupdated',
-    isMyPack: false
-}
+    isMyPack: false,
+};
 
 const slice = createSlice({
     name: 'pack',
@@ -56,16 +59,16 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(deletePackTC.fulfilled, (state, action) => {
-            const index = state.packs.findIndex(pack => pack.id === action.payload._id);
+            const index = state.packs.findIndex((pack) => pack.id === action.payload._id);
             if (index > -1) {
-                state.packs.splice(index, 1)
+                state.packs.splice(index, 1);
             }
         });
         builder.addCase(createNewPacksTC.fulfilled, (state, action) => {
             state.packs.unshift(action.payload);
         });
         builder.addCase(updatePacksTC.fulfilled, (state, action) => {
-            const index = state.packs.findIndex(pack => pack.id === action.payload.updatedCardsPack._id)
+            const index = state.packs.findIndex((pack) => pack.id === action.payload.updatedCardsPack._id);
             if (index > -1) {
                 state.packs[index].name = action.payload.updatedCardsPack.name;
             }
@@ -73,54 +76,51 @@ const slice = createSlice({
         builder.addCase(getPacksTC.fulfilled, (state, action) => {
             state.packs = action.payload;
         });
-    }
+    },
 });
 
 export const packsReducer = slice.reducer;
 
-export const {
-    setCurrentPageAC,
-    setTotalCountAC,
-    setActivePackIdAC,
-    setPageSizeAC,
-    searchPacksAC
-} = slice.actions;
+export const { setCurrentPageAC, setTotalCountAC, setActivePackIdAC, setPageSizeAC, searchPacksAC } = slice.actions;
 
+export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams, { dispatch: AppThunkDispatch }>(
+    'packs/get',
+    async (requestParams, thunkApi) => {
+        const res = await packApi.getPack(requestParams);
+        const totalCount = res.data.cardPacksTotalCount;
+        thunkApi.dispatch(setTotalCountAC({ count: totalCount }));
+        const tablePacks: CardPackItem[] = res.data.cardPacks.map((el) => {
+            return {
+                id: el._id,
+                userId: el.user_id,
+                name: el.name,
+                cardsCount: el.cardsCount,
+                updated: el.updated,
+                created: el.created,
+                userName: el.user_name,
+            };
+        });
+        return tablePacks;
+    }
+);
 
-export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams, {dispatch: AppThunkDispatch}>
-('packs/get', async (requestParams, thunkApi) => {
-    const res = await packApi.getPack(requestParams);
-    const totalCount = res.data.cardPacksTotalCount;
-    thunkApi.dispatch(setTotalCountAC({count: totalCount}));
-    const tablePacks: CardPackItem[] = res.data.cardPacks.map((el) => {
-        return {
-            id: el._id,
-            userId: el.user_id,
-            name: el.name,
-            cardsCount: el.cardsCount,
-            updated: el.updated,
-            created: el.created,
-            userName: el.user_name
-        }
-    })
-    return tablePacks;
-});
-
-export const updatePacksTC = createAsyncThunk<UpdateCardPackItemResponse, UpdatePackTypeModel, { dispatch: AppThunkDispatch, state: AppRootStateType }>
-('packs/edit', async (updateModel, thunkApi) => {
+export const updatePacksTC = createAsyncThunk<
+    UpdateCardPackItemResponse,
+    UpdatePackTypeModel,
+    { dispatch: AppThunkDispatch; state: AppRootStateType }
+>('packs/edit', async (updateModel, thunkApi) => {
     const id = thunkApi.getState().pack.activePackId ?? '';
     const updatePackModel: PutPackType = {
         cardsPack: {
             _id: id,
-            ...updateModel
-        }
-    }
+            ...updateModel,
+        },
+    };
     const res = await packApi.updatePack(updatePackModel);
     return res.data;
 });
 
-export const createNewPacksTC = createAsyncThunk<CardPackItem, PostPackType>
-('packs/create', async (cardsPack) => {
+export const createNewPacksTC = createAsyncThunk<CardPackItem, PostPackType>('packs/create', async (cardsPack) => {
     const res = await packApi.createPack(cardsPack);
     const payload: CardPackItem = {
         id: res.data.newCardsPack._id,
@@ -129,12 +129,15 @@ export const createNewPacksTC = createAsyncThunk<CardPackItem, PostPackType>
         cardsCount: res.data.newCardsPack.cardsCount,
         updated: res.data.newCardsPack.updated,
         created: res.data.newCardsPack.created,
-        userName: res.data.newCardsPack.user_name
-    }
+        userName: res.data.newCardsPack.user_name,
+    };
     return payload;
 });
-export const deletePackTC = createAsyncThunk<CardPackItemResponse, undefined, { dispatch: AppThunkDispatch, state: AppRootStateType }>
-('packs/delete', async (params, thunkApi) => {
+export const deletePackTC = createAsyncThunk<
+    CardPackItemResponse,
+    undefined,
+    { dispatch: AppThunkDispatch; state: AppRootStateType }
+>('packs/delete', async (params, thunkApi) => {
     const id = thunkApi.getState().pack.activePackId;
     const res = await packApi.deletePack(id ?? '');
     return res.data.deletedCardsPack;

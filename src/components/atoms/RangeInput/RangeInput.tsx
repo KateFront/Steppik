@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import styles from "./RangeInput.module.scss";
+import React, { FC } from 'react';
+import styles from './RangeInput.module.scss';
 
 type RangeSliderType = {
     min: number;
@@ -7,9 +7,9 @@ type RangeSliderType = {
     step: number;
     value: number[];
     onChange: (value: number[]) => void;
-}
+};
 
-const RangeInput: FC<RangeSliderType> = ({min, max, step, value, onChange}) => {
+const RangeInput: FC<RangeSliderType> = ({ min, max, step, value, onChange }) => {
     return (
         <div>
             <div className={styles.titleWrapper}>

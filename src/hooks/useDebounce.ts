@@ -1,12 +1,9 @@
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from 'react';
 
 type Timer = ReturnType<typeof setTimeout>;
 type SomeFunction = (...args: any[]) => void;
 
-export function useDebounce<Func extends SomeFunction>(
-    func: Func,
-    delay = 1000
-) {
+export function useDebounce<Func extends SomeFunction>(func: Func, delay = 1000) {
     const timer = useRef<Timer>();
 
     useEffect(() => {
