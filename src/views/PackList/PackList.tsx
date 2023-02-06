@@ -3,17 +3,21 @@ import CommonPageWrapper from '../../components/atoms/CommonPageWrapper/CommonPa
 import styles from './PackList.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { getPacksTC, setCurrentPageAC, setPageSizeAC } from '../../store/pack-reducer';
-import MainPackListContainer from './modules/MainPackList/MainPackListContainer';
 import { GetPackParams } from '../../api/packs/typesPack';
 import Paginator from '../../components/atoms/Paginator/Paginator';
 import Select from '../../components/atoms/Select/Select';
-import ShowSwitchPacks from './modules/Switch/ShowSwitchPacks';
+import Button from '../../components/atoms/Button/Button';
+import PopupNewPack from '../../components/organisms/modals/PopupNewPack/PopupNewPack';
+import Container from '../../components/atoms/Container/Container';
+import Filters from './modules/Filters/Filters';
+import TableContainer from './modules/TableContainer/TableContainer';
 
 const PackList: FC = () => {
     const dispatch = useAppDispatch();
 
     const mainUserID = useAppSelector<string>((s) => s.app.myUserID);
     const [switchOn, setSwitchOn] = useState(false);
+    const [modalActive, setModalActive] = useState(false);
 
     const currentPage = useAppSelector<number>((s) => s.pack.currentPage);
     const pageSize = useAppSelector((state) => state.pack.pageSize);
@@ -40,13 +44,19 @@ const PackList: FC = () => {
     };
 
     return (
-        <div>
-            <CommonPageWrapper>
-                <div className={styles.wrapper}>
-                    <div className={styles.switchWrapper}>
-                        <ShowSwitchPacks switchOn={switchOn} setSwitchOn={setSwitchOn} />
+        <CommonPageWrapper customStyles={styles.packListPageWrapper}>
+            <Container>
+                <div className={styles.packTopWrapper}>
+                    <div className={styles.titleWrapper}>
+                        <span>Pack list</span>
                     </div>
-                    <MainPackListContainer />
+                    <div className={styles.buttonWrapper}>
+                        <Button isDisabled={false} name={'Add new pack'} onClick={() => setModalActive(true)} />
+                    </div>
+                </div>
+                <div>
+                    <Filters setSwitchOn={setSwitchOn} switchOn={switchOn} />
+                    <TableContainer />
                     <div className={styles.paginatorWrapper}>
                         <Paginator
                             currentPage={currentPage}
@@ -58,8 +68,9 @@ const PackList: FC = () => {
                         <Select pageSize={pageSize} onChange={handleChange} />
                     </div>
                 </div>
-            </CommonPageWrapper>
-        </div>
+                {modalActive && <PopupNewPack setActive={setModalActive} onClose={() => console.log('saasassa')} />}
+            </Container>
+        </CommonPageWrapper>
     );
 };
 

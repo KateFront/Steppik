@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { CardType, GetCardParams, PostCardType } from '../api/cards/typesCards';
 import { cardsApi } from '../api/cards/cardsApi';
-import { AppThunkDispatch } from './store';
+import { AppRootStateType, AppThunkDispatch } from './store';
 
 type initialStateType = {
     cards: CardType[];
@@ -10,6 +10,7 @@ type initialStateType = {
     totalCardCount: number;
     currentPage: number;
     activeCardId: null | string;
+    isMyCards: boolean;
 };
 export const initialState: initialStateType = {
     cards: [],
@@ -17,6 +18,7 @@ export const initialState: initialStateType = {
     totalCardCount: 100,
     currentPage: 1,
     activeCardId: null,
+    isMyCards: false,
 };
 
 const slice = createSlice({
@@ -35,6 +37,9 @@ const slice = createSlice({
         setPageSizeAC(state, action: PayloadAction<{ pageSize: number }>) {
             state.pageSize = action.payload.pageSize;
         },
+        checkMyCardAC(state, action: PayloadAction<{ isMyPackCard: boolean }>) {
+            state.isMyCards = action.payload.isMyPackCard;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getCardsTC.fulfilled, (state, action) => {
@@ -48,9 +53,9 @@ const slice = createSlice({
 
 export const cardsReducer = slice.reducer;
 
-export const { setTotalCountAC, setActiveCardIdAC, setPageSizeAC, setCurrentPageAC } = slice.actions;
+export const { setTotalCountAC, setActiveCardIdAC, setPageSizeAC, setCurrentPageAC, checkMyCardAC } = slice.actions;
 
-export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch: AppThunkDispatch }>(
+export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch: AppThunkDispatch; state: AppRootStateType }>(
     'packs/get',
     async (requestParams, thunkApi) => {
         const res = await cardsApi.getCard(requestParams);
@@ -85,6 +90,7 @@ export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('packs/
         created: res.data.newCard.created,
         updated: res.data.newCard.updated,
         id: res.data.newCard._id,
+        isMyCards: res.data.newCard.isMyCards,
     };
     return payload;
 });

@@ -50,7 +50,7 @@ thead th:nth-child(1) {
 }
 
 thead th:nth-child(2) {
-  width: 10%;
+  width: 20%;
 }
 
 thead th:nth-child(3) {
@@ -62,7 +62,7 @@ thead th:nth-child(4) {
 }
 
 thead th:nth-child(5) {
-  width: 30%;
+  width: 20%;
 }
 
 th {
@@ -73,9 +73,6 @@ td {
   padding-left: 20px;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #F8F7FD;
-}
 
 
 .packListWrapper {

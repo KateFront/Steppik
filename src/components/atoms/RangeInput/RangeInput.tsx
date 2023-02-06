@@ -1,28 +1,20 @@
 import React, { FC } from 'react';
+import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 import styles from './RangeInput.module.scss';
 
 type RangeSliderType = {
     min: number;
     max: number;
     step: number;
-    value: number[];
-    onChange: (value: number[]) => void;
+    minValue: number;
+    maxValue: number;
+    onInput: (result: ChangeResult) => void;
 };
 
-const RangeInput: FC<RangeSliderType> = ({ min, max, step, value, onChange }) => {
+const RangeInput: FC<RangeSliderType> = ({ min, max, step, onInput, minValue, maxValue }) => {
     return (
-        <div>
-            <div className={styles.titleWrapper}>
-                <span>Number of cards</span>
-            </div>
-            <div>
-                {/*<RangeSlider  min={min}
-                              max={max}
-                              step={step}
-                              value={value}
-                              onChange={(value: any) => onChange(value)}
-                />*/}
-            </div>
+        <div className={styles.rangeWrapper}>
+            <MultiRangeSlider min={min} max={max} step={step} minValue={minValue} maxValue={maxValue} onInput={onInput} />
         </div>
     );
 };

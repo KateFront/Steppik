@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import styles from '../CardBasisWrapper/CardBasisWrapper.module.scss';
 
 type HeaderPopUpType = {
     title: string;
@@ -8,7 +7,7 @@ type HeaderPopUpType = {
 
 const HeaderPopUp: FC<HeaderPopUpType> = ({ title, onClose }) => {
     return (
-        <div className={styles.wrapper}>
+        <div>
             <div onClick={onClose} />
             {title}
         </div>

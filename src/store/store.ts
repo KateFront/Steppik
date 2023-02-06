@@ -24,5 +24,6 @@ export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>;
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 window.store = store;

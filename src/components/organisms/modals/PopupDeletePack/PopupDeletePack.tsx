@@ -12,7 +12,7 @@ type PopupNewPackPropsType = {
     onClose: () => void;
 };
 
-const PopupDeletePack: FC<PopupNewPackPropsType> = ({ active, setActive, onClose }) => {
+const PopupDeletePack: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     const dispatch = useAppDispatch();
 
     const deletePack = () => {

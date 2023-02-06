@@ -1,22 +1,11 @@
-.wrapper {
+.contentWrapper{
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 34px;
 }
-
-.titleWrapper {
-  text-align: left;
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 33px;
-}
-
 .buttonWrapper {
   width: 175px;
 }
 
 .filtersWrapper {
-  display: flex;
   align-items: center;
 }
 

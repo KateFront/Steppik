@@ -1,13 +1,22 @@
-.wrapper {
-  display: block;
-  max-width: 1008px;
-  min-height: 636px;
+.packListPageWrapper {
+  padding-top: 40px;
+  align-items: flex-start;
 }
 
-.paginatorWrapper{
+.packTopWrapper {
   display: flex;
-  align-items:  baseline;
-  padding: 24px;
+  justify-content: space-between;
+  margin-bottom: 34px;
 }
 
+.titleWrapper {
+  text-align: left;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 33px;
+}
 
+.paginatorWrapper {
+  display: flex;
+  align-items: baseline;
+}

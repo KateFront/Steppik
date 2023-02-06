@@ -5,7 +5,7 @@ import logo from '../../../assets/Icons/logo.svg';
 
 const Header = () => {
     return (
-        <div>
+        <div className={styles.headerWrapper}>
             <nav className={styles.nav}>
                 <div className={styles.logo}>
                     <img src={logo} alt="logo" />

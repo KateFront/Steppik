@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styles from './TablePack.module.scss';
-import RectangleButton from '../../../components/atoms/RectangleButton/RectangleButton';
+import RectangleButton from '../../../../../components/atoms/RectangleButton/RectangleButton';
 
 export type TableCellItem = {
     id: string;
@@ -31,7 +31,9 @@ const headRow: HeadType[] = [
     },
     {
         name: 'Last Updated',
-        action: () => {},
+        action: () => {
+            console.log('table action');
+        },
     },
     {
         name: 'Created By',
@@ -69,7 +71,7 @@ const TablePack: FC<MainPackListPropsType> = ({ packList }) => {
                                 <td>{val.lastUpdated}</td>
                                 <td>{val.createdBy}</td>
                                 <td>
-                                    {val.actions.map((el, index) => {
+                                    {val.actions.map((el) => {
                                         return (
                                             <div key={el.name} className={styles.btn}>
                                                 <RectangleButton

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import MainPackList from './MainPackList';
 import PopupEditPack from '../../../../components/organisms/modals/PopupEditPack/PopupEditPack';
 import PopupDeletePack from '../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack';
 import { setActivePackIdAC } from '../../../../store/pack-reducer';
-import { useNavigate } from 'react-router-dom';
-import TablePack, { ActionType, TableCellItem } from '../../TablePack/TablePack';
+import TablePack, { ActionType, TableCellItem } from './TablePack/TablePack';
 
-const MainPackListContainer = () => {
+const TableContainer = () => {
     const packList = useAppSelector((s) => s.pack.packs);
     const mainUserId = useAppSelector((state) => state.app.myUserID);
 
@@ -64,7 +64,7 @@ const MainPackListContainer = () => {
             ownerId: packItem.userId,
             name: packItem.name,
             cards: packItem.cardsCount,
-            lastUpdated: packItem.updated,
+            lastUpdated: new Date(packItem.updated).toLocaleString(),
             createdBy: packItem.userName,
             actions: actions,
         };
@@ -72,7 +72,6 @@ const MainPackListContainer = () => {
 
     return (
         <>
-            <MainPackList />
             <TablePack packList={mappedPackList} />
             {showEditPopup && (
                 <PopupEditPack active={showEditPopup} setActive={setShowEditPopup} onClose={() => setShowEditPopup(true)} />
@@ -88,4 +87,4 @@ const MainPackListContainer = () => {
     );
 };
 
-export default MainPackListContainer;
+export default TableContainer;

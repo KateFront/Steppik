@@ -9,7 +9,7 @@ type PaginatorPropsType = {
     portionSize: number;
 };
 
-const Paginator: FC<PaginatorPropsType> = ({ totalCount, currentPage, pageSize, onPageChange, portionSize }) => {
+const Paginator: FC<PaginatorPropsType> = ({ totalCount, currentPage, pageSize, onPageChange }) => {
     const [portionNumber, setPortionNumber] = useState(1);
 
     const pagesCount = Math.ceil(totalCount / pageSize);

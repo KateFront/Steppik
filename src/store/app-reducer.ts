@@ -48,7 +48,6 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
             dispatch(setIsLoggedInAC({ value: true }));
             dispatch(setAppMyUserIdAC({ myUserID: res.data._id }));
         })
-        .catch((err) => {})
         .finally(() => {
             dispatch(setIsInitializedAC({ value: true }));
             dispatch(setAppStatusAC({ status: 'succeeded' }));

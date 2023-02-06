@@ -7,6 +7,7 @@ import PopupNewCard from '../../../../components/organisms/modals/PopupNewCard/P
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { searchPacksAC } from '../../../../store/pack-reducer';
 import Search from '../../../../assets/Icons/search.svg';
+import Container from '../../../../components/atoms/Container/Container';
 
 export type TableCardCellItem = {
     id: string;
@@ -39,10 +40,15 @@ const headRow: HeadType[] = [
     },
     {
         name: 'Last Updated',
-        action: () => {},
+        action: () => {
+            console.log('action');
+        },
     },
     {
         name: 'Grade',
+    },
+    {
+        name: '',
     },
 ];
 
@@ -62,7 +68,7 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
     };
 
     return (
-        <div>
+        <Container>
             {
                 <>
                     <div className={styles.wrapper}>
@@ -127,7 +133,7 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                 </>
             }
             {modalActive && <PopupNewCard setActive={setModalActive} onClose={() => console.log('saasassa')} />}
-        </div>
+        </Container>
     );
 };
 
