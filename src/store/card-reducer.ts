@@ -10,7 +10,7 @@ type initialStateType = {
     totalCardCount: number;
     currentPage: number;
     activeCardId: null | string;
-    isMyCards: boolean;
+    isMyPack: boolean;
 };
 export const initialState: initialStateType = {
     cards: [],
@@ -18,7 +18,7 @@ export const initialState: initialStateType = {
     totalCardCount: 100,
     currentPage: 1,
     activeCardId: null,
-    isMyCards: false,
+    isMyPack: false,
 };
 
 const slice = createSlice({
@@ -37,8 +37,8 @@ const slice = createSlice({
         setPageSizeAC(state, action: PayloadAction<{ pageSize: number }>) {
             state.pageSize = action.payload.pageSize;
         },
-        checkMyCardAC(state, action: PayloadAction<{ isMyPackCard: boolean }>) {
-            state.isMyCards = action.payload.isMyPackCard;
+        setMyCardAC(state, action: PayloadAction<{ isMyPack: boolean }>) {
+            state.isMyPack = action.payload.isMyPack;
         },
     },
     extraReducers: (builder) => {
@@ -53,12 +53,14 @@ const slice = createSlice({
 
 export const cardsReducer = slice.reducer;
 
-export const { setTotalCountAC, setActiveCardIdAC, setPageSizeAC, setCurrentPageAC, checkMyCardAC } = slice.actions;
+export const { setTotalCountAC, setActiveCardIdAC, setPageSizeAC, setCurrentPageAC, setMyCardAC } = slice.actions;
 
 export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch: AppThunkDispatch; state: AppRootStateType }>(
     'packs/get',
     async (requestParams, thunkApi) => {
         const res = await cardsApi.getCard(requestParams);
+        const isMyPack = res.data.packUserId === thunkApi.getState().app.myUserID;
+        thunkApi.dispatch(setMyCardAC({ isMyPack }));
         const totalCount = res.data.cardsTotalCount;
         thunkApi.dispatch(setTotalCountAC({ count: totalCount }));
         const tableCards: CardType[] = res.data.cards.map((el) => {
@@ -90,7 +92,6 @@ export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('packs/
         created: res.data.newCard.created,
         updated: res.data.newCard.updated,
         id: res.data.newCard._id,
-        isMyCards: res.data.newCard.isMyCards,
     };
     return payload;
 });

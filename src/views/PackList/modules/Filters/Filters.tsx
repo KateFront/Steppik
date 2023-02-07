@@ -16,7 +16,7 @@ const Filters: FC<FiltersProps> = ({ switchOn, setSwitchOn }) => {
     const dispatch = useAppDispatch();
 
     const [search, setSearch] = useState('');
-    const [rangeValue, setRangeValue] = useState({ minValue: 0, maxValue: 100 });
+    /*const [rangeValue, setRangeValue] = useState({ minValue: 0, maxValue: 100 });*/
 
     const debounceRequest = useDebounce((value: string) => dispatch(searchPacksAC({ search: value })), 500);
     const searchHandler = (value: string) => {
@@ -34,12 +34,11 @@ const Filters: FC<FiltersProps> = ({ switchOn, setSwitchOn }) => {
             </div>
             <div>
                 <RangeInput
-                    maxValue={rangeValue.maxValue}
-                    minValue={rangeValue.minValue}
-                    onInput={(result) => setRangeValue({ maxValue: result.maxValue, minValue: result.minValue })}
+                    /* maxValue={rangeValue.maxValue}
+                    minValue={rangeValue.minValue}*/
+                    onChange={(result) => ({ max: result.max, minValue: result.min })}
                     max={100}
                     min={0}
-                    step={2}
                 />
             </div>
         </div>

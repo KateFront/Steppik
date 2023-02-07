@@ -24,17 +24,15 @@ type initialStateType = {
     activePackId: null | string;
     search: string;
     sort: string;
-    isMyPack: boolean;
 };
 const initialState: initialStateType = {
     packs: [],
-    pageSize: 10,
+    pageSize: 5,
     totalCount: 100,
     currentPage: 1,
     activePackId: null,
     search: '',
     sort: 'Oupdated',
-    isMyPack: false,
 };
 
 const slice = createSlice({

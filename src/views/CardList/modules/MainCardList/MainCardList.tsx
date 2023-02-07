@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import styles from './MainCardList.module.scss';
 import RectangleButton from '../../../../components/atoms/RectangleButton/RectangleButton';
-import { useAppDispatch } from '../../../../store/store';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import Button from '../../../../components/atoms/Button/Button';
 import PopupNewCard from '../../../../components/organisms/modals/PopupNewCard/PopupNewCard';
 import { useDebounce } from '../../../../hooks/useDebounce';
@@ -14,7 +14,7 @@ export type TableCardCellItem = {
     ownerId: string;
     lastUpdated: string;
     question: string;
-    actions: ActionType[];
+    actions: ActionType[] | null;
     grade: number;
     answer: string;
     shots: number;
@@ -60,6 +60,7 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
     const dispatch = useAppDispatch();
     const [search, setSearch] = useState('');
     const [modalActive, setModalActive] = useState(false);
+    const isMyPack = useAppSelector((state) => state.card.isMyPack);
 
     const debounceRequest = useDebounce((value: string) => dispatch(searchPacksAC({ search: value })), 500);
     const searchHandler = (value: string) => {
@@ -73,10 +74,14 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                 <>
                     <div className={styles.wrapper}>
                         <div className={styles.titleWrapper}>
-                            <span>My pack</span>
+                            <span>{isMyPack ? 'My pack' : 'Friends pack'}</span>
                         </div>
                         <div className={styles.buttonWrapper}>
-                            <Button isDisabled={false} name={'Add new pack'} onClick={() => setModalActive(true)} />
+                            <Button
+                                isDisabled={false}
+                                name={isMyPack ? 'Add new pack' : 'Learn pack'}
+                                onClick={() => setModalActive(true)}
+                            />
                         </div>
                     </div>
                     <div className={styles.searchItem}>
@@ -110,20 +115,22 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                                             <td>{val.answer}</td>
                                             <td>{val.lastUpdated}</td>
                                             <td>{val.grade}</td>
-                                            <td>
-                                                {val.actions.map((el, index) => {
-                                                    return (
-                                                        <div key={index} className={styles.btn}>
-                                                            <RectangleButton
-                                                                onClick={el.action}
-                                                                name={el.name}
-                                                                isDisabled={false}
-                                                                type={el.name === 'Delete' ? 'attention' : 'secondary'}
-                                                            />
-                                                        </div>
-                                                    );
-                                                })}
-                                            </td>
+                                            {val.actions !== null && (
+                                                <td>
+                                                    {val.actions.map((el, index) => {
+                                                        return (
+                                                            <div key={index} className={styles.btn}>
+                                                                <RectangleButton
+                                                                    onClick={el.action}
+                                                                    name={el.name}
+                                                                    isDisabled={false}
+                                                                    type={el.name === 'Delete' ? 'attention' : 'secondary'}
+                                                                />
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </td>
+                                            )}
                                         </tr>
                                     );
                                 })}

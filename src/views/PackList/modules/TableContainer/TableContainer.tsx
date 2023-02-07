@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import PopupEditPack from '../../../../components/organisms/modals/PopupEditPack/PopupEditPack';
 import PopupDeletePack from '../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack';
 import { setActivePackIdAC } from '../../../../store/pack-reducer';
 import TablePack, { ActionType, TableCellItem } from './TablePack/TablePack';
+import { useNavigate } from 'react-router-dom';
+import { log } from 'util';
 
 const TableContainer = () => {
     const packList = useAppSelector((s) => s.pack.packs);
     const mainUserId = useAppSelector((state) => state.app.myUserID);
-
-    const [showEditPopup, setShowEditPopup] = useState(false);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
-
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const handleEditClick = (packId: string) => {
+        navigate(`/packs/cards/${packId}`);
         dispatch(setActivePackIdAC({ packId }));
-        setShowEditPopup(true);
     };
     const handleDeleteClick = (packId: string) => {
         dispatch(setActivePackIdAC({ packId }));
         setShowDeletePopup(true);
     };
 
-    const navigate = useNavigate();
     const handleLearnClick = (packId: string) => {
+        if (mainUserId === packId) {
+            console.log('Learn');
+        } else {
+            navigate(`/packs/cards/${packId}`);
+        }
         dispatch(setActivePackIdAC({ packId }));
-        navigate(`/packs/cards/${packId}`);
     };
 
     const mappedPackList: TableCellItem[] = packList.map((packItem) => {
@@ -73,9 +74,6 @@ const TableContainer = () => {
     return (
         <>
             <TablePack packList={mappedPackList} />
-            {showEditPopup && (
-                <PopupEditPack active={showEditPopup} setActive={setShowEditPopup} onClose={() => setShowEditPopup(true)} />
-            )}
             {showDeletePopup && (
                 <PopupDeletePack
                     active={showDeletePopup}
