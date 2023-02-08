@@ -6,7 +6,7 @@ type PaginatorPropsType = {
     currentPage: number;
     pageSize: number;
     onPageChange: (padeNumber: number) => void;
-    portionSize: number;
+    portionSize?: number;
 };
 
 const Paginator: FC<PaginatorPropsType> = ({ totalCount, currentPage, pageSize, onPageChange }) => {

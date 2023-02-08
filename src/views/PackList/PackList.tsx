@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { getPacksTC, setCurrentPageAC, setPageSizeAC } from '../../store/pack-reducer';
 import { GetPackParams } from '../../api/packs/typesPack';
 import Paginator from '../../components/atoms/Paginator/Paginator';
-import Select from '../../components/atoms/Select/Select';
+import SelectPage from '../../components/atoms/Select/SelectPage/SelectPage';
 import Button from '../../components/atoms/Button/Button';
 import PopupNewPack from '../../components/organisms/modals/PopupNewPack/PopupNewPack';
 import Container from '../../components/atoms/Container/Container';
@@ -22,6 +22,8 @@ const PackList: FC = () => {
     const currentPage = useAppSelector<number>((s) => s.pack.currentPage);
     const pageSize = useAppSelector((state) => state.pack.pageSize);
     const totalCount = useAppSelector((state) => state.pack.totalCount);
+    const maxRange = useAppSelector((state) => state.pack.max);
+    const minRange = useAppSelector((state) => state.pack.min);
 
     const search = useAppSelector((state) => state.pack.search);
 
@@ -31,9 +33,11 @@ const PackList: FC = () => {
             pageCount: pageSize,
             page: currentPage,
             packName: search,
+            min: minRange,
+            max: maxRange,
         };
         dispatch(getPacksTC(params));
-    }, [currentPage, pageSize, switchOn, search]);
+    }, [currentPage, pageSize, switchOn, search, maxRange, minRange]);
 
     const onPageChange = (newPageNumber: number) => {
         dispatch(setCurrentPageAC({ currentPage: newPageNumber }));
@@ -65,7 +69,7 @@ const PackList: FC = () => {
                             onPageChange={onPageChange}
                             portionSize={pageSize}
                         />
-                        <Select pageSize={pageSize} onChange={handleChange} />
+                        <SelectPage pageSize={pageSize} onChange={handleChange} />
                     </div>
                 </div>
                 {modalActive && <PopupNewPack setActive={setModalActive} onClose={() => console.log('saasassa')} />}

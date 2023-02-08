@@ -6,8 +6,9 @@ import Button from '../../../../components/atoms/Button/Button';
 import PopupNewCard from '../../../../components/organisms/modals/PopupNewCard/PopupNewCard';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { searchPacksAC } from '../../../../store/pack-reducer';
-import Search from '../../../../assets/Icons/search.svg';
 import Container from '../../../../components/atoms/Container/Container';
+import InputSearch from '../../../../components/atoms/InputSearch/InputSearch';
+import SelectAction, { SelectOption } from '../../../../components/atoms/Select/SelectAction/SelectAction';
 
 export type TableCardCellItem = {
     id: string;
@@ -56,10 +57,20 @@ type MainCardListPropsType = {
     cardList: TableCardCellItem[];
 };
 
+const options: SelectOption[] = [
+    { label: 'Edit', value: '1' },
+    { label: 'Delete', value: '2' },
+    { label: 'Learn', value: '3' },
+];
+
 const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
     const dispatch = useAppDispatch();
     const [search, setSearch] = useState('');
     const [modalActive, setModalActive] = useState(false);
+
+    const [value, setValue] = useState<(typeof options)[0] | undefined>(options[0]);
+    console.log(value);
+
     const isMyPack = useAppSelector((state) => state.card.isMyPack);
 
     const debounceRequest = useDebounce((value: string) => dispatch(searchPacksAC({ search: value })), 500);
@@ -74,7 +85,10 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                 <>
                     <div className={styles.wrapper}>
                         <div className={styles.titleWrapper}>
-                            <span>{isMyPack ? 'My pack' : 'Friends pack'}</span>
+                            <span>{isMyPack ? 'My pack' : 'Friend`s pack'}</span>
+                            <div>
+                                <SelectAction onChange={(o) => setValue(o)} options={options} />
+                            </div>
                         </div>
                         <div className={styles.buttonWrapper}>
                             <Button
@@ -85,14 +99,13 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                         </div>
                     </div>
                     <div className={styles.searchItem}>
-                        <img src={Search} alt="search" />
-                        <input
-                            value={search}
-                            type="search"
-                            placeholder={'Provide your text'}
-                            className={styles.inputWrapper}
-                            onChange={(e) => searchHandler(e.currentTarget.value)}
-                        />
+                        <div className={styles.searchItem}>
+                            <InputSearch
+                                value={search}
+                                placeholder={'Provide your text'}
+                                onChange={(value) => searchHandler(value)}
+                            />
+                        </div>
                     </div>
                     <div className={styles.tableWrapper}>
                         <table>

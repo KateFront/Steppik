@@ -17,6 +17,7 @@ module.exports = {
     },
     plugins: ['prettier', '@typescript-eslint', 'react', 'unused-imports'],
     rules: {
+        'react/react-in-jsx-scope': 'off',
         'unused-imports/no-unused-imports-ts': 2,
         'prettier/prettier': 'error',
         'react/prop-types': 0,

@@ -1,28 +1,28 @@
 .inputSearchField {
-  position: relative;
-}
-
-.textFiledLabel {
-  display: flex;
-  margin-bottom: 0;
-  color: #24254A;
-  opacity: 50%;
-  font-size: 13px;
-  line-height: 20px;
+    position: relative;
 }
 
 .textSearchFiled {
-  display: flex;
-  width: 100%;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 500;
-  color: #2D2E46;
-  border: none;
-  border-bottom: 1.58px solid rgba(36, 37, 74, 0.2);
-  box-sizing: border-box;
-  outline: none;
-}
-.imgWrapper{
+    display: flex;
+    width: 100%;
+    height: 36px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2d2e46;
+    padding-left: 40px;
+    opacity: 0.5;
 
+    border: 1.58px solid rgba(36, 37, 74, 0.2);
+    box-sizing: border-box;
+    outline: none;
+}
+
+.imgWrapper {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 17px;
+    width: 16px;
+    height: 16px;
 }

@@ -3,8 +3,13 @@
   align-items: flex-start;
 }
 
+.buttonWrapper{
+  width: 175px;
+}
+
 .packTopWrapper {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 34px;
 }

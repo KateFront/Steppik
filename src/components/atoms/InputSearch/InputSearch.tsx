@@ -10,17 +10,15 @@ type InputSearchProps = {
 
 const InputSearch: FC<InputSearchProps> = ({ value, onChange, placeholder }) => {
     return (
-        <div>
-            <div className={styles.inputSearchField}>
-                <input
-                    className={styles.textSearchFiled}
-                    type={'search'}
-                    value={value}
-                    placeholder={placeholder}
-                    onChange={(event) => onChange?.(event.target.value)}
-                />
-                <img src={Search} alt="search" className={styles.imgWrapper} />
-            </div>
+        <div className={styles.inputSearchField}>
+            <input
+                className={styles.textSearchFiled}
+                type={'search'}
+                value={value}
+                placeholder={placeholder}
+                onChange={(event) => onChange?.(event.target.value)}
+            />
+            <img src={Search} alt="search" className={styles.imgWrapper} />
         </div>
     );
 };

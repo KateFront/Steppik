@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useCallback, useEffect, useState, useRef } from 'react';
 import classnames from 'classnames';
-import styles from './RangeInput.module.scss';
+import './RangeInput.scss';
 
 interface MultiRangeSliderProps {
     min: number;
@@ -49,9 +49,9 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max, onChange }) => 
     }, [minVal, maxVal, onChange]);
 
     return (
-        <div className={styles.container}>
+        <div className="container">
             <input
-                type={'range'}
+                type="range"
                 min={min}
                 max={max}
                 value={minVal}
@@ -61,10 +61,12 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max, onChange }) => 
                     setMinVal(value);
                     event.target.value = value.toString();
                 }}
-                className={classnames(styles.thumb, styles.Index3, styles.thumbIndex5 : minVal > max - 100)}
+                className={classnames('thumb thumb--zindex-3', {
+                    'thumb--zindex-5': minVal > max - 100,
+                })}
             />
             <input
-                type={'rang'}
+                type="range"
                 min={min}
                 max={max}
                 value={maxVal}
@@ -74,16 +76,14 @@ const MultiRangeSlider: FC<MultiRangeSliderProps> = ({ min, max, onChange }) => 
                     setMaxVal(value);
                     event.target.value = value.toString();
                 }}
-                className={styles.thumbIndex}
+                className="thumb thumb--zindex-4"
             />
 
-            <div className={styles.slider}>
-                <div className={styles.sliderTrack}>1</div>
-                <div ref={range} className={styles.sliderRange}>
-                    -
-                </div>
-                <div className={styles.sliderLeftValue}>{minVal}</div>
-                <div className={styles.sliderRightValue}>{maxVal}</div>
+            <div className="slider">
+                <div className="slider__track" />
+                <div ref={range} className="slider__range" />
+                <div className="slider__left-value">{minVal}</div>
+                <div className="slider__right-value">{maxVal}</div>
             </div>
         </div>
     );

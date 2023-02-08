@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import styles from './Select.module.scss';
+import styles from './SelectPage.module.scss';
 
 type SelectPropsType = {
     pageSize: number;
     onChange: (value: string) => void;
 };
-export const Select: FC<SelectPropsType> = ({ pageSize, onChange }) => {
-    const range = [5, 10, 15];
+export const SelectPage: FC<SelectPropsType> = ({ pageSize, onChange }) => {
+    const range = [10, 15, 20];
 
     return (
         <div className={styles.filters}>
@@ -22,4 +22,4 @@ export const Select: FC<SelectPropsType> = ({ pageSize, onChange }) => {
         </div>
     );
 };
-export default Select;
+export default SelectPage;

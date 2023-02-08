@@ -1,39 +1,32 @@
-.contentWrapper{
-  display: flex;
-}
-.buttonWrapper {
-  width: 175px;
-}
-
-.filtersWrapper {
-  align-items: center;
+.contentWrapper {
+    display: flex;
+    margin-bottom: 24px;
 }
 
 .searchItem {
-  margin-right: 24px;
-  margin-bottom: 24px;
-
-  &:before img {
-
-  }
+    flex-basis: 60%;
+    margin-right: 24px;
 }
 
-.switchWrapper {
-  text-align: left;
-  margin-right: 48px;
+.switchItem {
+    flex-basis: 20%;
+    text-align: left;
+    margin-right: 48px;
 }
 
-.inputWrapper {
-  padding-left: 40px;
-  font-size: 14px;
-  width: 413px;
-  min-height: 36px;
-  color: #2D2E46;
-  background: #FFFFFF;
-  border-radius: 2px;
-  outline: none;
-  border: 1px solid #D9D9D9;
+.rangeItemWrapper {
+    flex-basis: 20%;
+    margin-right: 20px;
 }
 
+.rangeItem {
 
-
+    margin-top: 15px;
+}
+.textItem {
+    display: flex;
+    text-align: left;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}

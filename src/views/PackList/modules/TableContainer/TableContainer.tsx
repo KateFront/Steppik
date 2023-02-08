@@ -5,7 +5,6 @@ import PopupDeletePack from '../../../../components/organisms/modals/PopupDelete
 import { setActivePackIdAC } from '../../../../store/pack-reducer';
 import TablePack, { ActionType, TableCellItem } from './TablePack/TablePack';
 import { useNavigate } from 'react-router-dom';
-import { log } from 'util';
 
 const TableContainer = () => {
     const packList = useAppSelector((s) => s.pack.packs);

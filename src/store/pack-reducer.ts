@@ -24,15 +24,19 @@ type initialStateType = {
     activePackId: null | string;
     search: string;
     sort: string;
+    min: number;
+    max: number;
 };
 const initialState: initialStateType = {
     packs: [],
-    pageSize: 5,
+    pageSize: 10,
     totalCount: 100,
     currentPage: 1,
     activePackId: null,
     search: '',
     sort: 'Oupdated',
+    min: 0,
+    max: 100,
 };
 
 const slice = createSlice({
@@ -41,6 +45,10 @@ const slice = createSlice({
     reducers: {
         setCurrentPageAC: (state, action: PayloadAction<{ currentPage: number }>) => {
             state.currentPage = action.payload.currentPage;
+        },
+        setMinMaxAC: (state, action: PayloadAction<{ min: number; max: number }>) => {
+            state.min = action.payload.min;
+            state.max = action.payload.max;
         },
         searchPacksAC: (state, action: PayloadAction<{ search: string }>) => {
             state.search = action.payload.search;
@@ -79,7 +87,7 @@ const slice = createSlice({
 
 export const packsReducer = slice.reducer;
 
-export const { setCurrentPageAC, setTotalCountAC, setActivePackIdAC, setPageSizeAC, searchPacksAC } = slice.actions;
+export const { setCurrentPageAC, setTotalCountAC, setActivePackIdAC, setPageSizeAC, searchPacksAC, setMinMaxAC } = slice.actions;
 
 export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams, { dispatch: AppThunkDispatch }>(
     'packs/get',
