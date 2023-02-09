@@ -69,6 +69,12 @@ td {
     }
 }
 
+.headTableItemActiveZA {
+    &:after {
+        transform: rotate(180deg);
+    }
+}
+
 .btn {
     display: inline-block;
     margin-right: 5px;

@@ -1,6 +1,17 @@
 .packListPageWrapper {
-  padding-top: 40px;
-  align-items: flex-start;
+    padding-top: 40px;
+    align-items: flex-start;
+}
+.backPackList {
+    display: flex;
+    margin-bottom: 34px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+.imgWrapper {
+    margin-right: 12px;
 }
 .wrapper {
     display: flex;
@@ -14,7 +25,9 @@
     font-weight: 600;
     line-height: 33px;
 }
-
+.titleItem {
+    display: flex;
+}
 .buttonWrapper {
     width: 175px;
 }
@@ -22,7 +35,13 @@
 .searchItem {
     margin-bottom: 24px;
 }
-
+.textItem {
+    display: flex;
+    text-align: left;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
 .inputWrapper {
     display: block;
     width: 100%;

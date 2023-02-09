@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import MainCardList, { TableCardCellItem } from './MainCardList';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { setActiveCardIdAC } from '../../../../store/card-reducer';
-import PopupEditPack from '../../../../components/organisms/modals/PopupEditPack/PopupEditPack';
-import PopupDeletePack from '../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack';
+import PopupEditCard from '../../../../components/organisms/modals/PopupCards/PopupEditCard/PopupEditCard';
+import PopupDeleteCard from '../../../../components/organisms/modals/PopupCards/PopupDeleteCards/PopupDeleteCards';
 
 const MainCardListContainer = () => {
     const cardsList = useAppSelector((s) => s.card.cards);
@@ -60,10 +60,10 @@ const MainCardListContainer = () => {
         <>
             <MainCardList cardList={mappedCardList} />
             {showEditPopup && (
-                <PopupEditPack active={showEditPopup} setActive={setShowEditPopup} onClose={() => setShowEditPopup(true)} />
+                <PopupEditCard active={showEditPopup} setActive={setShowEditPopup} onClose={() => setShowEditPopup(true)} />
             )}
             {showDeletePopup && (
-                <PopupDeletePack
+                <PopupDeleteCard
                     active={showDeletePopup}
                     setActive={setShowDeletePopup}
                     onClose={() => setShowDeletePopup(true)}

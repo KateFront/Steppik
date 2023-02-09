@@ -12,8 +12,8 @@ import {
 } from '../api/packs/typesPack';
 
 export enum SortPackType {
-    A = 1,
-    Z = 0,
+    AZ = '0updated',
+    ZA = '1updated',
 }
 
 type initialStateType = {
@@ -34,7 +34,7 @@ const initialState: initialStateType = {
     currentPage: 1,
     activePackId: null,
     search: '',
-    sort: 'Oupdated',
+    sort: SortPackType.AZ,
     min: 0,
     max: 100,
 };
@@ -45,6 +45,9 @@ const slice = createSlice({
     reducers: {
         setCurrentPageAC: (state, action: PayloadAction<{ currentPage: number }>) => {
             state.currentPage = action.payload.currentPage;
+        },
+        setSortPackAC: (state, action: PayloadAction<{ sort: SortPackType }>) => {
+            state.sort = action.payload.sort;
         },
         setMinMaxAC: (state, action: PayloadAction<{ min: number; max: number }>) => {
             state.min = action.payload.min;
@@ -87,7 +90,8 @@ const slice = createSlice({
 
 export const packsReducer = slice.reducer;
 
-export const { setCurrentPageAC, setTotalCountAC, setActivePackIdAC, setPageSizeAC, searchPacksAC, setMinMaxAC } = slice.actions;
+export const { setCurrentPageAC, setTotalCountAC, setActivePackIdAC, setPageSizeAC, searchPacksAC, setMinMaxAC, setSortPackAC } =
+    slice.actions;
 
 export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams, { dispatch: AppThunkDispatch }>(
     'packs/get',

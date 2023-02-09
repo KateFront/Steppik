@@ -12,6 +12,7 @@ import Preloader from '../components/atoms/Preloader/Preloader';
 import SignIn from '../views/SignIn/SignInPage/SignIn';
 import PackList from '../views/PackList/PackList';
 import CardList from '../views/CardList/CardList';
+import Learn from '../views/Learn/Learn';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -38,6 +39,7 @@ function App() {
                     <Route path={'/createPassword/:token'} element={<CreateNewPassword />} />
                     <Route path={'/profile'} element={<ProfilePage />} />
                     <Route path={'/packList'} element={<PackList />} />
+                    <Route path={'/learn'} element={<Learn />} />
                     <Route path={'/packs/cards/:cardId'} element={<CardList />} />
                     <Route path={'/404'} element={<h1 style={{ textAlign: 'center' }}>404: PAGE NOT FOUND</h1>} />
                     <Route path="*" element={<Navigate to={'/404'} />} />

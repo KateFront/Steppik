@@ -1,0 +1,43 @@
+.btnWrapper {
+    position: absolute;
+}
+.btnCircle {
+    position: relative;
+    border-radius: 50%;
+    border: 1px solid #0d0c0b;
+    box-sizing: content-box;
+    padding: 3.75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    cursor: pointer;
+    margin: 5px;
+    &:hover {
+        background: #EAEAEA;
+    }
+}
+
+.actionItemWrapper {
+    width: 116px;
+    height: 136px;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 40px;
+}
+
+.btnItemWrapper {
+    display: flex;
+    align-items: center;
+    padding: 6px 16px;
+}
+
+.imgWrapper {
+    height: 24px;
+    width: 24px;
+    margin-right: 14px;
+}

@@ -7,7 +7,7 @@ import { GetPackParams } from '../../api/packs/typesPack';
 import Paginator from '../../components/atoms/Paginator/Paginator';
 import SelectPage from '../../components/atoms/Select/SelectPage/SelectPage';
 import Button from '../../components/atoms/Button/Button';
-import PopupNewPack from '../../components/organisms/modals/PopupNewPack/PopupNewPack';
+import PopupNewPack from '../../components/organisms/modals/PopupPack/PopupNewPack/PopupNewPack';
 import Container from '../../components/atoms/Container/Container';
 import Filters from './modules/Filters/Filters';
 import TableContainer from './modules/TableContainer/TableContainer';
@@ -24,6 +24,7 @@ const PackList: FC = () => {
     const totalCount = useAppSelector((state) => state.pack.totalCount);
     const maxRange = useAppSelector((state) => state.pack.max);
     const minRange = useAppSelector((state) => state.pack.min);
+    const sort = useAppSelector((state) => state.pack.sort);
 
     const search = useAppSelector((state) => state.pack.search);
 
@@ -35,9 +36,10 @@ const PackList: FC = () => {
             packName: search,
             min: minRange,
             max: maxRange,
+            sortPack: sort,
         };
         dispatch(getPacksTC(params));
-    }, [currentPage, pageSize, switchOn, search, maxRange, minRange]);
+    }, [currentPage, pageSize, switchOn, search, maxRange, minRange, sort]);
 
     const onPageChange = (newPageNumber: number) => {
         dispatch(setCurrentPageAC({ currentPage: newPageNumber }));

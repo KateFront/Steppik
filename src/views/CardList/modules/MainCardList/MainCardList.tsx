@@ -3,12 +3,14 @@ import styles from './MainCardList.module.scss';
 import RectangleButton from '../../../../components/atoms/RectangleButton/RectangleButton';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import Button from '../../../../components/atoms/Button/Button';
-import PopupNewCard from '../../../../components/organisms/modals/PopupNewCard/PopupNewCard';
+import PopupNewCard from '../../../../components/organisms/modals/PopupCards/PopupNewCard/PopupNewCard';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { searchPacksAC } from '../../../../store/pack-reducer';
 import Container from '../../../../components/atoms/Container/Container';
 import InputSearch from '../../../../components/atoms/InputSearch/InputSearch';
-import SelectAction, { SelectOption } from '../../../../components/atoms/Select/SelectAction/SelectAction';
+import CardActions from '../CardActions/CardActions';
+import Arrow from '../../../../assets/Icons/Arrow.svg';
+import { useNavigate } from 'react-router-dom';
 
 export type TableCardCellItem = {
     id: string;
@@ -57,19 +59,10 @@ type MainCardListPropsType = {
     cardList: TableCardCellItem[];
 };
 
-const options: SelectOption[] = [
-    { label: 'Edit', value: '1' },
-    { label: 'Delete', value: '2' },
-    { label: 'Learn', value: '3' },
-];
-
 const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
     const dispatch = useAppDispatch();
     const [search, setSearch] = useState('');
     const [modalActive, setModalActive] = useState(false);
-
-    const [value, setValue] = useState<(typeof options)[0] | undefined>(options[0]);
-    console.log(value);
 
     const isMyPack = useAppSelector((state) => state.card.isMyPack);
 
@@ -79,27 +72,37 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
         debounceRequest(value);
     };
 
+    const navigate = useNavigate();
+    const onClickToBack = () => {
+        navigate('/packList');
+    };
+
     return (
-        <Container>
+        <Container customStyles={styles.packListPageWrapper}>
             {
                 <>
+                    <div className={styles.backPackList} onClick={onClickToBack}>
+                        <img src={Arrow} alt="" className={styles.imgWrapper} />
+                        Back to Packs List
+                    </div>
                     <div className={styles.wrapper}>
                         <div className={styles.titleWrapper}>
-                            <span>{isMyPack ? 'My pack' : 'Friend`s pack'}</span>
-                            <div>
-                                <SelectAction onChange={(o) => setValue(o)} options={options} />
+                            <div className={styles.titleItem}>
+                                <span>{isMyPack ? 'My Pack' : 'Friend`s Pack'}</span>
+                                {isMyPack && <CardActions />}
                             </div>
                         </div>
                         <div className={styles.buttonWrapper}>
                             <Button
                                 isDisabled={false}
-                                name={isMyPack ? 'Add new pack' : 'Learn pack'}
+                                name={isMyPack ? 'Add new card' : 'Learn to pack'}
                                 onClick={() => setModalActive(true)}
                             />
                         </div>
                     </div>
                     <div className={styles.searchItem}>
                         <div className={styles.searchItem}>
+                            <span className={styles.textItem}>Search</span>
                             <InputSearch
                                 value={search}
                                 placeholder={'Provide your text'}
@@ -133,12 +136,14 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                                                     {val.actions.map((el, index) => {
                                                         return (
                                                             <div key={index} className={styles.btn}>
-                                                                <RectangleButton
-                                                                    onClick={el.action}
-                                                                    name={el.name}
-                                                                    isDisabled={false}
-                                                                    type={el.name === 'Delete' ? 'attention' : 'secondary'}
-                                                                />
+                                                                {
+                                                                    <RectangleButton
+                                                                        onClick={el.action}
+                                                                        name={el.name}
+                                                                        isDisabled={false}
+                                                                        type={el.name === 'Delete' ? 'attention' : 'secondary'}
+                                                                    />
+                                                                }
                                                             </div>
                                                         );
                                                     })}

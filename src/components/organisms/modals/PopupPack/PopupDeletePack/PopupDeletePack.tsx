@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styles from './PopupDeletePack.module.scss';
-import Button from '../../../atoms/Button/Button';
-import { useAppDispatch } from '../../../../store/store';
-import MainPopup from '../MainPopup/MainPopup';
-import { deletePackTC } from '../../../../store/pack-reducer';
+import Button from '../../../../atoms/Button/Button';
+import { useAppDispatch } from '../../../../../store/store';
+import MainPopup from '../../MainPopup/MainPopup';
+import { deletePackTC } from '../../../../../store/pack-reducer';
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;
@@ -12,7 +12,7 @@ type PopupNewPackPropsType = {
     onClose: () => void;
 };
 
-const PopupDeletePack: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
+const PopupDeleteCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     const dispatch = useAppDispatch();
 
     const deletePack = () => {
@@ -45,4 +45,4 @@ const PopupDeletePack: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     );
 };
 
-export default PopupDeletePack;
+export default PopupDeleteCard;

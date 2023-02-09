@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
-import PopupDeletePack from '../../../../components/organisms/modals/PopupDeletePack/PopupDeletePack';
 import { setActivePackIdAC } from '../../../../store/pack-reducer';
 import TablePack, { ActionType, TableCellItem } from './TablePack/TablePack';
 import { useNavigate } from 'react-router-dom';
+import PopupDeletePack from '../../../../components/organisms/modals/PopupPack/PopupDeletePack/PopupDeletePack';
 
 const TableContainer = () => {
     const packList = useAppSelector((s) => s.pack.packs);

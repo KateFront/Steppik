@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import styles from './TablePack.module.scss';
 import RectangleButton from '../../../../../components/atoms/RectangleButton/RectangleButton';
+import classnames from 'classnames';
+import { useAppDispatch, useAppSelector } from '../../../../../store/store';
+import { setSortPackAC, SortPackType } from '../../../../../store/pack-reducer';
 
 export type TableCellItem = {
     id: string;
@@ -48,6 +51,8 @@ type MainPackListPropsType = {
 };
 
 const TablePack: FC<MainPackListPropsType> = ({ packList }) => {
+    const sort = useAppSelector((state) => state.pack.sort);
+    const dispatch = useAppDispatch();
     return (
         <div className={styles.tableWrapper}>
             <table>
@@ -55,7 +60,19 @@ const TablePack: FC<MainPackListPropsType> = ({ packList }) => {
                     <tr>
                         {headRow.map((val, key) => {
                             return (
-                                <th key={key} className={` ${val.action ? styles.headTableItem : ''} `}>
+                                <th
+                                    onClick={() => {
+                                        if (val.action) {
+                                            const res = sort === SortPackType.AZ ? SortPackType.ZA : SortPackType.AZ;
+                                            dispatch(setSortPackAC({ sort: res }));
+                                        }
+                                    }}
+                                    key={key}
+                                    className={classnames({
+                                        [styles.headTableItem]: val.action,
+                                        [styles.headTableItemActiveZA]: sort === SortPackType.ZA,
+                                    })}
+                                >
                                     {val.name}
                                 </th>
                             );

@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import styles from './PopupEditPack.module.scss';
-import Button from '../../../atoms/Button/Button';
-import Input from '../../../atoms/Input/Input';
-import { useAppDispatch } from '../../../../store/store';
-import { updatePacksTC } from '../../../../store/pack-reducer';
-import MainPopup from '../MainPopup/MainPopup';
+import Button from '../../../../atoms/Button/Button';
+import Input from '../../../../atoms/Input/Input';
+import { useAppDispatch } from '../../../../../store/store';
+import { updatePacksTC } from '../../../../../store/pack-reducer';
+import MainPopup from '../../MainPopup/MainPopup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 type PopupPropsType = {

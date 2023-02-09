@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import CommonPageWrapper from '../../components/atoms/CommonPageWrapper/CommonPageWrapper';
-import styles from '../PackList/PackList.module.scss';
 import { useParams, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { getCardsTC, setCurrentPageAC } from '../../store/card-reducer';
 import Paginator from '../../components/atoms/Paginator/Paginator';
 import MainCardListContainer from './modules/MainCardList/MainCardListContainer';
 import { GetCardParams } from '../../api/cards/typesCards';
+import styles from './CardList.module.scss';
+import Container from '../../components/atoms/Container/Container';
 
 const CardList = () => {
     const dispatch = useAppDispatch();
@@ -36,24 +37,22 @@ const CardList = () => {
     };
 
     return (
-        <div>
-            <CommonPageWrapper>
-                <div className={styles.wrapper}>
-                    <div className={styles.mainCardWrapper}>
-                        <MainCardListContainer />
-                        <div className={styles.paginatorWrapper}>
-                            <Paginator
-                                currentPage={currentPage}
-                                onPageChange={onChangeCurrentPage}
-                                pageSize={pageSize}
-                                totalCount={totalCardCount}
-                                portionSize={pageSize}
-                            />
-                        </div>
+        <CommonPageWrapper customStyles={styles.mainCardWrapper}>
+            <Container>
+                <div>
+                    <MainCardListContainer />
+                    <div className={styles.paginatorWrapper}>
+                        <Paginator
+                            currentPage={currentPage}
+                            onPageChange={onChangeCurrentPage}
+                            pageSize={pageSize}
+                            totalCount={totalCardCount}
+                            portionSize={pageSize}
+                        />
                     </div>
                 </div>
-            </CommonPageWrapper>
-        </div>
+            </Container>
+        </CommonPageWrapper>
     );
 };
 
