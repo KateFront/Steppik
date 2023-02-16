@@ -1,5 +1,13 @@
 import { cardsInstance } from '../axios_instances';
-import { CreatePackResponse, GetCardParams, GetCardResponse, PostCardType, PutCardType } from './typesCards';
+import {
+    CardGradeResponse,
+    CardGradeType,
+    CreatePackResponse,
+    GetCardParams,
+    GetCardResponse,
+    PostCardType,
+    PutCardType,
+} from './typesCards';
 import { ResponseType } from '../auth/authApi';
 
 export const cardsApi = {
@@ -16,5 +24,8 @@ export const cardsApi = {
     },
     updateCard(cardsPack: PutCardType) {
         return cardsInstance.put(`/card`, cardsPack);
+    },
+    updateCardGrade(cardGrade: CardGradeType) {
+        return cardsInstance.put<CardGradeType, ResponseType<CardGradeResponse>>(`/grade`, cardGrade);
     },
 };

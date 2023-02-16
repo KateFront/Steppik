@@ -2,25 +2,18 @@ import React from 'react';
 import styles from './RadioInput.module.scss';
 
 interface RadioInputProps {
-    options: { value: string; label: string }[];
-    value: string;
-    onChange: (value: string) => void;
+    checked: boolean;
+    label: string;
+    onChange: () => void;
 }
 
-const RadioInput: React.FC<RadioInputProps> = ({ options, value, onChange }) => {
+const RadioInput: React.FC<RadioInputProps> = ({ checked, label, onChange }) => {
     return (
         <div className={styles.inputWrapper}>
-            {options.map((option) => (
-                <label key={option.value}>
-                    <input
-                        type="radio"
-                        value={option.value}
-                        checked={value === option.value}
-                        onChange={(e) => onChange(e.target.value)}
-                    />
-                    {option.label}
-                </label>
-            ))}
+            <label htmlFor={label}>
+                <input id={label} type="radio" checked={checked} onChange={onChange} />
+                {label}
+            </label>
         </div>
     );
 };

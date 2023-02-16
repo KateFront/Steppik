@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CardType, GetCardParams, PostCardType } from '../api/cards/typesCards';
+import { CardGradeResponse, CardGradeType, CardType, GetCardParams, PostCardType } from '../api/cards/typesCards';
 import { cardsApi } from '../api/cards/cardsApi';
 import { AppRootStateType, AppThunkDispatch } from './store';
 
@@ -56,7 +56,7 @@ export const cardsReducer = slice.reducer;
 export const { setTotalCountAC, setActiveCardIdAC, setPageSizeAC, setCurrentPageAC, setMyCardAC } = slice.actions;
 
 export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch: AppThunkDispatch; state: AppRootStateType }>(
-    'packs/get',
+    'cards/get',
     async (requestParams, thunkApi) => {
         const res = await cardsApi.getCard(requestParams);
         const isMyPack = res.data.packUserId === thunkApi.getState().app.myUserID;
@@ -80,7 +80,7 @@ export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch
     }
 );
 
-export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('packs/create', async (card) => {
+export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('cards/create', async (card) => {
     const res = await cardsApi.createCard(card);
     const payload: CardType = {
         answer: res.data.newCard.answer,
@@ -94,4 +94,9 @@ export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('packs/
         id: res.data.newCard._id,
     };
     return payload;
+});
+
+export const upgradeCardsTC = createAsyncThunk<CardGradeResponse, CardGradeType>('cards/update', async (cardGrade) => {
+    const res = await cardsApi.updateCardGrade(cardGrade);
+    return res.data;
 });

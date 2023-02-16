@@ -77,6 +77,13 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
         navigate('/packList');
     };
 
+    const onClickBtn = () => {
+        if (isMyPack) {
+            setModalActive(true);
+        } else {
+            navigate('/learn');
+        }
+    };
     return (
         <Container customStyles={styles.packListPageWrapper}>
             {
@@ -93,11 +100,7 @@ const MainCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                             </div>
                         </div>
                         <div className={styles.buttonWrapper}>
-                            <Button
-                                isDisabled={false}
-                                name={isMyPack ? 'Add new card' : 'Learn to pack'}
-                                onClick={() => setModalActive(true)}
-                            />
+                            <Button isDisabled={false} name={isMyPack ? 'Add new card' : 'Learn to pack'} onClick={onClickBtn} />
                         </div>
                     </div>
                     <div className={styles.searchItem}>

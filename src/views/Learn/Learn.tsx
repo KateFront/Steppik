@@ -7,11 +7,11 @@ import LearnCard from '../../components/LearnCard/LearnCard';
 
 const Learn = () => {
     /*const [showAnswer, setShowAnswer] = useState(false);*/
-
     const navigate = useNavigate();
     const onClickToBack = () => {
         navigate('/packList');
     };
+
     return (
         <CommonPageWrapper>
             <div className={styles.wrapper}>

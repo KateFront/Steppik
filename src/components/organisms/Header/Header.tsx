@@ -35,6 +35,7 @@ const Header = () => {
                     <NavLink to="/learn" className={(navData) => (navData.isActive ? styles.active : styles.navLinkWrapper)}>
                         <li className={styles.navLinkItem}>Learn</li>
                     </NavLink>
+                    {/* <Button onClick={() => {}} name={'Sign in'} isDisabled={false} />*/}
                 </ul>
             </nav>
         </div>

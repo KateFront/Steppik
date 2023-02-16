@@ -29,6 +29,23 @@ export type CardType = {
     updated: string;
     id: string;
 };
+
+export type CardGradeType = {
+    grade: number;
+    card_id: string;
+};
+
+export type CardGradeResponse = {
+    updatedGrade: {
+        _id: string;
+        cardsPack_id: string;
+        card_id: string;
+        user_id: string;
+        grade: number;
+        shots: number;
+    };
+};
+
 export type CardTypeResponse = {
     answer: string;
     question: string;
@@ -62,6 +79,7 @@ export type PutCardType = {
     card: {
         _id: string;
         question?: string;
+        answerImg: string;
     };
 };
 export type GradeCardResponseType = {
