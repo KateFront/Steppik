@@ -6,7 +6,18 @@ import { CardType } from '../../api/cards/typesCards';
 import RadioInput from '../atoms/RadioInput/RadioInput';
 import { upgradeCardsTC } from '../../store/card-reducer';
 
-const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer'];
+type GradeItemType = {
+    name: string;
+    rate: number;
+};
+
+const grades: GradeItemType[] = [
+    { name: 'Did not know', rate: 1 },
+    { name: 'Forgot', rate: 2 },
+    { name: 'A lot of thought', rate: 3 },
+    { name: 'Confused', rate: 4 },
+    { name: 'Knew the answer', rate: 5 },
+];
 
 const getCard = (cards: CardType[]): CardType => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -24,7 +35,7 @@ const getCard = (cards: CardType[]): CardType => {
 const LearnCard = () => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
     const [first, setFirst] = useState<boolean>(true);
-    const [activeGradeItem, setActiveGradeItem] = useState<string>('');
+    const [activeGradeItemRate, setActiveGradeItemRate] = useState<number>(0);
     const cards = useAppSelector<CardType[]>((state) => state.card.cards);
     const { id } = useParams();
 
@@ -59,8 +70,10 @@ const LearnCard = () => {
     }, [dispatch, id, cards, first]);
 
     const onNext = () => {
-        dispatch(upgradeCardsTC({ grade: 1, card_id: card.id }));
-        setIsChecked(false);
+        if (activeGradeItemRate > 0) {
+            dispatch(upgradeCardsTC({ grade: activeGradeItemRate, card_id: card.id }));
+            setIsChecked(false);
+        }
 
         if (cards.length > 0) {
             // dispatch
@@ -80,10 +93,10 @@ const LearnCard = () => {
                     {grades.map((gradeItem, index) => (
                         <RadioInput
                             key={'grade-' + index}
-                            label={gradeItem}
-                            checked={activeGradeItem === gradeItem}
+                            label={gradeItem.name}
+                            checked={activeGradeItemRate === gradeItem.rate}
                             onChange={() => {
-                                setActiveGradeItem(gradeItem);
+                                setActiveGradeItemRate(gradeItem.rate);
                             }}
                         />
                     ))}
