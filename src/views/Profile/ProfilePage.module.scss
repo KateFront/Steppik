@@ -1,0 +1,32 @@
+.avatarItemWrapper {
+    display: flex;
+    align-items: flex-end;
+}
+.logoutBtn {
+    flex-basis: 60%;
+    margin-right: 18px;
+}
+.imgWrapper {
+    height: 16px;
+    width: 16px;
+    margin-right: 7px;
+}
+.photoWrapper {
+    height: 96px;
+    width: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatarWrapper {
+    height: 100%;
+    width: 100%;
+}
+.btnWrapper {
+    margin-top: 84px;
+    display: flex;
+    justify-content: space-between;
+}
+.saveBtn {
+    flex-basis: 40%;
+    margin-left: 18px;
+}

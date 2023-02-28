@@ -57,10 +57,7 @@ const SignUp: FC = () => {
             {!isRegistered && (
                 <>
                     <div className={styles.wrapper}>
-                        <CardBasisWrapper title={'It-incubator'}>
-                            <div className={styles.spanWrapper}>
-                                <span>Sign Up</span>
-                            </div>
+                        <CardBasisWrapper title={'Sign Up'}>
                             <div className={styles.inputWrapper}>
                                 <Input
                                     label={'Email'}
@@ -110,7 +107,7 @@ const SignUp: FC = () => {
                             </div>
                             <div className={styles.btns}>
                                 <div className={styles.btnLeft}>
-                                    <Button name={'Cancel'} isDisabled={true} />
+                                    <Button name={'Cancel'} isDisabled={true} type={'secondary'} />
                                 </div>
                                 <div className={styles.btnRight}>
                                     <Button onClick={handleSubmit(onSubmit)} name={'Register'} isDisabled={false} />

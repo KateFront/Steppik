@@ -15,7 +15,7 @@ import TableContainer from './modules/TableContainer/TableContainer';
 const PackList: FC = () => {
     const dispatch = useAppDispatch();
 
-    const mainUserID = useAppSelector<string>((s) => s.app.myUserID);
+    const mainUserID = useAppSelector<string | undefined>((s) => s.app.profile?.id);
     const [switchOn, setSwitchOn] = useState(false);
     const [modalActive, setModalActive] = useState(false);
 

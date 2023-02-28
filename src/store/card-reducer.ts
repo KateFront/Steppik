@@ -59,7 +59,7 @@ export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch
     'cards/get',
     async (requestParams, thunkApi) => {
         const res = await cardsApi.getCard(requestParams);
-        const isMyPack = res.data.packUserId === thunkApi.getState().app.myUserID;
+        const isMyPack = res.data.packUserId === thunkApi.getState().app.profile?.id;
         thunkApi.dispatch(setMyCardAC({ isMyPack }));
         const totalCount = res.data.cardsTotalCount;
         thunkApi.dispatch(setTotalCountAC({ count: totalCount }));

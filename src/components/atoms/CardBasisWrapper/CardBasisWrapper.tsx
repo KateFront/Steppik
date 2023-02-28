@@ -3,7 +3,7 @@ import styles from './CardBasisWrapper.module.scss';
 
 type CardBasisWrapperProps = {
     children: React.ReactNode;
-    title: string;
+    title?: string;
 };
 
 const CardBasisWrapper: FC<CardBasisWrapperProps> = ({ children, title }) => {

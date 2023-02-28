@@ -32,7 +32,6 @@ const SingInForm: FC = () => {
     });
 
     const onSubmit: SubmitHandler<SignInInputsProps> = (data) => {
-        console.log('onSubmit');
         const userData: LoginParamsType = {
             email: data.email,
             password: data.password,
@@ -41,26 +40,12 @@ const SingInForm: FC = () => {
         dispatch(loginTC(userData));
     };
 
-    /*useEffect(() => {
-        console.log('DidMount');
-    }, []);
-
-    useEffect(() => {
-
-        console.log('DidUpdate');
-    }, [isLogged]);
-
-    console.log('render SingInForm');*/
-
     if (isLogged) {
         return <Navigate to={'/profile/'} />;
     }
 
     return (
         <div>
-            <div className={styles.spanWrapper}>
-                <span>Sign In</span>
-            </div>
             <form>
                 <div className={styles.inputWrapper}>
                     <Input
@@ -108,7 +93,7 @@ const SingInForm: FC = () => {
                 <Button onClick={handleSubmit(onSubmit)} name={'Login'} isDisabled={false} />
                 <div className={styles.error}>{error}</div>
             </div>
-            <span className={styles.labelWrapper}>Don`t have an account</span>
+            <span className={styles.labelWrapper}>Already have an account?</span>
             <NavLink to="/signUp" className={styles.link}>
                 Sign Up
             </NavLink>

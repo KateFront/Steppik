@@ -12,7 +12,7 @@ type PopupNewPackPropsType = {
     onClose: () => void;
 };
 
-const PopupDeleteCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
+const PopupDeletePack: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     const dispatch = useAppDispatch();
 
     const deletePack = () => {
@@ -33,10 +33,10 @@ const PopupDeleteCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
                     </div>
                     <div className={styles.btn}>
                         <div className={styles.btnLeft}>
-                            <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true} />
+                            <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true} type={'secondary'} />
                         </div>
                         <div className={styles.btnRight}>
-                            <Button onClick={deletePack} name={'Delete'} isDisabled={false} />
+                            <Button onClick={deletePack} name={'Delete'} isDisabled={false} type={'dangerous'} />
                         </div>
                     </div>
                 </div>
@@ -45,4 +45,4 @@ const PopupDeleteCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     );
 };
 
-export default PopupDeleteCard;
+export default PopupDeletePack;

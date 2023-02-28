@@ -1,20 +1,11 @@
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
-
-.spanWrapper {
-    font-family: inherit;
-    font-size: 22px;
-    font-weight: 600;
-    line-height: 33px;
-    margin-bottom: 38px;
-}
-
-.forgotWrapper{
+.forgotWrapper {
     margin-top: 48px;
     font-size: 14px;
     font-weight: 400;
@@ -24,16 +15,16 @@
 .inputWrapper input {
     margin-bottom: 24px;
 }
-.btns{
+.btns {
     margin-top: 84px;
     display: flex;
     justify-content: space-between;
 }
-.btnLeft{
+.btnLeft {
     flex-basis: 40%;
     margin-right: 18px;
 }
-.btnRight{
+.btnRight {
     flex-basis: 60%;
     margin-left: 18px;
 }

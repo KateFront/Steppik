@@ -8,7 +8,7 @@ import PopupDeletePack from '../../../../components/organisms/modals/PopupPack/P
 
 const TableContainer = () => {
     const packList = useAppSelector((s) => s.pack.packs);
-    const mainUserId = useAppSelector((state) => state.app.myUserID);
+    const mainUserId = useAppSelector((state) => state.app.profile?.id);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();

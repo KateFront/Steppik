@@ -1,6 +1,13 @@
 import { SignUpParamsType } from '../../store/auth-reducer';
 import { auth } from '../axios_instances';
-import { ForgotPasswordType, LoginType, NewPasswordType, UserProfileType } from './typesAuth';
+import {
+    ForgotPasswordType,
+    LoginType,
+    NewPasswordType,
+    UpdatedType,
+    UpdatedUserResponseType,
+    UserProfileType,
+} from './typesAuth';
 
 export const authApi = {
     login(data: LoginType) {
@@ -29,6 +36,9 @@ export const authApi = {
     },
     delete() {
         return auth.delete(`/me`);
+    },
+    updatedInfo(data: UpdatedType) {
+        return auth.put<UpdatedType, ResponseType<UpdatedUserResponseType>>(`/me`, data);
     },
 };
 

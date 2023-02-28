@@ -1,18 +1,31 @@
-.btn{
-  position: relative;
-  padding: 8px 5px;
-  background-color: #366EFF;
-  color: #FFFFFF;
-  box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  user-select: none;
+.btn {
+    position: relative;
+    padding: 8px 5px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    user-select: none;
 }
 
-.disabled{
-  background-color: #FCFCFC;
-  color:#000000;
-  box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-  border-radius: 30px;
+.disabled {
+    background-color: #fcfcfc;
+    color: #000000;
+    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+}
+
+.primary {
+    background-color: #366eff;
+    color: #ffffff;
+    box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+.secondary {
+    background-color: #fcfcfc;
+    color: #000000;
+    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+.dangerous{
+  background-color: #FF3636;
+  color: #ffffff;
+  box-shadow: 0px 4px 18px rgba(255, 54, 54, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }

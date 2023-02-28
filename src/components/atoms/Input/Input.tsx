@@ -11,9 +11,10 @@ type InputProps = {
     onChange?: (value: string) => void;
     error?: string;
     addProps?: object;
+    onBlur?: () => void;
 };
 
-const Input: FC<InputProps> = ({ label, typeInput, withIcon, value, onChange, addProps, error }) => {
+const Input: FC<InputProps> = ({ onBlur, label, typeInput, withIcon, value, onChange, addProps, error }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [inputType, setInputType] = useState(typeInput);
 
@@ -43,6 +44,7 @@ const Input: FC<InputProps> = ({ label, typeInput, withIcon, value, onChange, ad
                     id={label}
                     value={value}
                     onChange={(event) => onChange?.(event.target.value)}
+                    onBlur={onBlur}
                     {...addProps}
                 />
                 {withIcon && (

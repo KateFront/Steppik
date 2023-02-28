@@ -1,7 +1,7 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit';
 import { authApi } from '../api/auth/authApi';
-import { setAppMyUserIdAC, setAppStatusAC } from './app-reducer';
-import { ForgotPasswordType, NewPasswordType } from '../api/auth/typesAuth';
+import { setAppStatusAC, setProfileAC } from './app-reducer';
+import { ForgotPasswordType, NewPasswordType, UpdatedType } from '../api/auth/typesAuth';
 
 type initialStateType = {
     isLoggedIn: boolean;
@@ -46,7 +46,6 @@ export const authReducer = slice.reducer;
 export const { setIsLoggedInAC, setAuthErrorAC, setIsRegisteredAC, setIsForgotAC, setIsNewPassword } = slice.actions;
 
 export const loginTC = (data: LoginParamsType) => {
-    console.log('loginTC');
     return (dispatch: Dispatch) => {
         dispatch(setAppStatusAC({ status: 'loading' }));
         authApi
@@ -54,7 +53,11 @@ export const loginTC = (data: LoginParamsType) => {
             .then((res) => {
                 if (res.statusText === 'OK') {
                     dispatch(setIsLoggedInAC({ value: true }));
-                    dispatch(setAppMyUserIdAC({ myUserID: res.data._id }));
+                    dispatch(
+                        setProfileAC({
+                            value: { nickName: res.data.name, id: res.data._id, avatar: res.data.avatar, email: res.data.email },
+                        })
+                    );
                 }
             })
             .catch((e) => {
@@ -76,7 +79,7 @@ export const logoutTC = () => {
             .then((res) => {
                 if (res.statusText === 'OK') {
                     dispatch(setIsLoggedInAC({ value: false }));
-                    dispatch(setAppMyUserIdAC({ myUserID: '' }));
+                    dispatch(setProfileAC({ value: null }));
                 }
             })
             .finally(() => {
@@ -131,6 +134,33 @@ export const newPasswordTC = (data: NewPasswordType) => {
             .setNewPassword(data)
             .then(() => {
                 dispatch(setIsNewPassword({ value: true }));
+            })
+            .catch((e) => {
+                const error = e.response.data.error;
+                dispatch(setAuthErrorAC({ error }));
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC({ status: 'succeeded' }));
+            });
+    };
+};
+export const updatedPersonalInfoTC = (data: UpdatedType) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setAppStatusAC({ status: 'loading' }));
+        authApi
+            .updatedInfo(data)
+            .then((res) => {
+                console.log(res);
+                dispatch(
+                    setProfileAC({
+                        value: {
+                            nickName: res.data.updatedUser.name,
+                            id: res.data.updatedUser._id,
+                            avatar: res.data.updatedUser.avatar,
+                            email: res.data.updatedUser.email,
+                        },
+                    })
+                );
             })
             .catch((e) => {
                 const error = e.response.data.error;

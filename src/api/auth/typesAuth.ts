@@ -41,3 +41,12 @@ export type PingType = {
 export type ForgotPasswordType = {
     email: string;
 };
+
+export type UpdatedType = {
+    name: string;
+    avatar: string;
+};
+
+export type UpdatedUserResponseType = {
+    updatedUser: UserProfileType;
+};

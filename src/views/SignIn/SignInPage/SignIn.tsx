@@ -8,7 +8,7 @@ const SignIn = () => {
     return (
         <CommonPageWrapper>
             <div className={styles.wrapper}>
-                <CardBasisWrapper title={'It-incubator'}>
+                <CardBasisWrapper title={'Sign In'}>
                     <SingInForm />
                 </CardBasisWrapper>
             </div>

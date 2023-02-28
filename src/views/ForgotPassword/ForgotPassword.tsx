@@ -41,10 +41,7 @@ const ForgotPassword = () => {
                 {!isForgotPassword && (
                     <>
                         <div className={styles.wrapper}>
-                            <CardBasisWrapper title={'It-incubator'}>
-                                <div className={styles.spanWrapper}>
-                                    <span>Forgot your password?</span>
-                                </div>
+                            <CardBasisWrapper title={'Forgot your password?'}>
                                 <form>
                                     <div className={styles.inputWrapper}>
                                         <Input

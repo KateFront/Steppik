@@ -58,7 +58,7 @@ const PopupEditCard: FC<PopupPropsType> = ({ setActive, onClose }) => {
                     </div>
                     <div className={styles.btn}>
                         <div className={styles.btnLeft}>
-                            <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true} />
+                            <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true} type={'secondary'} />
                         </div>
                         <div className={styles.btnRight}>
                             <Button onClick={handleSubmit(onSubmit)} name={'Save'} isDisabled={false} />
