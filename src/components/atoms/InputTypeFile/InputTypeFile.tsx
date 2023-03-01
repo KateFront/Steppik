@@ -23,11 +23,9 @@ export const InputTypeFile: FC<InputType> = ({ onChange }) => {
 
     return (
         <div>
-            <div>
-                <span onClick={selectFileHandler}>
-                    {changeAvatar && <img src={changeAvatar} alt="uploaded image" className={styles.avatarWrapper} />}
-                </span>
-            </div>
+            <span onClick={selectFileHandler}>
+                {changeAvatar && <img src={changeAvatar} alt="uploaded image" className={styles.avatarWrapper} />}
+            </span>
             <input type="file" accept="image/*" ref={inputRef} onChange={uploadHandler} style={{ display: 'none' }} />
         </div>
     );

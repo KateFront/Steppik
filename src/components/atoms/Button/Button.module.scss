@@ -10,22 +10,24 @@
 .disabled {
     background-color: #fcfcfc;
     color: #000000;
-    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     border-radius: 30px;
 }
 
 .primary {
     background-color: #366eff;
     color: #ffffff;
-    box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .secondary {
+    display: flex;
+    justify-content: center;
     background-color: #fcfcfc;
     color: #000000;
-    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
-.dangerous{
-  background-color: #FF3636;
-  color: #ffffff;
-  box-shadow: 0px 4px 18px rgba(255, 54, 54, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+.dangerous {
+    background-color: #ff3636;
+    color: #ffffff;
+    box-shadow: 0 4px 18px rgba(255, 54, 54, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }

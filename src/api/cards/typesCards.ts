@@ -82,6 +82,14 @@ export type PutCardType = {
         answerImg: string;
     };
 };
+export type UpdatedCard = {
+    updatedCard: CardTypeResponse;
+};
+
+export type DeletedCardResponse = {
+    deletedCard: CardTypeResponse;
+};
+
 export type GradeCardResponseType = {
     token: string;
     tokenDeathTime: number;

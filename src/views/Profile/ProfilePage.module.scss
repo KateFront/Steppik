@@ -1,11 +1,16 @@
 .avatarItemWrapper {
     display: flex;
+    justify-content: center;
     align-items: flex-end;
+    margin-bottom: 17px;
 }
-.logoutBtn {
-    flex-basis: 60%;
-    margin-right: 18px;
+.nickNameItemWrapper {
+    margin-bottom: 14px;
 }
+.emailWrapper {
+    margin-bottom: 29px;
+}
+
 .imgWrapper {
     height: 16px;
     width: 16px;
@@ -22,11 +27,14 @@
     width: 100%;
 }
 .btnWrapper {
-    margin-top: 84px;
     display: flex;
     justify-content: space-between;
 }
+.logoutBtn {
+    flex-basis: 50%;
+    margin-right: 18px;
+}
 .saveBtn {
-    flex-basis: 40%;
+    flex-basis: 50%;
     margin-left: 18px;
 }

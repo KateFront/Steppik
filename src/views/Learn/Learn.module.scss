@@ -1,13 +1,24 @@
-.wrapper{
+.containerWrapper {
+    padding-top: 40px;
+    align-items: flex-start;
+}
 
+.itemWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 34px;
+}
+.wrapper {
 }
 
 .titleWrapper {
+    text-align: center;
     font-size: 22px;
     font-weight: 600;
     line-height: 26.82px;
     margin-bottom: 18px;
 }
-.backPackList{
+.backPackList {
+
     text-align: left;
 }

@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CardGradeResponse, CardGradeType, CardType, GetCardParams, PostCardType } from '../api/cards/typesCards';
+import {
+    CardGradeResponse,
+    CardGradeType,
+    CardType,
+    DeletedCardResponse,
+    GetCardParams,
+    PostCardType,
+} from '../api/cards/typesCards';
 import { cardsApi } from '../api/cards/cardsApi';
 import { AppRootStateType, AppThunkDispatch } from './store';
 
@@ -47,6 +54,12 @@ const slice = createSlice({
         });
         builder.addCase(createNewCardsTC.fulfilled, (state, action) => {
             state.cards.unshift(action.payload);
+        });
+        builder.addCase(deleteCardsTC.fulfilled, (state, action) => {
+            const index = state.cards.findIndex((card) => card.id === action.payload.deletedCard._id);
+            if (index > -1) {
+                state.cards.splice(index, 1);
+            }
         });
     },
 });
@@ -98,5 +111,29 @@ export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('cards/
 
 export const upgradeCardsTC = createAsyncThunk<CardGradeResponse, CardGradeType>('cards/update', async (cardGrade) => {
     const res = await cardsApi.updateCardGrade(cardGrade);
+    return res.data;
+});
+
+/*export const updateCardsTC = createAsyncThunk< { dispatch: AppThunkDispatch; state: AppRootStateType }
+>('cards/edit', async (updateModel, thunkApi) => {
+    const id = thunkApi.getState().cards.cardId ?? '';
+    const updateCardModel: PutCardType  = {
+        cardsPack: {
+            _id: id,
+            ...updateModel,
+        },
+    };
+    const res = await cardsApi.updateCard(updateCardModel);
+    return res.data;
+});*/
+
+export const deleteCardsTC = createAsyncThunk<
+    DeletedCardResponse,
+    undefined,
+    { dispatch: AppThunkDispatch; state: AppRootStateType }
+>('cards/delete', async (params, thunkApi) => {
+    const id = thunkApi.getState().card.activeCardId;
+    const res = await cardsApi.deleteCard(id ?? '');
+    console.log(res);
     return res.data;
 });

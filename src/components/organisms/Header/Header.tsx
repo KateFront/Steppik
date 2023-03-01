@@ -1,15 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
-import logo from '../../../assets/Icons/logo.svg';
 
 const Header = () => {
     return (
         <div className={styles.headerWrapper}>
             <nav className={styles.nav}>
-                <div className={styles.logo}>
-                    <img src={logo} alt="logo" />
-                </div>
                 <ul className={styles.navList}>
                     <NavLink to="/profile/" className={(navData) => (navData.isActive ? styles.active : styles.navLinkWrapper)}>
                         <li className={styles.navLinkItem}> Profile</li>

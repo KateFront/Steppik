@@ -1,0 +1,16 @@
+.editWrapper {
+    display: flex;
+    justify-content: center;
+}
+.nameWrapper {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #000000;
+}
+.imgWrapper {
+    max-height: 16px;
+    max-width: 16px;
+    margin-left: 7px;
+    cursor: pointer;
+}

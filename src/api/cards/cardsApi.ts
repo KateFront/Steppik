@@ -3,10 +3,12 @@ import {
     CardGradeResponse,
     CardGradeType,
     CreatePackResponse,
+    DeletedCardResponse,
     GetCardParams,
     GetCardResponse,
     PostCardType,
     PutCardType,
+    UpdatedCard,
 } from './typesCards';
 import { ResponseType } from '../auth/authApi';
 
@@ -20,10 +22,10 @@ export const cardsApi = {
         return cardsInstance.post<PostCardType, ResponseType<CreatePackResponse>>(`/card`, card);
     },
     deleteCard(cardId: string) {
-        return cardsInstance.delete(`/card/?id=${cardId}`);
+        return cardsInstance.delete<unknown, ResponseType<DeletedCardResponse>>(`/card/?id=${cardId}`);
     },
     updateCard(cardsPack: PutCardType) {
-        return cardsInstance.put(`/card`, cardsPack);
+        return cardsInstance.put<PutCardType, ResponseType<UpdatedCard>>(`/card`, cardsPack);
     },
     updateCardGrade(cardGrade: CardGradeType) {
         return cardsInstance.put<CardGradeType, ResponseType<CardGradeResponse>>(`/grade`, cardGrade);

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../Input/Input';
 import edit from '../../../assets/Icons/Edit.svg';
+import styles from './EditableSpan.module.scss';
 
 type EditableSpanPropsType = {
     value: string;
@@ -30,9 +31,9 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
             <Input value={title} onChange={changeTitle} onBlur={activateViewMode} label={'Nickname'} typeInput={'text'} />
         </div>
     ) : (
-        <div>
-            <span>{props.value}</span>
-            <div onClick={activateEditMode}>
+        <div className={styles.editWrapper}>
+            <span className={styles.nameWrapper}>{props.value}</span>
+            <div onClick={activateEditMode} className={styles.imgWrapper}>
                 <img src={edit} alt="" />
             </div>
         </div>

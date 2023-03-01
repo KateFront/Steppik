@@ -4,6 +4,8 @@ import styles from './Learn.module.scss';
 import Arrow from '../../assets/Icons/Arrow.svg';
 import { useNavigate } from 'react-router-dom';
 import LearnCard from '../../components/LearnCard/LearnCard';
+import CardBasisWrapper from '../../components/atoms/CardBasisWrapper/CardBasisWrapper';
+import Container from '../../components/atoms/Container/Container';
 
 const Learn = () => {
     /*const [showAnswer, setShowAnswer] = useState(false);*/
@@ -13,17 +15,23 @@ const Learn = () => {
     };
 
     return (
-        <CommonPageWrapper>
-            <div className={styles.wrapper}>
-                <div className={styles.backPackList} onClick={onClickToBack}>
-                    <img src={Arrow} alt="" className={styles.imgWrapper} />
-                    Back to Packs List
+        <CommonPageWrapper customStyles={styles.containerWrapper}>
+            <Container>
+                <div className={styles.itemWrapper}>
+                    <div className={styles.backPackList} onClick={onClickToBack}>
+                        <img src={Arrow} alt="" className={styles.imgWrapper} />
+                        Back to Packs List
+                    </div>
+                    <div className={styles.titleWrapper}>
+                        <span>Learn Pack Name</span>
+                    </div>
                 </div>
-                <div className={styles.titleWrapper}>
-                    <span>Learn Pack Name</span>
-                </div>
-                <LearnCard />
-            </div>
+                <CardBasisWrapper>
+                    <div className={styles.wrapper}>
+                        <LearnCard />
+                    </div>
+                </CardBasisWrapper>
+            </Container>
         </CommonPageWrapper>
     );
 };

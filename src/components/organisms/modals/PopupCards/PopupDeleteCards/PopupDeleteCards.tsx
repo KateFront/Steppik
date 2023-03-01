@@ -3,7 +3,7 @@ import styles from './PopupDeleteCard.module.scss';
 import Button from '../../../../atoms/Button/Button';
 import { useAppDispatch } from '../../../../../store/store';
 import MainPopup from '../../MainPopup/MainPopup';
-import { deletePackTC } from '../../../../../store/pack-reducer';
+import { deleteCardsTC } from '../../../../../store/card-reducer';
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;
@@ -16,7 +16,7 @@ const PopupDeleteCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     const dispatch = useAppDispatch();
 
     const deletePack = () => {
-        dispatch(deletePackTC());
+        dispatch(deleteCardsTC());
         setActive(false);
     };
 

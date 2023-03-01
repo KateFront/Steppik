@@ -5,7 +5,6 @@ import { logoutTC, updatedPersonalInfoTC } from '../../store/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import CardBasisWrapper from '../../components/atoms/CardBasisWrapper/CardBasisWrapper';
 import { Navigate } from 'react-router-dom';
-import logout from '../../assets/Icons/logout.svg';
 import avatarProfile from '../../assets/img/Ellipse 45.svg';
 import styles from './ProfilePage.module.scss';
 import { InputTypeFile } from '../../components/atoms/InputTypeFile/InputTypeFile';
@@ -42,6 +41,7 @@ const ProfilePage = () => {
         reader.onload = () => {
             console.log(reader.result);
             setAvatar(reader.result as string);
+            dispatch(updatedPersonalInfoTC({ name, avatar }));
         };
     };
 
@@ -50,7 +50,7 @@ const ProfilePage = () => {
     }
 
     const saveInfo = () => {
-        dispatch(updatedPersonalInfoTC({ name, avatar }));
+        // dispatch(updatedPersonalInfoTC({ name, avatar }));
     };
 
     const onChangeNickName = (nickName: string) => {
@@ -69,26 +69,22 @@ const ProfilePage = () => {
                         </div>
                         <InputTypeFile onChange={onChangeHandler} />
                     </div>
-
-                    <div>
+                    <div className={styles.nickNameItemWrapper}>
                         <EditableSpan onChange={onChangeNickName} value={nickName} />
                     </div>
-                    <div>{email}</div>
+                    <div className={styles.emailWrapper}>{email}</div>
                     <div className={styles.btnWrapper}>
                         <div className={styles.logoutBtn}>
-                            {/*<div>
-                                <img src={logout} alt="" className={styles.imgWrapper} />
-                            </div>*/}
                             <Button
                                 onClick={sendDataToServer}
                                 name={'Log Out'}
+                                iconType={'LogOut'}
                                 isDisabled={false}
                                 type={'secondary'}
-                                imageUrl={logout}
                             />
                         </div>
                         <div className={styles.saveBtn}>
-                            <Button onClick={() => saveInfo()} name={'Save'} isDisabled={false} />
+                            <Button onClick={() => saveInfo()} name={'Save'} isDisabled={false} className={styles.square} />
                         </div>
                     </div>
                 </CardBasisWrapper>
