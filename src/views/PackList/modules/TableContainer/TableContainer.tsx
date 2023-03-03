@@ -5,16 +5,18 @@ import { setActivePackIdAC } from '../../../../store/pack-reducer';
 import TablePack, { ActionType, TableCellItem } from './TablePack/TablePack';
 import { useNavigate } from 'react-router-dom';
 import PopupDeletePack from '../../../../components/organisms/modals/PopupPack/PopupDeletePack/PopupDeletePack';
+import PopupEditPack from '../../../../components/organisms/modals/PopupPack/PopupEditPack/PopupEditPack';
 
 const TableContainer = () => {
     const packList = useAppSelector((s) => s.pack.packs);
     const mainUserId = useAppSelector((state) => state.app.profile?.id);
     const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [isShowEditPopup, setIsShowEditPopup] = useState(false);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const handleEditClick = (packId: string) => {
-        navigate(`/packs/cards/${packId}`);
+        setIsShowEditPopup(true);
         dispatch(setActivePackIdAC({ packId }));
     };
     const handleDeleteClick = (packId: string) => {
@@ -79,6 +81,9 @@ const TableContainer = () => {
                     setActive={setShowDeletePopup}
                     onClose={() => setShowDeletePopup(true)}
                 />
+            )}
+            {isShowEditPopup && (
+                <PopupEditPack active={isShowEditPopup} setActive={setIsShowEditPopup} onClose={() => setIsShowEditPopup(true)} />
             )}
         </>
     );

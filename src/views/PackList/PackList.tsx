@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { getPacksTC, setCurrentPageAC, setPageSizeAC } from '../../store/pack-reducer';
 import { GetPackParams } from '../../api/packs/typesPack';
 import Paginator from '../../components/atoms/Paginator/Paginator';
-import SelectPage from '../../components/atoms/Select/SelectPage/SelectPage';
+import Select from '../../components/atoms/Select/Select';
 import Button from '../../components/atoms/Button/Button';
 import PopupNewPack from '../../components/organisms/modals/PopupPack/PopupNewPack/PopupNewPack';
 import Container from '../../components/atoms/Container/Container';
@@ -71,7 +71,7 @@ const PackList: FC = () => {
                             onPageChange={onPageChange}
                             portionSize={pageSize}
                         />
-                        <SelectPage pageSize={pageSize} onChange={handleChange} />
+                        <Select pageSize={pageSize} onChange={handleChange} />
                     </div>
                 </div>
                 {modalActive && <PopupNewPack setActive={setModalActive} onClose={() => console.log('saasassa')} />}

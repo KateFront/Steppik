@@ -1,29 +1,29 @@
 .attention {
-  padding: 4px 6px;
-  font-size: 12px;
-  font-weight: 500;
-  background-color: #F1453D;
-  color: #FFFFFF;
-  border-radius: 2px;
-  border: none;
-  cursor: pointer;
-  user-select: none;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #f1453d;
+    color: #ffffff;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    user-select: none;
 }
 
 .secondary {
-  background-color: #FCFCFC;
-  color: #000000;
-  padding: 4px 6px;
-  font-size: 12px;
-  font-weight: 500;
-  border-radius: 2px;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+    background-color: #fcfcfc;
+    color: #000000;
+    padding: 4px 6px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
 
 .disabled {
-  background-color: #D7D8EF ;
-  color: #21268F;
-  box-shadow: none;
+    background-color: #d7d8ef;
+    color: #21268f;
+    box-shadow: none;
 }

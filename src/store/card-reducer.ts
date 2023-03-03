@@ -6,6 +6,7 @@ import {
     CardType,
     DeletedCardResponse,
     GetCardParams,
+    GetCardResponse,
     PostCardType,
 } from '../api/cards/typesCards';
 import { cardsApi } from '../api/cards/cardsApi';
@@ -18,6 +19,7 @@ type initialStateType = {
     currentPage: number;
     activeCardId: null | string;
     isMyPack: boolean;
+    packName: string;
 };
 export const initialState: initialStateType = {
     cards: [],
@@ -26,6 +28,7 @@ export const initialState: initialStateType = {
     currentPage: 1,
     activeCardId: null,
     isMyPack: false,
+    packName: '',
 };
 
 const slice = createSlice({
@@ -34,9 +37,6 @@ const slice = createSlice({
     reducers: {
         setCurrentPageAC: (state, action: PayloadAction<{ newCardPage: number }>) => {
             state.currentPage = action.payload.newCardPage;
-        },
-        setTotalCountAC: (state, action: PayloadAction<{ count: number }>) => {
-            state.totalCardCount = action.payload.count;
         },
         setActiveCardIdAC(state, action: PayloadAction<{ cardId: string }>) {
             state.activeCardId = action.payload.cardId;
@@ -50,7 +50,23 @@ const slice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getCardsTC.fulfilled, (state, action) => {
-            state.cards = action.payload;
+            const totalCount = action.payload.cardsTotalCount;
+            const tableCards: CardType[] = action.payload.cards.map((el) => {
+                return {
+                    answer: el.answer,
+                    question: el.question,
+                    cardsPackId: el.cardsPack_id,
+                    grade: el.grade,
+                    shots: el.shots,
+                    userId: el.user_id,
+                    created: el.created,
+                    updated: el.updated,
+                    id: el._id,
+                };
+            });
+            state.cards = tableCards;
+            state.totalCardCount = totalCount;
+            state.packName = action.payload.packName;
         });
         builder.addCase(createNewCardsTC.fulfilled, (state, action) => {
             state.cards.unshift(action.payload);
@@ -66,32 +82,19 @@ const slice = createSlice({
 
 export const cardsReducer = slice.reducer;
 
-export const { setTotalCountAC, setActiveCardIdAC, setPageSizeAC, setCurrentPageAC, setMyCardAC } = slice.actions;
+export const { setActiveCardIdAC, setCurrentPageAC, setMyCardAC } = slice.actions;
 
-export const getCardsTC = createAsyncThunk<CardType[], GetCardParams, { dispatch: AppThunkDispatch; state: AppRootStateType }>(
-    'cards/get',
-    async (requestParams, thunkApi) => {
-        const res = await cardsApi.getCard(requestParams);
-        const isMyPack = res.data.packUserId === thunkApi.getState().app.profile?.id;
-        thunkApi.dispatch(setMyCardAC({ isMyPack }));
-        const totalCount = res.data.cardsTotalCount;
-        thunkApi.dispatch(setTotalCountAC({ count: totalCount }));
-        const tableCards: CardType[] = res.data.cards.map((el) => {
-            return {
-                answer: el.answer,
-                question: el.question,
-                cardsPackId: el.cardsPack_id,
-                grade: el.grade,
-                shots: el.shots,
-                userId: el.user_id,
-                created: el.created,
-                updated: el.updated,
-                id: el._id,
-            };
-        });
-        return tableCards;
-    }
-);
+export const getCardsTC = createAsyncThunk<
+    GetCardResponse,
+    GetCardParams,
+    { dispatch: AppThunkDispatch; state: AppRootStateType }
+>('cards/get', async (requestParams, thunkApi) => {
+    const res = await cardsApi.getCard(requestParams);
+    console.log(res.data);
+    const isMyPack = res.data.packUserId === thunkApi.getState().app.profile?.id;
+    thunkApi.dispatch(setMyCardAC({ isMyPack }));
+    return res.data;
+});
 
 export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('cards/create', async (card) => {
     const res = await cardsApi.createCard(card);

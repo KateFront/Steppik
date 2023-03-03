@@ -17,6 +17,7 @@ export type GetCardResponse = {
     page: number;
     pageCount: number;
     packUserId: string;
+    packName: string;
 };
 export type CardType = {
     answer: string;

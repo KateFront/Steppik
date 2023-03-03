@@ -1,0 +1,20 @@
+.filters {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    margin-left: 30px;
+}
+
+select {
+    height: 24px;
+    color: #000000;
+
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+}
+
+.spanWrapper {
+    margin: 5px;
+}

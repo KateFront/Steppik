@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import styles from './SelectPage.module.scss';
+import styles from './Select.module.scss';
 
 type SelectPropsType = {
     pageSize: number;
     onChange: (value: string) => void;
 };
-export const SelectPage: FC<SelectPropsType> = ({ pageSize, onChange }) => {
+export const Select: FC<SelectPropsType> = ({ pageSize, onChange }) => {
     const range = [10, 15, 20];
 
     return (
@@ -22,4 +22,4 @@ export const SelectPage: FC<SelectPropsType> = ({ pageSize, onChange }) => {
         </div>
     );
 };
-export default SelectPage;
+export default Select;

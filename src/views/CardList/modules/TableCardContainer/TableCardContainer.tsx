@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import MainCardList, { TableCardCellItem } from './MainCardList';
+import { TableCardCellItem } from './TableCardList/TableCardList';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { setActiveCardIdAC } from '../../../../store/card-reducer';
 import PopupEditCard from '../../../../components/organisms/modals/PopupCards/PopupEditCard/PopupEditCard';
 import PopupDeleteCard from '../../../../components/organisms/modals/PopupCards/PopupDeleteCards/PopupDeleteCards';
+import TableCardList from './TableCardList/TableCardList';
 
-const MainCardListContainer = () => {
+const TableCardContainer = () => {
     const cardsList = useAppSelector((s) => s.card.cards);
     const isMyPack = useAppSelector((state) => state.card.isMyPack);
 
@@ -58,7 +59,7 @@ const MainCardListContainer = () => {
 
     return (
         <>
-            <MainCardList cardList={mappedCardList} />
+            <TableCardList cardList={mappedCardList} />
             {showEditPopup && (
                 <PopupEditCard active={showEditPopup} setActive={setShowEditPopup} onClose={() => setShowEditPopup(true)} />
             )}
@@ -73,4 +74,4 @@ const MainCardListContainer = () => {
     );
 };
 
-export default MainCardListContainer;
+export default TableCardContainer;
