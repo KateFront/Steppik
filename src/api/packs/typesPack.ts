@@ -23,7 +23,7 @@ export type PostPackType = {
     cardsPack: {
         name: string;
         deckCover?: string;
-        private?: boolean;
+        isPrivate?: boolean;
     };
 };
 
@@ -50,6 +50,7 @@ export type CardPackItem = {
     cardsCount: number;
     created: string;
     updated: string;
+    deckCover?: string;
 };
 
 export type CardPackItemResponse = {
@@ -67,6 +68,7 @@ export type CardPackItemResponse = {
     cardsCount: number;
     created: string;
     updated: string;
+    deckCover?: string;
 };
 
 export type DeleteCardPackItemResponse = {

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import Input from '../../../../atoms/Input/Input';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './PopupNewCard.module.scss';
 import { createNewCardsTC } from '../../../../../store/card-reducer';
 import Button from '../../../../atoms/Button/Button';
+import { SelectInput } from '../../../../atoms/Select/SelectInput';
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;
@@ -29,6 +30,7 @@ const PopupNewCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     const dispatch = useAppDispatch();
 
     const packId = useAppSelector((state) => state.pack.activePackId);
+    const [value, setValue] = useState('1');
 
     const saveNewPack = (question: string, answer: string) => {
         if (packId !== null) {
@@ -48,6 +50,16 @@ const PopupNewCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
                     <div className={styles.popupWrapper}>
                         <span>Add new card</span>
                     </div>
+                    <div className={styles.selectTextWrapper}>Choose a question format</div>
+                    <SelectInput
+                        value={value}
+                        onChange={setValue}
+                        items={[
+                            { value: '1', title: 'Text' },
+                            { value: '2', title: 'Video' },
+                            { value: '3', title: 'Picture' },
+                        ]}
+                    />
                     <div className={styles.inputWrapper}>
                         <Input
                             label={'Question'}

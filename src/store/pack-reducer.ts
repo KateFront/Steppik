@@ -108,6 +108,7 @@ export const getPacksTC = createAsyncThunk<CardPackItem[], GetPackParams, { disp
                 updated: el.updated,
                 created: el.created,
                 userName: el.user_name,
+                deckCover: el.deckCover,
             };
         });
         return tablePacks;
@@ -132,6 +133,7 @@ export const updatePacksTC = createAsyncThunk<
 
 export const createNewPacksTC = createAsyncThunk<CardPackItem, PostPackType>('packs/create', async (cardsPack) => {
     const res = await packApi.createPack(cardsPack);
+    console.log(res);
     const payload: CardPackItem = {
         id: res.data.newCardsPack._id,
         userId: res.data.newCardsPack.user_id,
@@ -140,6 +142,7 @@ export const createNewPacksTC = createAsyncThunk<CardPackItem, PostPackType>('pa
         updated: res.data.newCardsPack.updated,
         created: res.data.newCardsPack.created,
         userName: res.data.newCardsPack.user_name,
+        deckCover: res.data.newCardsPack.deckCover,
     };
     return payload;
 });

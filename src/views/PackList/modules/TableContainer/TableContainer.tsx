@@ -69,6 +69,7 @@ const TableContainer = () => {
             lastUpdated: new Date(packItem.updated).toLocaleString(),
             createdBy: packItem.userName,
             actions: actions,
+            deckCover: packItem.deckCover,
         };
     });
 

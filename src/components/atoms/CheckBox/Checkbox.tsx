@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import s from './Checkbox.module.scss';
 
 type CheckboxProps = {
-    addProps: object;
+    addProps?: object;
     isChecked: boolean;
 };
 

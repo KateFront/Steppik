@@ -46,6 +46,19 @@ td {
     background-color: #ffffff;
     border-bottom: 1px solid #d9d9d9;
 }
+.tableRowCell {
+    display: flex;
+    align-items: center;
+}
+.imgWrapper {
+    width: 57px;
+    height: 36px;
+    margin-right: 12px;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
 
 .packListWrapper {
     font-size: 13px;

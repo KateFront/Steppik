@@ -4,7 +4,7 @@ import RectangleButton from '../../../../../components/atoms/RectangleButton/Rec
 import classnames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { setSortPackAC, SortPackType } from '../../../../../store/pack-reducer';
-
+import defaultCover from '../../../../../assets/img/defaultCover.jpg';
 export type TableCellItem = {
     id: string;
     ownerId: string;
@@ -13,6 +13,7 @@ export type TableCellItem = {
     lastUpdated: string;
     createdBy: string;
     actions: ActionType[];
+    deckCover?: string;
 };
 
 export type ActionType = {
@@ -53,6 +54,14 @@ type MainPackListPropsType = {
 const TablePack: FC<MainPackListPropsType> = ({ packList }) => {
     const sort = useAppSelector((state) => state.pack.sort);
     const dispatch = useAppDispatch();
+    const isImageUrlOrBase64 = (img?: string): boolean => {
+        if (img) {
+            return /^data:image\/([a-zA-Z]*);base64,/.test(img) || /\.(png|jpg|jpeg|gif|svg)$/.test(img);
+        } else {
+            return false;
+        }
+    };
+
     return (
         <div className={styles.tableWrapper}>
             <table>
@@ -81,9 +90,18 @@ const TablePack: FC<MainPackListPropsType> = ({ packList }) => {
                 </thead>
                 <tbody>
                     {packList.map((val) => {
+                        console.log(val.deckCover, val.name);
                         return (
                             <tr key={val.id} className={styles.tableRowItem}>
-                                <td>{val.name}</td>
+                                <td className={styles.tableRowCell}>
+                                    <div className={styles.imgWrapper}>
+                                        <img
+                                            src={isImageUrlOrBase64(val.deckCover) ? val.deckCover : defaultCover}
+                                            alt="deckCover"
+                                        />
+                                    </div>
+                                    {val.name}
+                                </td>
                                 <td>{val.cards}</td>
                                 <td>{val.lastUpdated}</td>
                                 <td>{val.createdBy}</td>
