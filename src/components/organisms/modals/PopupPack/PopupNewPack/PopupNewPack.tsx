@@ -9,9 +9,9 @@ import { SubmitHandler, useController, useForm } from 'react-hook-form';
 
 import styles from './PopupNewPack.module.scss';
 import Checkbox from '../../../../atoms/CheckBox/Checkbox';
-import { InputTypeFile } from '../../../../atoms/InputTypeFile/InputTypeFile';
 
 import defaultCover from '../../../../../assets/img/defaultCover.jpg';
+import Cover from '../../../../molecules/Cover/Cover';
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;
@@ -47,14 +47,8 @@ const PopupNewPack: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
         name: 'privatePack',
         control,
     });
-
-    const onChangeHandler = (file: File) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            console.log(reader.result);
-            setPicture(reader.result as string);
-        };
+    const onChangeHandler = (file: string) => {
+        setPicture(file);
     };
 
     return (
@@ -64,13 +58,7 @@ const PopupNewPack: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
                     <div className={styles.popupWrapper}>
                         <span>Add new pack</span>
                     </div>
-                    <div>
-                        <span>Cover</span>
-                        <InputTypeFile onChange={onChangeHandler} linkText={'Change cover'} />
-                    </div>
-                    <div className={styles.imgWrapper}>
-                        <img src={picture} alt="cover" />
-                    </div>
+                    <Cover title={'Cover'} onChange={onChangeHandler} picture={picture} />
                     <div className={styles.inputWrapper}>
                         <Input
                             label={'Name pack'}

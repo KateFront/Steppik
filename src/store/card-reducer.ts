@@ -20,6 +20,7 @@ type initialStateType = {
     activeCardId: null | string;
     isMyPack: boolean;
     packName: string;
+    packDeckCover?: string;
 };
 export const initialState: initialStateType = {
     cards: [],
@@ -29,12 +30,16 @@ export const initialState: initialStateType = {
     activeCardId: null,
     isMyPack: false,
     packName: '',
+    packDeckCover: '',
 };
 
 const slice = createSlice({
     name: 'card',
     initialState: initialState,
     reducers: {
+        setPackDeckCoverAC: (state, action: PayloadAction<{ value: string }>) => {
+            state.packDeckCover = action.payload.value;
+        },
         setCurrentPageAC: (state, action: PayloadAction<{ newCardPage: number }>) => {
             state.currentPage = action.payload.newCardPage;
         },
@@ -62,8 +67,13 @@ const slice = createSlice({
                     created: el.created,
                     updated: el.updated,
                     id: el._id,
+                    answerImg: el.answerImg,
+                    questionImg: el.questionImg,
+                    questionVideo: el.questionVideo,
+                    answerVideo: el.answerVideo,
                 };
             });
+
             state.cards = tableCards;
             state.totalCardCount = totalCount;
             state.packName = action.payload.packName;
@@ -82,17 +92,18 @@ const slice = createSlice({
 
 export const cardsReducer = slice.reducer;
 
-export const { setActiveCardIdAC, setCurrentPageAC, setMyCardAC } = slice.actions;
+export const { setActiveCardIdAC, setCurrentPageAC, setMyCardAC, setPackDeckCoverAC } = slice.actions;
 
 export const getCardsTC = createAsyncThunk<
     GetCardResponse,
     GetCardParams,
     { dispatch: AppThunkDispatch; state: AppRootStateType }
 >('cards/get', async (requestParams, thunkApi) => {
-    const res = await cardsApi.getCard(requestParams);
+    const res = await cardsApi.getCards(requestParams);
     console.log(res.data);
     const isMyPack = res.data.packUserId === thunkApi.getState().app.profile?.id;
     thunkApi.dispatch(setMyCardAC({ isMyPack }));
+    thunkApi.dispatch(setPackDeckCoverAC({ value: res.data.packDeckCover }));
     return res.data;
 });
 
@@ -108,6 +119,10 @@ export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('cards/
         created: res.data.newCard.created,
         updated: res.data.newCard.updated,
         id: res.data.newCard._id,
+        answerImg: res.data.newCard.answerImg,
+        questionImg: res.data.newCard.questionImg,
+        questionVideo: res.data.newCard.questionVideo,
+        answerVideo: res.data.newCard.answerVideo,
     };
     return payload;
 });

@@ -1,6 +1,4 @@
 import React, { FC, useState } from 'react';
-
-import Input from '../../../../atoms/Input/Input';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import MainPopup from '../../MainPopup/MainPopup';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -9,6 +7,10 @@ import styles from './PopupNewCard.module.scss';
 import { createNewCardsTC } from '../../../../../store/card-reducer';
 import Button from '../../../../atoms/Button/Button';
 import { SelectInput } from '../../../../atoms/Select/SelectInput';
+import TextInputs from './moleculs/TextInputs/TextInputs';
+import PictureFileInputs from './moleculs/PictureInputs/PictureFileInputs';
+import defaultCover from '../../../../../assets/img/defaultCover.jpg';
+import VideoInputs from './moleculs/VideoInputs/VideoInputs';
 
 type PopupNewPackPropsType = {
     children?: React.ReactNode;
@@ -16,7 +18,7 @@ type PopupNewPackPropsType = {
     onClose: () => void;
 };
 
-type PopupFieldsType = {
+export type PopupFieldsType = {
     question: string;
     answer: string;
 };
@@ -30,11 +32,28 @@ const PopupNewCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
     const dispatch = useAppDispatch();
 
     const packId = useAppSelector((state) => state.pack.activePackId);
+
     const [value, setValue] = useState('1');
 
+    const [pictureAnswer, setPictureAnswer] = useState(defaultCover);
+    const [pictureQuestion, setPictureQuestion] = useState(defaultCover);
+
+    const [videoAnswer, setVideoAnswer] = useState(defaultCover);
+    const [videoQuestion, setVideoQuestion] = useState(defaultCover);
+
     const saveNewPack = (question: string, answer: string) => {
+        const answerImg = pictureAnswer === defaultCover ? undefined : pictureAnswer;
+        const questionImg = pictureQuestion === defaultCover ? undefined : pictureQuestion;
+
+        const questionVideo = videoQuestion === defaultCover ? undefined : videoQuestion;
+        const answerVideo = videoAnswer === defaultCover ? undefined : videoAnswer;
+
         if (packId !== null) {
-            dispatch(createNewCardsTC({ card: { cardsPack_id: packId, answer, question } }));
+            dispatch(
+                createNewCardsTC({
+                    card: { cardsPack_id: packId, answer, question, answerImg, questionImg, answerVideo, questionVideo },
+                })
+            );
             setActive(false);
         }
     };
@@ -60,33 +79,25 @@ const PopupNewCard: FC<PopupNewPackPropsType> = ({ setActive, onClose }) => {
                             { value: '3', title: 'Picture' },
                         ]}
                     />
-                    <div className={styles.inputWrapper}>
-                        <Input
-                            label={'Question'}
-                            typeInput={'text'}
-                            addProps={{
-                                ...register('question', {
-                                    required: true,
-                                    minLength: { value: 8, message: 'Name too short' },
-                                    maxLength: { value: 14, message: 'Name too long' },
-                                }),
-                            }}
-                            error={errors.question?.message}
-                        />
+                    {value === '1' && <TextInputs errors={errors} register={register} />}
 
-                        <Input
-                            label={'Answers'}
-                            typeInput={'text'}
-                            addProps={{
-                                ...register('answer', {
-                                    required: true,
-                                    minLength: { value: 8, message: 'Name too short' },
-                                    maxLength: { value: 14, message: 'Name too long' },
-                                }),
-                            }}
-                            error={errors.answer?.message}
+                    {value === '3' && (
+                        <PictureFileInputs
+                            pictureAnswer={pictureAnswer}
+                            onChangeAnswer={setPictureAnswer}
+                            onChangeQuestion={setPictureQuestion}
+                            pictureQuestion={pictureQuestion}
                         />
-                    </div>
+                    )}
+                    {value === '2' && (
+                        <VideoInputs
+                            videoAnswer={videoAnswer}
+                            onChangeAnswer={setVideoAnswer}
+                            onChangeQuestion={setVideoQuestion}
+                            videoQuestion={videoQuestion}
+                        />
+                    )}
+
                     <div className={styles.btn}>
                         <div className={styles.btnLeft}>
                             <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true} type={'secondary'} />

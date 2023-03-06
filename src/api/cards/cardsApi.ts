@@ -13,7 +13,7 @@ import {
 import { ResponseType } from '../auth/authApi';
 
 export const cardsApi = {
-    getCard(params?: GetCardParams) {
+    getCards(params?: GetCardParams) {
         return cardsInstance.get<GetCardResponse>('/card', {
             params,
         });

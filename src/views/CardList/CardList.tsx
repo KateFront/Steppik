@@ -15,6 +15,8 @@ import InputSearch from '../../components/atoms/InputSearch/InputSearch';
 import { useDebounce } from '../../hooks/useDebounce';
 import { searchPacksAC } from '../../store/pack-reducer';
 import TableCardContainer from './modules/TableCardContainer/TableCardContainer';
+import { isImageUrlOrBase64 } from '../../helpers/isImageUrlOrBase64';
+import defaultCover from '../../assets/img/defaultCover.jpg';
 
 const CardList = () => {
     const totalCardCount = useAppSelector((state) => state.card.totalCardCount);
@@ -23,6 +25,7 @@ const CardList = () => {
     const isMyPack = useAppSelector((state) => state.card.isMyPack);
     const packName = useAppSelector((state) => state.card.packName);
     const search = useAppSelector((state) => state.pack.search);
+    const deckCover = useAppSelector((state) => state.card.packDeckCover);
 
     const [modalActive, setModalActive] = useState(false);
     const [searchFilter, setSearchFilter] = useState('');
@@ -77,6 +80,9 @@ const CardList = () => {
                             <div className={styles.titleItem}>
                                 <span>{isMyPack ? packName : 'Friend`s Pack'}</span>
                                 {isMyPack && <CardActions />}
+                            </div>
+                            <div className={styles.deckCoverWrapper}>
+                                <img src={isImageUrlOrBase64(deckCover) ? deckCover : defaultCover} alt="cover" />
                             </div>
                         </div>
                         <div className={styles.buttonWrapper}>

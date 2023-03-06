@@ -18,10 +18,15 @@ export type GetCardResponse = {
     pageCount: number;
     packUserId: string;
     packName: string;
+    packDeckCover: string;
 };
 export type CardType = {
     answer: string;
     question: string;
+    questionImg?: string;
+    answerImg?: string;
+    questionVideo?: string;
+    answerVideo?: string;
     cardsPackId: string;
     grade: number;
     shots: number;
@@ -50,6 +55,10 @@ export type CardGradeResponse = {
 export type CardTypeResponse = {
     answer: string;
     question: string;
+    questionImg?: string;
+    answerImg?: string;
+    questionVideo?: string;
+    answerVideo?: string;
     cardsPack_id: string;
     grade: number;
     shots: number;

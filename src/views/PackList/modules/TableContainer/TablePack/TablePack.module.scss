@@ -45,6 +45,10 @@ td {
     height: 48px;
     background-color: #ffffff;
     border-bottom: 1px solid #d9d9d9;
+    td {
+        overflow: hidden;
+        text-overflow: clip;
+    }
 }
 .tableRowCell {
     display: flex;

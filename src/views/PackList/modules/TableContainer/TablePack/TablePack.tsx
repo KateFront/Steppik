@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { setSortPackAC, SortPackType } from '../../../../../store/pack-reducer';
 import defaultCover from '../../../../../assets/img/defaultCover.jpg';
+import { isImageUrlOrBase64 } from '../../../../../helpers/isImageUrlOrBase64';
 export type TableCellItem = {
     id: string;
     ownerId: string;
@@ -54,13 +55,6 @@ type MainPackListPropsType = {
 const TablePack: FC<MainPackListPropsType> = ({ packList }) => {
     const sort = useAppSelector((state) => state.pack.sort);
     const dispatch = useAppDispatch();
-    const isImageUrlOrBase64 = (img?: string): boolean => {
-        if (img) {
-            return /^data:image\/([a-zA-Z]*);base64,/.test(img) || /\.(png|jpg|jpeg|gif|svg)$/.test(img);
-        } else {
-            return false;
-        }
-    };
 
     return (
         <div className={styles.tableWrapper}>

@@ -23,7 +23,15 @@
     justify-content: space-between;
     margin-bottom: 34px;
 }
-
+.deckCoverWrapper {
+    height: 107px;
+    width: 170px;
+    border-radius: 2px;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
 .titleWrapper {
     text-align: left;
     font-size: 22px;
@@ -32,6 +40,7 @@
 }
 .titleItem {
     display: flex;
+    margin-bottom: 13px;
 }
 .buttonWrapper {
     width: 175px;
