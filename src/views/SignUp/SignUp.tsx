@@ -106,9 +106,6 @@ const SignUp: FC = () => {
                                 />
                             </div>
                             <div className={styles.btns}>
-                                <div className={styles.btnLeft}>
-                                    <Button name={'Cancel'} isDisabled={true} type={'secondary'} />
-                                </div>
                                 <div className={styles.btnRight}>
                                     <Button onClick={handleSubmit(onSubmit)} name={'Register'} isDisabled={false} />
                                 </div>

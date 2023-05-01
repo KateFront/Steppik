@@ -1,10 +1,13 @@
+.actionsWrapper {
+    position: relative;
+}
 .btnWrapper {
     position: absolute;
 }
 .btnCircle {
     position: relative;
     border-radius: 50%;
-    border: 1px solid #0d0c0b;
+    border: 0.5px solid #0d0c0b;
     box-sizing: content-box;
     padding: 3.75px;
     display: flex;
@@ -12,32 +15,54 @@
     justify-content: center;
     background: #ffffff;
     cursor: pointer;
-    margin: 5px;
+    margin: 8px;
     &:hover {
-        background: #EAEAEA;
+        background: #e8ecf8;
     }
 }
 
 .actionItemWrapper {
+    position: absolute;
     width: 116px;
-    height: 136px;
     border: 1px solid #cfcfcf;
     box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.06);
     background: #ffffff;
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 400;
+    border-radius: 2px;
     margin-top: 40px;
 }
 
 .btnItemWrapper {
+    font-size: 14px;
+    font-weight: 400;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 6px 16px;
+    cursor: pointer;
+    &:first-child {
+        &:before {
+            position: absolute;
+            content: '';
+            border-left: 1px solid #cfcfcf;
+            border-top: 1px solid #cfcfcf;
+            transform: rotate(45deg);
+            top: -4px;
+            left: 12px;
+            width: 5px;
+            height: 5px;
+            background: white;
+        }
+        &:hover:before {
+            background: #e8ecf8;
+        }
+    }
+    &:hover {
+        background: #e8ecf8;
+    }
 }
 
 .imgWrapper {
-    height: 24px;
-    width: 24px;
+    height: 22px;
+    width: 22px;
     margin-right: 14px;
 }

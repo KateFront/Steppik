@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import { setSortPackAC, SortPackType } from '../../../../../store/pack-reducer';
 import defaultCover from '../../../../../assets/img/defaultCover.jpg';
 import { isImageUrlOrBase64 } from '../../../../../helpers/isImageUrlOrBase64';
+
 export type TableCellItem = {
     id: string;
     ownerId: string;
@@ -84,7 +85,6 @@ const TablePack: FC<MainPackListPropsType> = ({ packList }) => {
                 </thead>
                 <tbody>
                     {packList.map((val) => {
-                        console.log(val.deckCover, val.name);
                         return (
                             <tr key={val.id} className={styles.tableRowItem}>
                                 <td className={styles.tableRowCell}>

@@ -9,7 +9,7 @@ type CheckboxProps = {
 const Checkbox: FC<CheckboxProps> = ({ isChecked, addProps }) => {
     return (
         <div className={`${s.inputWrapper} ${isChecked ? s.active : ''}`}>
-            <input type={'checkbox'} className={s.checkbox} {...addProps} />
+            <input type={'checkbox'} className={s.checkbox} {...addProps} id={'rememberMe'} />
         </div>
     );
 };

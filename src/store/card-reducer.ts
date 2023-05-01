@@ -8,9 +8,12 @@ import {
     GetCardParams,
     GetCardResponse,
     PostCardType,
+    PutCardType,
+    UpdatedCard,
 } from '../api/cards/typesCards';
 import { cardsApi } from '../api/cards/cardsApi';
 import { AppRootStateType, AppThunkDispatch } from './store';
+import { setAppStatusAC } from './app-reducer';
 
 type initialStateType = {
     cards: CardType[];
@@ -24,7 +27,7 @@ type initialStateType = {
 };
 export const initialState: initialStateType = {
     cards: [],
-    pageSize: 5,
+    pageSize: 10,
     totalCardCount: 100,
     currentPage: 1,
     activeCardId: null,
@@ -87,6 +90,16 @@ const slice = createSlice({
                 state.cards.splice(index, 1);
             }
         });
+        builder.addCase(updateCardTC.fulfilled, (state, action) => {
+            const index = state.cards.findIndex((card) => card.id === action.payload.updatedCard._id);
+            if (index > -1) {
+                const currentCard = state.cards[index];
+                currentCard.answer = action.payload.updatedCard.answer;
+                currentCard.answerImg = action.payload.updatedCard.answerImg;
+                currentCard.question = action.payload.updatedCard.question;
+                currentCard.questionImg = action.payload.updatedCard.questionImg;
+            }
+        });
     },
 });
 
@@ -99,11 +112,12 @@ export const getCardsTC = createAsyncThunk<
     GetCardParams,
     { dispatch: AppThunkDispatch; state: AppRootStateType }
 >('cards/get', async (requestParams, thunkApi) => {
+    thunkApi.dispatch(setAppStatusAC({ status: 'loading' }));
     const res = await cardsApi.getCards(requestParams);
-    console.log(res.data);
     const isMyPack = res.data.packUserId === thunkApi.getState().app.profile?.id;
     thunkApi.dispatch(setMyCardAC({ isMyPack }));
     thunkApi.dispatch(setPackDeckCoverAC({ value: res.data.packDeckCover }));
+    thunkApi.dispatch(setAppStatusAC({ status: 'succeeded' }));
     return res.data;
 });
 
@@ -127,23 +141,19 @@ export const createNewCardsTC = createAsyncThunk<CardType, PostCardType>('cards/
     return payload;
 });
 
-export const upgradeCardsTC = createAsyncThunk<CardGradeResponse, CardGradeType>('cards/update', async (cardGrade) => {
+export const upgradeCardGradeTC = createAsyncThunk<CardGradeResponse, CardGradeType>('cards/update', async (cardGrade) => {
     const res = await cardsApi.updateCardGrade(cardGrade);
     return res.data;
 });
 
-/*export const updateCardsTC = createAsyncThunk< { dispatch: AppThunkDispatch; state: AppRootStateType }
->('cards/edit', async (updateModel, thunkApi) => {
-    const id = thunkApi.getState().cards.cardId ?? '';
-    const updateCardModel: PutCardType  = {
-        cardsPack: {
-            _id: id,
-            ...updateModel,
-        },
-    };
-    const res = await cardsApi.updateCard(updateCardModel);
-    return res.data;
-});*/
+export const updateCardTC = createAsyncThunk<UpdatedCard, PutCardType, { dispatch: AppThunkDispatch; state: AppRootStateType }>(
+    'cards/updateCard',
+    async (updateModel) => {
+        const res = await cardsApi.updateCard(updateModel);
+        console.log(res);
+        return res.data;
+    }
+);
 
 export const deleteCardsTC = createAsyncThunk<
     DeletedCardResponse,
@@ -152,6 +162,5 @@ export const deleteCardsTC = createAsyncThunk<
 >('cards/delete', async (params, thunkApi) => {
     const id = thunkApi.getState().card.activeCardId;
     const res = await cardsApi.deleteCard(id ?? '');
-    console.log(res);
     return res.data;
 });

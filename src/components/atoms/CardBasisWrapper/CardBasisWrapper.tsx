@@ -9,9 +9,11 @@ type CardBasisWrapperProps = {
 const CardBasisWrapper: FC<CardBasisWrapperProps> = ({ children, title }) => {
     return (
         <div className={styles.wrapper}>
-            <div className={styles.titleWrapper}>
-                <span>{title}</span>
-            </div>
+            {title && (
+                <div className={styles.titleWrapper}>
+                    <span>{title}</span>
+                </div>
+            )}
             {children}
         </div>
     );

@@ -1,11 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styles from './PopupEditCard.module.scss';
 import Button from '../../../../atoms/Button/Button';
-import Input from '../../../../atoms/Input/Input';
-import { useAppDispatch } from '../../../../../store/store';
+import { useAppDispatch, useAppSelector } from '../../../../../store/store';
 import MainPopup from '../../MainPopup/MainPopup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { updatePacksTC } from '../../../../../store/pack-reducer';
+import { SelectInput } from '../../../../atoms/Select/SelectInput';
+import TextInputs from '../PopupNewCard/moleculs/TextInputs/TextInputs';
+import PictureFileInputs from '../PopupNewCard/moleculs/PictureInputs/PictureFileInputs';
+import defaultCover from '../../../../../assets/img/defaultCover.jpg';
+import { updateCardTC } from '../../../../../store/card-reducer';
 
 type PopupPropsType = {
     children?: React.ReactNode;
@@ -15,7 +18,8 @@ type PopupPropsType = {
 };
 
 type PopupFieldsType = {
-    name: string;
+    question: string;
+    answer: string;
 };
 
 const PopupEditCard: FC<PopupPropsType> = ({ setActive, onClose }) => {
@@ -24,15 +28,34 @@ const PopupEditCard: FC<PopupPropsType> = ({ setActive, onClose }) => {
         handleSubmit,
         formState: { errors },
     } = useForm<PopupFieldsType>();
+
     const dispatch = useAppDispatch();
 
-    const saveNewPack = (name: string) => {
-        dispatch(updatePacksTC({ name }));
-        setActive(false);
+    const [value, setValue] = useState('1');
+
+    const cardId = useAppSelector((state) => state.card.activeCardId);
+    const [pictureAnswer, setPictureAnswer] = useState(defaultCover);
+    const [pictureQuestion, setPictureQuestion] = useState(defaultCover);
+
+    /*  const [videoAnswer, setVideoAnswer] = useState(defaultCover);
+    const [videoQuestion, setVideoQuestion] = useState(defaultCover);*/
+
+    const saveNewCard = (question: string, answer: string) => {
+        const answerImg = pictureAnswer === defaultCover ? null : pictureAnswer;
+        const questionImg = pictureQuestion === defaultCover ? null : pictureQuestion;
+
+        if (cardId !== null) {
+            dispatch(
+                updateCardTC({
+                    card: { _id: cardId, answer, question, answerImg, questionImg },
+                })
+            );
+            setActive(false);
+        }
     };
 
     const onSubmit: SubmitHandler<PopupFieldsType> = (data) => {
-        saveNewPack(data.name);
+        saveNewCard(data.question, data.answer);
     };
 
     return (
@@ -42,20 +65,33 @@ const PopupEditCard: FC<PopupPropsType> = ({ setActive, onClose }) => {
                     <div className={styles.popupWrapper}>
                         <span>Edit card</span>
                     </div>
-                    <div className={styles.inputWrapper}>
-                        <Input
-                            label={'Name pack'}
-                            typeInput={'text'}
-                            addProps={{
-                                ...register('name', {
-                                    required: true,
-                                    minLength: { value: 8, message: 'Name too short' },
-                                    maxLength: { value: 14, message: 'Name too long' },
-                                }),
-                            }}
-                            error={errors.name?.message}
+                    <div className={styles.selectTextWrapper}>Choose a question format</div>
+                    <SelectInput
+                        value={value}
+                        onChange={setValue}
+                        items={[
+                            { value: '1', title: 'Text' },
+                            { value: '2', title: 'Picture' },
+                        ]}
+                    />
+                    {value === '1' && <TextInputs errors={errors} register={register} />}
+
+                    {value === '2' && (
+                        <PictureFileInputs
+                            pictureAnswer={pictureAnswer}
+                            onChangeAnswer={setPictureAnswer}
+                            onChangeQuestion={setPictureQuestion}
+                            pictureQuestion={pictureQuestion}
                         />
-                    </div>
+                    )}
+                    {/* {value === '2' && (
+                        <VideoInputs
+                            videoAnswer={videoAnswer}
+                            onChangeAnswer={setVideoAnswer}
+                            onChangeQuestion={setVideoQuestion}
+                            videoQuestion={videoQuestion}
+                        />
+                    )}*/}
                     <div className={styles.btn}>
                         <div className={styles.btnLeft}>
                             <Button onClick={() => setActive(false)} name={'Cancel'} isDisabled={true} type={'secondary'} />

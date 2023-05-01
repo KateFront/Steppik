@@ -49,6 +49,8 @@ export type CardGradeResponse = {
         user_id: string;
         grade: number;
         shots: number;
+        questionImg?: string;
+        answerImg?: string;
     };
 };
 
@@ -89,7 +91,9 @@ export type PutCardType = {
     card: {
         _id: string;
         question?: string;
-        answerImg: string;
+        answer?: string;
+        answerImg: string | null;
+        questionImg: string | null;
     };
 };
 export type UpdatedCard = {

@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import styles from './TableCardList.module.scss';
 import RectangleButton from '../../../../../components/atoms/RectangleButton/RectangleButton';
+import { useAppSelector } from '../../../../../store/store';
+import StarRating from '../../../../../components/atoms/GradeStars/StarRating';
 
 export type TableCardCellItem = {
     id: string;
@@ -12,6 +14,8 @@ export type TableCardCellItem = {
     answer: string;
     shots: number;
     created: string;
+    answerImg?: string;
+    questionImg?: string;
 };
 
 export type ActionType = {
@@ -24,32 +28,35 @@ type HeadType = {
     action?: () => void;
 };
 
-const headRow: HeadType[] = [
-    {
-        name: 'Question',
-    },
-    {
-        name: 'Answer',
-    },
-    {
-        name: 'Last Updated',
-        action: () => {
-            console.log('action');
-        },
-    },
-    {
-        name: 'Grade',
-    },
-    {
-        name: '',
-    },
-];
-
 type MainCardListPropsType = {
     cardList: TableCardCellItem[];
 };
 
 const TableCardList: FC<MainCardListPropsType> = ({ cardList }) => {
+    const headRow: HeadType[] = [
+        {
+            name: 'Question',
+        },
+        {
+            name: 'Answer',
+        },
+        {
+            name: 'Last Updated',
+            action: () => {
+                console.log('action');
+            },
+        },
+        {
+            name: 'Grade',
+        },
+        {
+            name: '',
+        },
+    ];
+    const isMyPack = useAppSelector((state) => state.card.isMyPack);
+    if (!isMyPack) {
+        headRow.pop();
+    }
     return (
         <div className={styles.tableWrapper}>
             <table>
@@ -65,16 +72,32 @@ const TableCardList: FC<MainCardListPropsType> = ({ cardList }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {cardList.map((val) => {
+                    {cardList.map((cardItem) => {
                         return (
-                            <tr key={val.id} className={styles.tableRowItem}>
-                                <td>{val.question}</td>
-                                <td>{val.answer}</td>
-                                <td>{val.lastUpdated}</td>
-                                <td>{val.grade}</td>
-                                {val.actions !== null && (
+                            <tr key={cardItem.id} className={styles.tableRowItem}>
+                                <td>
+                                    {cardItem.questionImg ? (
+                                        <div className={styles.imgWrapper}>
+                                            <img src={cardItem.questionImg} alt="img" />
+                                        </div>
+                                    ) : (
+                                        cardItem.question
+                                    )}
+                                </td>
+                                <td>
+                                    {cardItem.answerImg ? (
+                                        <div className={styles.imgWrapper}>
+                                            <img src={cardItem.answerImg} alt="img" />
+                                        </div>
+                                    ) : (
+                                        cardItem.answer
+                                    )}
+                                </td>
+                                <td>{cardItem.lastUpdated}</td>
+                                <td>{<StarRating totalStars={cardItem.grade} />}</td>
+                                {cardItem.actions !== null && (
                                     <td>
-                                        {val.actions.map((el, index) => {
+                                        {cardItem.actions.map((el, index) => {
                                             return (
                                                 <div key={index} className={styles.btn}>
                                                     {

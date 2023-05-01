@@ -26,6 +26,7 @@ const CardList = () => {
     const packName = useAppSelector((state) => state.card.packName);
     const search = useAppSelector((state) => state.pack.search);
     const deckCover = useAppSelector((state) => state.card.packDeckCover);
+    const status = useAppSelector((state) => state.app.status);
 
     const [modalActive, setModalActive] = useState(false);
     const [searchFilter, setSearchFilter] = useState('');
@@ -66,31 +67,29 @@ const CardList = () => {
             navigate('/learn');
         }
     };
-    console.log(packName);
+
     return (
         <CommonPageWrapper customStyles={styles.mainCardWrapper}>
             <Container>
-                <div>
-                    <div className={styles.backPackList} onClick={onClickToBack}>
-                        <img src={Arrow} alt="" className={styles.imgWrapper} />
-                        Back to Packs List
+                <div className={styles.backPackList} onClick={onClickToBack}>
+                    <img src={Arrow} alt="" className={styles.imgWrapper} />
+                    Back to Packs List
+                </div>
+                <div className={styles.wrapper}>
+                    <div className={styles.titleWrapper}>
+                        <div className={styles.titleItem}>
+                            <span>{isMyPack ? packName : 'Friend`s Pack'}</span>
+                            {isMyPack && <CardActions />}
+                        </div>
+                        <div className={styles.deckCoverWrapper}>
+                            <img src={isImageUrlOrBase64(deckCover) ? deckCover : defaultCover} alt="cover" />
+                        </div>
                     </div>
-                    <div className={styles.wrapper}>
-                        <div className={styles.titleWrapper}>
-                            <div className={styles.titleItem}>
-                                <span>{isMyPack ? packName : 'Friend`s Pack'}</span>
-                                {isMyPack && <CardActions />}
-                            </div>
-                            <div className={styles.deckCoverWrapper}>
-                                <img src={isImageUrlOrBase64(deckCover) ? deckCover : defaultCover} alt="cover" />
-                            </div>
-                        </div>
-                        <div className={styles.buttonWrapper}>
-                            <Button isDisabled={false} name={isMyPack ? 'Add new card' : 'Learn to pack'} onClick={onClickBtn} />
-                        </div>
+                    <div className={styles.buttonWrapper}>
+                        <Button isDisabled={false} name={isMyPack ? 'Add new card' : 'Learn to pack'} onClick={onClickBtn} />
                     </div>
                 </div>
-                {totalCardCount > 0 && (
+                {totalCardCount > 0 ? (
                     <div>
                         <div className={styles.searchItem}>
                             <div className={styles.searchItem}>
@@ -102,7 +101,11 @@ const CardList = () => {
                                 />
                             </div>
                         </div>
-                        <TableCardContainer />
+                        {status === 'loading' ? (
+                            <div className={styles.preloaderWrapper}>Loading ...</div>
+                        ) : (
+                            <TableCardContainer />
+                        )}
                         <div className={styles.paginatorWrapper}>
                             <Paginator
                                 currentPage={currentPage}
@@ -113,8 +116,10 @@ const CardList = () => {
                             />
                         </div>
                     </div>
+                ) : (
+                    <span>This pack is empty. Click add new card to fill this pack</span>
                 )}
-                <span>This pack is empty. Click add new card to fill this pack</span>
+
                 {modalActive && <PopupNewCard setActive={setModalActive} onClose={() => console.log('saasassa')} />}
             </Container>
         </CommonPageWrapper>

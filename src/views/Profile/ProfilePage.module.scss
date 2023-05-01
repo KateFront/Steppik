@@ -6,11 +6,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 .backPackList {
     display: flex;
     align-items: center;
+    align-self: flex-start;
     margin-bottom: 34px;
     cursor: pointer;
     font-size: 14px;

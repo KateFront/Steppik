@@ -10,8 +10,8 @@ interface RadioInputProps {
 const RadioInput: React.FC<RadioInputProps> = ({ checked, label, onChange }) => {
     return (
         <div className={styles.inputWrapper}>
-            <label htmlFor={label}>
-                <input id={label} type="radio" checked={checked} onChange={onChange} />
+            <label htmlFor={label} className={styles.label}>
+                <input id={label} type="radio" checked={checked} onChange={onChange} className={styles.radioInputWrapper} />
                 {label}
             </label>
         </div>

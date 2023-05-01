@@ -57,6 +57,16 @@ td {
     background-color: #ffffff;
 }
 
+.imgWrapper {
+    display: inline-block;
+    height: 36px;
+    width: 105px;
+    margin: 0 auto;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
 .headTableItem {
     position: relative;
     &:after {

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import CommonPageWrapper from '../../components/atoms/CommonPageWrapper/CommonPageWrapper';
 import styles from './PackList.module.scss';
-import { useAppDispatch, useAppSelector } from '../../store/store';
+import { AppRootStateType, useAppDispatch, useAppSelector } from '../../store/store';
 import { getPacksTC, setCurrentPageAC, setPageSizeAC } from '../../store/pack-reducer';
 import { GetPackParams } from '../../api/packs/typesPack';
 import Paginator from '../../components/atoms/Paginator/Paginator';
@@ -11,6 +11,7 @@ import PopupNewPack from '../../components/organisms/modals/PopupPack/PopupNewPa
 import Container from '../../components/atoms/Container/Container';
 import Filters from './modules/Filters/Filters';
 import TableContainer from './modules/TableContainer/TableContainer';
+import { Navigate } from 'react-router-dom';
 
 const PackList: FC = () => {
     const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const PackList: FC = () => {
     const sort = useAppSelector((state) => state.pack.sort);
 
     const search = useAppSelector((state) => state.pack.search);
+    const isLogged = useAppSelector((state: AppRootStateType) => state.auth.isLoggedIn);
 
     useEffect(() => {
         const params: GetPackParams = {
@@ -49,6 +51,9 @@ const PackList: FC = () => {
         dispatch(setPageSizeAC({ pageSize: +value }));
     };
 
+    if (!isLogged) {
+        return <Navigate to={'/signIn/'} />;
+    }
     return (
         <CommonPageWrapper customStyles={styles.packListPageWrapper}>
             <Container>

@@ -55,6 +55,8 @@ const TableCardContainer = () => {
             answer: cardItem.answer,
             shots: cardItem.shots,
             created: cardItem.created,
+            questionImg: cardItem.questionImg,
+            answerImg: cardItem.answerImg,
         };
     });
 

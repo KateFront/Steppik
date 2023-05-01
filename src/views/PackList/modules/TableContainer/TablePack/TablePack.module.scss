@@ -1,6 +1,9 @@
 .tableWrapper {
     max-height: 637px;
     overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 table {
@@ -27,7 +30,7 @@ thead th:nth-child(4) {
 }
 
 thead th:nth-child(5) {
-    width: 30%;
+    width: 20%;
 }
 
 th {
@@ -37,7 +40,12 @@ th {
 td {
     padding-left: 20px;
 }
-
+.packListWrapper {
+    font-size: 13px;
+    line-height: 15.51px;
+    color: #000000;
+    background-color: #efefef;
+}
 .tableRowItem {
     font-size: 13px;
     line-height: 15.51px;
@@ -55,6 +63,7 @@ td {
     align-items: center;
 }
 .imgWrapper {
+    display: block;
     width: 57px;
     height: 36px;
     margin-right: 12px;
@@ -64,16 +73,8 @@ td {
     }
 }
 
-.packListWrapper {
-    font-size: 13px;
-    line-height: 15.51px;
-    color: #000000;
-    background-color: #efefef;
-}
-
 .headTableItem {
     position: relative;
-
     &:after {
         position: absolute;
         content: '';
@@ -83,6 +84,7 @@ td {
         border-right: 5px solid transparent;
         border-top: 8px solid #2d2e46;
         margin: 4px;
+        cursor: pointer;
     }
 }
 

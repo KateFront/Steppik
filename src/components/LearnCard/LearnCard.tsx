@@ -4,7 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { CardType } from '../../api/cards/typesCards';
 import RadioInput from '../atoms/RadioInput/RadioInput';
-import { upgradeCardsTC } from '../../store/card-reducer';
+import { upgradeCardGradeTC } from '../../store/card-reducer';
+import CardBasisWrapper from '../atoms/CardBasisWrapper/CardBasisWrapper';
+
+import styles from './LearnCard.module.scss';
 
 type GradeItemType = {
     name: string;
@@ -37,6 +40,7 @@ const LearnCard = () => {
     const [first, setFirst] = useState<boolean>(true);
     const [activeGradeItemRate, setActiveGradeItemRate] = useState<number>(0);
     const cards = useAppSelector<CardType[]>((state) => state.card.cards);
+
     const { id } = useParams();
 
     const [card, setCard] = useState<CardType>({
@@ -54,58 +58,73 @@ const LearnCard = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        console.log('LearnContainer useEffect');
-
         if (first) {
             getCard(cards);
             setFirst(false);
         }
-
-        console.log('cards', cards);
         if (cards.length > 0) setCard(getCard(cards));
-
-        return () => {
-            console.log('LearnContainer useEffect off');
-        };
     }, [dispatch, id, cards, first]);
 
     const onNext = () => {
         if (activeGradeItemRate > 0) {
-            dispatch(upgradeCardsTC({ grade: activeGradeItemRate, card_id: card.id }));
+            dispatch(upgradeCardGradeTC({ grade: activeGradeItemRate, card_id: card.id }));
             setIsChecked(false);
         }
 
         if (cards.length > 0) {
-            // dispatch
             setCard(getCard(cards));
         } else {
         }
     };
 
     return (
-        <div>
-            LearnPage
-            <div>{card.question}</div>
-            <div>{!isChecked && <Button onClick={() => setIsChecked(true)} name={'check'} isDisabled={false} />}</div>
+        <CardBasisWrapper>
+            <div className={styles.questionItem}>
+                <div className={styles.textWrapper}>Question: </div>
+                <div>
+                    {card.questionImg ? (
+                        <div className={styles.imgWrapper}>
+                            <img src={card.questionImg} alt="img" />
+                        </div>
+                    ) : (
+                        card.question
+                    )}
+                </div>
+
+                <div className={styles.secondText}>Количество попыток ответов на вопрос: 10</div>
+            </div>
+            <div>{!isChecked && <Button onClick={() => setIsChecked(true)} name={'Show answer'} isDisabled={false} />}</div>
             {isChecked && (
                 <>
-                    <div>{card.answer}</div>
-                    {grades.map((gradeItem, index) => (
-                        <RadioInput
-                            key={'grade-' + index}
-                            label={gradeItem.name}
-                            checked={activeGradeItemRate === gradeItem.rate}
-                            onChange={() => {
-                                setActiveGradeItemRate(gradeItem.rate);
-                            }}
-                        />
-                    ))}
-                    <div>
-                        <Button onClick={onNext} name={'next'} isDisabled={false} />
+                    <div className={styles.answerItem}>
+                        <div className={styles.textWrapper}>Answer: </div>
+                        {card.answerImg ? (
+                            <div className={styles.imgWrapper}>
+                                <img src={card.answerImg} alt="img" />
+                            </div>
+                        ) : (
+                            card.answer
+                        )}
+                    </div>
+                    <div className={styles.textWrapper}>Rate yourself:</div>
+                    <div className={styles.inputWrapper}>
+                        {grades.map((gradeItem, index) => (
+                            <RadioInput
+                                key={'grade-' + index}
+                                label={gradeItem.name}
+                                checked={activeGradeItemRate === gradeItem.rate}
+                                onChange={() => {
+                                    setActiveGradeItemRate(gradeItem.rate);
+                                }}
+                            />
+                        ))}
+                    </div>
+                    <div className={styles.btn}>
+                        <Button onClick={onNext} name={'Next'} isDisabled={false} />
                     </div>
                 </>
             )}
-        </div>
+        </CardBasisWrapper>
     );
 };
 export default LearnCard;
