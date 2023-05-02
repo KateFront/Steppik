@@ -80,7 +80,7 @@ const LearnCard = () => {
     return (
         <CardBasisWrapper>
             <div className={styles.questionItem}>
-                <div className={styles.textWrapper}>Question: </div>
+                <div className={styles.textWrapper}>Question:</div>
                 <div>
                     {card.questionImg ? (
                         <div className={styles.imgWrapper}>
@@ -97,7 +97,7 @@ const LearnCard = () => {
             {isChecked && (
                 <>
                     <div className={styles.answerItem}>
-                        <div className={styles.textWrapper}>Answer: </div>
+                        <div className={styles.textWrapper}>Answer:</div>
                         {card.answerImg ? (
                             <div className={styles.imgWrapper}>
                                 <img src={card.answerImg} alt="img" />

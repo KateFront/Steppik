@@ -15,6 +15,10 @@ const Header = () => {
     const name = useAppSelector((state) => state.app.profile?.nickName);
     const avatar = useAppSelector((state) => state.app.profile?.avatar);
 
+    const onClickHandler = () => {
+        console.log('');
+    };
+
     return (
         <div className={styles.headerWrapper}>
             <div className={styles.logoWrapper}>
@@ -48,7 +52,7 @@ const Header = () => {
                     </NavLink>*/}
                     {isLoggedIn ? (
                         <div className={styles.wrapper}>
-                            <div>{name}</div>
+                            <div onClick={onClickHandler}>{name}</div>
                             <div className={styles.avatar}>
                                 <img src={avatar} alt="avatar" />
                             </div>
