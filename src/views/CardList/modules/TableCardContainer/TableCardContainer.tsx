@@ -9,7 +9,6 @@ import TableCardList from './TableCardList/TableCardList';
 const TableCardContainer = () => {
     const cardsList = useAppSelector((s) => s.card.cards);
     const isMyPack = useAppSelector((state) => state.card.isMyPack);
-    console.log('TableCardContainer');
 
     const [showEditPopup, setShowEditPopup] = useState(false);
     const [showDeletePopup, setShowDeletePopup] = useState(false);

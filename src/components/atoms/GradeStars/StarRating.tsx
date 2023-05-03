@@ -5,21 +5,16 @@ interface StarRatingProps {
     totalStars: number;
 }
 
-const StarRating: FC<StarRatingProps> = (
-    { totalStars },
-    div: JSX.Element = (
-        <>
-            <div>
-                {[...Array(5)].map((_, index) => {
-                    const cond = index < totalStars;
-                    return cond ? <FaStar color={'gold'} key={index} /> : <FaStar color={'gray'} key={index} />;
-                })}
-            </div>
-        </>
-    )
-) => {
+const StarRating: FC<StarRatingProps> = ({ totalStars }) => {
     console.log(totalStars);
-    return div;
+    return (
+        <div>
+            {[...Array(5)].map((_, index) => {
+                const cond = index < totalStars;
+                return cond ? <FaStar color={'gold'} key={index} /> : <FaStar color={'gray'} key={index} />;
+            })}
+        </div>
+    );
 };
 
 export default StarRating;
